@@ -1,0 +1,87 @@
+import CustomInput from "@/components/input";
+import React from "react";
+import { useForm } from "react-hook-form";
+import useRegister from "../hooks/useRegister";
+import useValidation from "../hooks/useValidation";
+import { IRegisterFormData } from "../types";
+
+const SchoolRegisterInputs: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const {
+    register,
+    setValue,
+    watch,
+    formState: { errors },
+    handleSubmit,
+  } = useForm<IRegisterFormData>();
+  const { emailValidationPattern } = useValidation();
+  const { onSubmit } = useRegister();
+
+  return (
+    <form className="flex size-full flex-col" onSubmit={handleSubmit(onSubmit)}>
+      <CustomInput
+        label="Nome completo"
+        type="text"
+        {...register("ownerName", {
+          required: "É necessário inserir o seu nome completo",
+        })}
+        placeholder="Insira o seu nome completo"
+        error={errors.ownerName?.message}
+        onChange={(e) => setValue("ownerName", e.target.value)}
+      />
+      <CustomInput
+        label="E-mail"
+        error={errors.email?.message}
+        type="email"
+        {...register("email", {
+          required:
+            "O campo de e-mail é obrigatório. Por favor, insira um endereço de e-mail válido.",
+          pattern: {
+            value: emailValidationPattern,
+            message: "E-mail inválido",
+          },
+        })}
+        placeholder="colaborador@email.com"
+        onChange={(e) => setValue("email", e.target.value)}
+      />
+      {/* <CustomInput
+        label="Cargo do colaborador"
+        type="text"
+        {...register("role", {
+          required: "É necessário inserir o seu cargo",
+        })}
+        placeholder="Insira o seu cargo na escola"
+        error={errors.name?.message}
+        onChange={(e) => setValue("name", e.target.value)}
+      /> */}
+      <CustomInput
+        label="Senha"
+        type="password"
+        {...register("password", {
+          required: true,
+          minLength: 8,
+          validate: (val: string) => {
+            if (watch("confirmPassword") != val) {
+              return "Verifique sua senha e tente novamente";
+            }
+          },
+        })}
+        placeholder="*******"
+        error={errors.password?.message}
+        onChange={(e) => setValue("password", e.target.value)}
+      />
+      <CustomInput
+        label="Confirmar senha"
+        type="password"
+        {...register("confirmPassword", { required: true, minLength: 8 })}
+        placeholder="*******"
+        error={errors.password?.message}
+        onChange={(e) => setValue("confirmPassword", e.target.value)}
+      />
+      {children}
+    </form>
+  );
+};
+
+export default SchoolRegisterInputs;

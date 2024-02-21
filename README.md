@@ -1,1 +1,0 @@
-# echosafe-frontend
