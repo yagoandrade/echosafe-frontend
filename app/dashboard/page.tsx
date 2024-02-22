@@ -20,8 +20,6 @@ import { useReportStore } from "../hooks/reports/store";
 import BullyingChart from "./components/bullying_chart";
 
 const Dashboard = () => {
-  const schoolImgSrc =
-    "https://echosafe-images-bucket.s3.sa-east-1.amazonaws.com/ic.png";
   const {
     latestMessage: { messageId, receiver, sender },
   } = useNotificationReceive();

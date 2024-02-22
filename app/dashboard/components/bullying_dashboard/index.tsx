@@ -47,7 +47,7 @@ const BullyingDashboard = () => {
         },
         // TODO: Change the URL example below to something dynamic and only accessible via the API route
         body: JSON.stringify({
-          url: "https://echosafe.org/export/pdf/123",
+          url: "https://echosafe.org/export/pdf/example",
         }),
       });
 
