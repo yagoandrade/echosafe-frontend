@@ -43,6 +43,6 @@ export const inputs: Inputs = {
   "names-of-people-who-can-reinforce-the-report": {
     title: "Insira o nome de até 3 pessoas que possam reforçar a denúncia",
     placeholder: "Insira o nome da pessoa",
-    key: "",
+    key: "endosers",
   },
 };

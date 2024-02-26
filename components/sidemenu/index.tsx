@@ -3,7 +3,6 @@
 import { handleSignOut } from "@/lib/client";
 import { useCurrentUserStore } from "@/store/currentUser";
 import {
-  BarChart3,
   Folder,
   LogOut,
   MousePointerClick,
@@ -11,14 +10,13 @@ import {
   Plus,
   Settings,
 } from "lucide-react";
+import localFont from "next/font/local";
 import Link from "next/link";
 import { Button } from "../button";
-import { GeneratePeriodicReport } from "../generate_periodic_report";
+import InviteTeamMembersCard from "../invite_team_members";
 import MenuItem from "./components/menu-item";
 import MenuSection from "./components/menu-section";
 import { sideMenuDefaultClassName } from "./utils";
-import InviteTeamMembersCard from "../invite_team_members";
-import localFont from "next/font/local";
 
 const soehne = localFont({
   src: "../../public/assets/fonts/soehne/soehne-var.woff2",
@@ -34,7 +32,7 @@ const Sidemenu = () => {
 
   return (
     <aside className={sideMenuDefaultClassName}>
-      {role === "student" && (
+      {role !== "school" && (
         <MenuItem
           buttonVariant={"primary"}
           href="/reports/create"

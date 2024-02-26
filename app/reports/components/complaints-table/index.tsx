@@ -1,7 +1,4 @@
 import ReportCard from "@/components/report_card";
-import { useCurrentReportStore } from "@/store/currentReport";
-import React from "react";
-import type { Complaint, TableProps } from "./types";
 import {
   Card,
   CardContent,
@@ -9,9 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCurrentUserStore } from "@/store/currentUser";
 import { cn } from "@/lib/utils";
+import { useCurrentReportStore } from "@/store/currentReport";
+import { useCurrentUserStore } from "@/store/currentUser";
 import { Sticker } from "lucide-react";
+import React from "react";
+import type { Complaint, TableProps } from "./types";
 
 const ComplaintsTable: React.FC<TableProps> = ({
   title,
@@ -30,11 +30,11 @@ const ComplaintsTable: React.FC<TableProps> = ({
       key={complaint.id}
     >
       <ReportCard
-        date={new Date(complaint.receivedDate)}
-        reportClass={complaint.classGroup}
-        reportType={JSON.parse(complaint.category) ?? complaint.category}
+        date={new Date()}
+        reportClass={""}
+        reportType={complaint.categories}
         status={complaint.status}
-        username={complaint.sender === userData.uid ? "Você" : "Aluno Anônimo"}
+        username={complaint.sender === userData.id ? "Você" : "Aluno Anônimo"}
         id={complaint.id}
         onClickComplaint={() => setCurrentComplaint(complaint)}
       />

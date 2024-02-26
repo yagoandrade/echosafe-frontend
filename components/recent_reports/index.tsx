@@ -1,5 +1,7 @@
 import { useReportStore } from "@/app/hooks/reports/store";
+import { Complaint } from "@/app/reports/components/complaints-table/types";
 import { cn } from "@/lib/utils";
+import { useCurrentReportStore } from "@/store/currentReport";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { ChevronRight, Sticker } from "lucide-react";
 import Link from "next/link";
@@ -11,8 +13,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { Complaint } from "@/app/reports/components/complaints-table/types";
-import { useCurrentReportStore } from "@/store/currentReport";
 
 const RecentReports = () => {
   const { complaints } = useReportStore();
@@ -28,11 +28,11 @@ const RecentReports = () => {
       key={complaint.id}
     >
       <ReportCard
-        date={new Date(complaint.receivedDate)}
-        reportClass={complaint.classGroup}
-        reportType={JSON.parse(complaint.category) ?? complaint.category}
+        date={new Date()}
+        reportClass={""}
+        reportType={complaint.categories}
         status={complaint.status}
-        username={complaint.sender === userData.uid ? "Você" : "Aluno Anônimo"}
+        username={complaint.sender === userData.id ? "Você" : "Aluno Anônimo"}
         id={complaint.id}
         onClickComplaint={() => setCurrentComplaint(complaint)}
       />

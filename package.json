@@ -42,7 +42,7 @@
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.2",
     "ably": "^1.2.48",
-    "axios": "^1.6.5",
+    "axios": "^1.6.7",
     "chart.js": "^4.4.1",
     "chromiumly": "^2.5.1",
     "class-variance-authority": "^0.7.0",

@@ -91,14 +91,14 @@ const Changeuserrmation = () => {
 
       if (values.institutionCode) {
         const db = getDatabase();
-        update(ref(db, "users/" + userData.uid), {
+        update(ref(db, "users/" + userData.id), {
           linkedSchool: values.institutionCode,
         });
       }
 
       if (values.role) {
         const db = getDatabase();
-        update(ref(db, "users/" + userData.uid), {
+        update(ref(db, "users/" + userData.id), {
           role: values.role,
         });
       }

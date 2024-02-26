@@ -2,17 +2,16 @@
 import { AuthContext, IAuthContext } from "@/context/AuthContext";
 import useScrollDirection from "@/hooks/useScrollDirection";
 import { cn } from "@/lib/utils";
+import { useCurrentUserStore } from "@/store/currentUser";
 import { usePathname } from "next/navigation";
 import { useContext } from "react";
-import { useCookies } from "react-cookie";
 import LoadingHeaderButtons from "./components/loading_header_buttons";
 import LoggedInHeaderButtons from "./components/logged_in_header_buttons";
 import LoggedOutHeaderButtons from "./components/logged_out_header_buttons";
 import { IHeaderProps } from "./types";
 
 const Header: React.FC<IHeaderProps> = () => {
-  const [cookie] = useCookies();
-  const userData = cookie.user;
+  const { userData } = useCurrentUserStore();
   const { loading } = useContext(AuthContext) as IAuthContext; // Access the loading state from the AuthContext
 
   const pathname = usePathname();

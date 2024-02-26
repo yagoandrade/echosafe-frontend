@@ -10,11 +10,11 @@ import {
   CardSubtitle,
 } from "@/components/ui/card";
 import useNotificationReceive from "@/hooks/useNotificationReceive";
+import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { Smile } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { toast } from "sonner";
 import { useReportStore } from "../hooks/reports/store";
 import BullyingChart from "./components/bullying_chart";
@@ -27,6 +27,7 @@ const Dashboard = () => {
   const { userData } = useCurrentUserStore();
   const { complaints } = useReportStore();
 
+  useTokenVerifier();
   useEffect(() => {
     if (!receiver) {
       return;
@@ -42,9 +43,6 @@ const Dashboard = () => {
   }, [receiver, messageId, userData.owner]);
 
   useNotificationReceive();
-  const [cookie] = useCookies();
-
-  const user = cookie.user;
 
   return (
     <main className="size-full text-black">
@@ -53,7 +51,7 @@ const Dashboard = () => {
         <article className="flex size-full flex-col gap-3 p-6 lg:py-6 lg:pr-6">
           <div className="flex w-full flex-wrap justify-between gap-6 py-3">
             <span className="flex flex-wrap items-start gap-x-2">
-              <h1 className="font-bold">Bem-vindo, {user?.name}</h1>
+              <h1 className="font-bold">Bem-vindo, {userData?.name}</h1>
               {userData.role === "school" ? (
                 <p className="text-[#71717A]">
                   isso é o que ocorreu na sua escola
@@ -99,10 +97,8 @@ const Dashboard = () => {
                       <div className="mt-3 flex w-full items-end justify-between">
                         <h1 className="text-5xl font-bold">
                           {
-                            complaints.filter(
-                              (complaint) =>
-                                new Date(complaint.receivedDate).getDate() ===
-                                new Date().getDate()
+                            complaints.filter((complaint) =>
+                              new Date().getDate()
                             ).length
                           }
                         </h1>
@@ -125,10 +121,8 @@ const Dashboard = () => {
                       <div className="mt-3 flex w-full items-end justify-between">
                         <h1 className="text-5xl font-bold">
                           {
-                            complaints.filter(
-                              (complaint) =>
-                                new Date(complaint.receivedDate).getMonth() ===
-                                new Date().getMonth()
+                            complaints.filter((complaint) =>
+                              new Date().getMonth()
                             ).length
                           }
                         </h1>

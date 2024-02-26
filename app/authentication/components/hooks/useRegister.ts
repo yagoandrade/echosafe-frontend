@@ -1,4 +1,5 @@
 import { db } from "@/config/firebase";
+import useAxios from "@/hooks/useAxios";
 import { ref, update } from "firebase/database";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -14,27 +15,23 @@ interface FirebaseUpdates {
 const useRegister = () => {
   const { push: routerPush } = useRouter();
   const { currentAuthState } = useAuthStore();
+  const { axios } = useAxios();
 
   const sendRegisterInfo = async (
-    data: Pick<IRegisterFormData, "email" | "name" | "password">
+    formData: Pick<IRegisterFormData, "email" | "name" | "password">
   ) => {
-    const response = await fetch(
-      "http://localhost:3000/authentication/register",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
+    console.log(JSON.stringify(formData));
+    const { data, status } = await axios.post(
+      "/authentication/register",
+      formData
     );
 
-    if (!response.ok) {
+    if (!(status === 201)) {
       toast.error("Falha ao enviar dados para a API");
       return;
     }
 
-    return (await response.json()) as IRegisterApiReturn;
+    return data as IRegisterApiReturn;
   };
 
   const register = async (data: IRegisterFormData) => {

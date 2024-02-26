@@ -16,18 +16,17 @@ import { Loader2 } from "lucide-react";
 
 const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
   const { userData } = useCurrentUserStore();
-  const { code, linkedSchool, uid, schoolName } = userData;
+  const { schoolName } = userData;
   const { currentComplaint } = useCurrentReportStore();
 
-  const { listenForNewMessages, addMessage, dbMessages, schoolNameFromUid } =
-    useSender();
+  const { listenForNewMessages, addMessage, dbMessages } = useSender();
 
   const isSchool = userData.role === "school";
 
   useEffect(() => {
     listenForNewMessages(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, uid, schoolName]);
+  }, [id, schoolName]);
 
   const messagesEndRef: any = useRef(null);
 
@@ -93,8 +92,8 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
           onSendMessage={(content) => {
             addMessage(id, {
               content,
-              receiver: isSchool ? currentComplaint?.sender : schoolName!,
-              sender: isSchool ? schoolName! : currentComplaint?.sender,
+              receiver: isSchool ? currentComplaint?.sender ?? "" : schoolName!,
+              sender: isSchool ? schoolName! : currentComplaint?.sender ?? "",
               time: new Date(),
             });
           }}

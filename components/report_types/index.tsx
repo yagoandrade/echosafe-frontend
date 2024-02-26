@@ -17,7 +17,7 @@ const ReportTypes = () => {
 
   const categories: { name: string; count: number }[] = complaints.reduce(
     (acc: { name: string; count: number }[], complaint) => {
-      const complaintCategories = complaint.category.split(",");
+      const complaintCategories = complaint.categories;
 
       complaintCategories.forEach((categoryName) => {
         const existingCategory = acc.find((cat) => cat.name === categoryName);

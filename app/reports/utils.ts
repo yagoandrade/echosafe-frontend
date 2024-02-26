@@ -1,4 +1,3 @@
-import { categories } from "./components/complaints-filter/components/complaints-button/utils";
 import { ComplaintFilter } from "./components/complaints-filter/types";
 import type { Complaint } from "./components/complaints-table/types";
 import { statusLabel } from "./components/utils";
@@ -8,41 +7,6 @@ export const COMPLAINTS_INITIAL_STATE = {
   status: [],
   time: "",
 };
-
-export const generateComplaints = (numComplaints: number): Complaint[] => {
-  const complaints: Complaint[] = [];
-
-  for (let i = 0; i < numComplaints; i++) {
-    const newDate = new Date();
-
-    const randomMonth = Math.floor(Math.random() * 12);
-    newDate.setMonth(randomMonth);
-
-    newDate.setDate(Math.min(newDate.getDate(), 28));
-
-    newDate.setDate(newDate.getDate() - i);
-
-    const newComplaint: Complaint = {
-      category: categories[i % categories.length],
-      classGroup: `${
-        Math.floor(Math.random() * 9) + 1
-      }º ano ${String.fromCharCode(65 + i)}`,
-      details: `Detalhes da reclamação ${i + 1}`,
-      receivedDate: newDate,
-      status: Object.keys(statusLabel)[
-        Math.floor(Math.random() * 4)
-      ] as Complaint["status"],
-      id: i.toString(),
-      sender: "askdasidojasiodj",
-    };
-
-    complaints.push(newComplaint);
-  }
-
-  return complaints;
-};
-
-export const complaints = generateComplaints(20);
 
 export const filteredComplaints = (
   complaintParameters: ComplaintFilter,
@@ -54,7 +18,7 @@ export const filteredComplaints = (
   const filteredByCategory = complaintParameters.category.length
     ? complaints.filter((complaint) =>
         complaintParameters.category.find((category) =>
-          JSON.parse(complaint.category).includes(category)
+          complaint.categories.includes(category)
         )
       )
     : complaints;
@@ -73,8 +37,7 @@ export const filteredComplaints = (
       complaintParameters.status.includes(statusLabel[complaint.status]);
     const timeFilter =
       !complaintParameters.time ||
-      new Date(complaint.receivedDate) >
-        getTimeInterval(complaintParameters.time);
+      new Date() > getTimeInterval(complaintParameters.time);
     return statusFilter && timeFilter;
   });
 };

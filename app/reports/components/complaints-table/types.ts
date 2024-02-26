@@ -1,14 +1,18 @@
 export interface Complaint {
   status: "open" | "under_review" | "resolved" | "waiting";
-  details: string;
-  classGroup: string;
+  description: string;
+  classGroup?: string;
+  victim?: boolean;
+  endosers: string[];
   /* TODO: So precisamos usar um dos tipos abaixo */
-  receivedDate: Date | string;
-  category: string;
+  receivedDate?: Date | string;
+  categories: string[];
   username?: string;
   id?: string;
-  sender: string;
+  details?: string;
+  sender?: string;
   files?: string;
+  userId: string;
 }
 
 export interface TableProps {

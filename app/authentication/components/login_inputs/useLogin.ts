@@ -1,3 +1,4 @@
+import useAxios from "@/hooks/useAxios";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useCookies } from "react-cookie";
@@ -7,8 +8,10 @@ import { ILogin, ILoginToken } from "./types";
 const useLogin = () => {
   const { push } = useRouter();
   const [_, setCookie] = useCookies();
+  const { axios } = useAxios();
 
   const getEncodedExpiration = (tokens: ILoginToken) => {
+    console.log(tokens, "tokensss");
     const decodedAccessToken = jwtDecode(tokens.access_token);
     const decodedRefreshToken = jwtDecode(tokens.refresh_token);
 
@@ -36,26 +39,20 @@ const useLogin = () => {
     setCookie("refresh_token", tokens.refresh_token, {
       expires: new Date(`${refreshTokenExpiration}`),
     });
-    setCookie("user", tokens.user, {
-      expires: new Date(`${accessTokenExpiration}`),
-    });
   };
 
   const sendLoginInfo = async ({ email, password }: ILogin) => {
-    const response = await fetch("http://localhost:3000/authentication/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email, password }),
+    const { data, status } = await axios.post("authentication/login", {
+      email,
+      password,
     });
 
-    if (!response.ok) {
+    if (status !== 201) {
       toast.error("Falha ao enviar dados para a API");
       return;
     }
 
-    return (await response.json()) as ILoginToken;
+    return data as ILoginToken;
   };
 
   const login = async ({ email, password }: ILogin) => {

@@ -10,7 +10,7 @@ import { useCurrentReportStore } from "@/store/currentReport";
 const ReportInfo = () => {
   const { currentComplaint } = useCurrentReportStore();
 
-  const categories = JSON.parse(currentComplaint?.category || "[]").join(", ");
+  const categories = currentComplaint.categories.join(", ");
 
   return currentComplaint ? (
     <Card>
@@ -53,7 +53,7 @@ const ReportInfo = () => {
           <div className="flex flex-col space-y-1">
             <span className="text-sm font-semibold">Denúncia feita em</span>
             <span className="text-sm text-[#71717A]">
-              {new Date(currentComplaint?.receivedDate).toLocaleDateString()}
+              {new Date(currentComplaint?.receivedDate ?? "").toLocaleDateString()}
             </span>
           </div>
           {/* TODO: Adicionar essa seção para o Marco 2

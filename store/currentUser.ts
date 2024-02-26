@@ -1,16 +1,18 @@
+import { Complaint } from "@/app/reports/components/complaints-table/types";
 import { User } from "firebase/auth";
 import { create } from "zustand";
 
 export type Data = {
   schoolName?: string;
   owner?: string;
-  uid: string;
+  id: string;
   code?: string;
   linkedSchool?: string;
   role?: string;
   email?: string;
   name?: string;
   displayName?: string;
+  reports: Complaint[];
 };
 
 interface IUserData {
