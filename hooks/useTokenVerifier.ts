@@ -81,6 +81,8 @@ const useTokenVerifier = () => {
   useEffect(() => {
     getUserReports();
   }, [currentSchool.code]);
+
+  return { getUserData };
 };
 
 export default useTokenVerifier;
