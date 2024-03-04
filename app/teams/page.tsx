@@ -51,13 +51,15 @@ const Teams: NextPage = () => {
   );
 
   return (
-    <div className="flex flex-col gap-8 p-8">
-      <span>Meus ambientes</span>
+    <div className="flex flex-col p-8">
+      <span className="mb-2 text-xl font-semibold">Meus ambientes</span>
       <section className="flex flex-row flex-wrap gap-8">
         {renderSchoolCards(ownedSchools, "create")}
       </section>
 
-      <span className="mb-8">Ambientes que eu participo</span>
+      <span className="mb-2 text-xl font-semibold">
+        Ambientes que eu participo
+      </span>
       <section className="flex flex-row flex-wrap gap-8">
         {renderSchoolCards(schools, "join")}
       </section>
