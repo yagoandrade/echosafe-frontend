@@ -13,6 +13,7 @@ export interface Complaint {
   sender?: string;
   files?: string;
   userId: string;
+  createdAt?: Date;
 }
 
 export interface TableProps {

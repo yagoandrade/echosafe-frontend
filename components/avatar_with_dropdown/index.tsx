@@ -6,40 +6,29 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Avatar from "../avatar";
+import { auth } from "@/config/firebase";
+import useUserAvatar from "@/hooks/useUserAvatar";
+import { handleSignOut } from "@/lib/client";
+import { useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import {
-  CreditCard,
-  Settings,
-  Users,
-  UserPlus,
-  Mail,
-  Link as LinkIcon,
-  LifeBuoy,
   Cloud,
+  LifeBuoy,
   LogOut,
   MessageCircleWarning,
-  Newspaper,
+  Settings,
 } from "lucide-react";
 import Link from "next/link";
-import { GeneratePeriodicReport } from "../generate_periodic_report";
+import Avatar from "../avatar";
 import { Button } from "../button";
-import { handleGetReferralLink, handleSignOut } from "@/lib/client";
-import { EmailInviteModal } from "../email_invite_modal";
-import useUserAvatar from "@/hooks/useUserAvatar";
-import { useCurrentUserStore } from "@/store/currentUser";
-import { auth } from "@/config/firebase";
 
 const AvatarWithDropdown = () => {
   const { avatarSrc } = useUserAvatar();
   const { userData } = useCurrentUserStore();
+  const { isCollaborator } = useCollaboratorStore();
 
   const user = auth.currentUser;
 
@@ -65,16 +54,14 @@ const AvatarWithDropdown = () => {
             <DropdownMenuItem className="cursor-pointer">
               <MessageCircleWarning className="mr-2 size-4" />
               <span>
-                {userData.role === "school"
-                  ? "Listar Denúncias"
-                  : "Minhas Denúncias"}
+                {isCollaborator ? "Listar Denúncias" : "Minhas Denúncias"}
               </span>
               {/* <DropdownMenuShortcut>⇧⌘D</DropdownMenuShortcut> */}
             </DropdownMenuItem>
           </Link>
 
           {/* TODO: Readicionar no marco 2
-          {userData.role === "school" ? (
+          {isCollaborator ? (
             <Link href="/subscription">
               <DropdownMenuItem className="cursor-pointer">
                 <CreditCard className="mr-2 h-4 w-4" />
@@ -86,7 +73,7 @@ const AvatarWithDropdown = () => {
           */}
 
           {/* TODO: Readicionar no marco 2
-           userData.role === "school" ? (
+           isCollaborator ? (
             <GeneratePeriodicReport>
               <Button
                 variant="wrapper"
@@ -101,7 +88,7 @@ const AvatarWithDropdown = () => {
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         {/* TODO: Readicionar no marco 2
-         userData.role === "school" ? (
+         isCollaborator ? (
           <>
             <DropdownMenuGroup>
               <Link href="/team">
@@ -160,7 +147,7 @@ const AvatarWithDropdown = () => {
         </DropdownMenuItem>
         {/* </Link> */}
 
-        {userData.role === "school" ? (
+        {isCollaborator ? (
           <DropdownMenuItem disabled>
             <Cloud className="mr-2 size-4" />
             <span>API</span>

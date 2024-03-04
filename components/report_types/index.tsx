@@ -1,9 +1,8 @@
 "use client";
 
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
-import Select, { GroupBase, StylesConfig } from "react-select";
-import { Progress } from "../ui/progress";
 import { useReportStore } from "@/app/hooks/reports/store";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Progress } from "../ui/progress";
 
 type MyOptionType = {
   value: string;
@@ -17,8 +16,7 @@ const ReportTypes = () => {
 
   const categories: { name: string; count: number }[] = complaints.reduce(
     (acc: { name: string; count: number }[], complaint) => {
-      const complaintCategories = complaint.categories;
-
+      const complaintCategories = complaint.categories || ["Machismo"];
       complaintCategories.forEach((categoryName) => {
         const existingCategory = acc.find((cat) => cat.name === categoryName);
 

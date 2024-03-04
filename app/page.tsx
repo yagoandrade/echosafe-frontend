@@ -1,5 +1,6 @@
-import Image from "next/image";
+"use client";
 import localFont from "next/font/local";
+import Image from "next/image";
 import LightLogo from "../public/assets/svg/light-logo.svg";
 
 import LandingPageImage1 from "@/public/assets/images/landing-page-image-1.png";
@@ -8,15 +9,16 @@ import LandingPageImage3 from "@/public/assets/images/landing-page-image-3.png";
 
 import TwitterSvg from "@/public/assets/svg/twitter.svg";
 
-import { InfiniteMovingCards } from "@/components/infinite_moving_cards";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import LandingPageGradientBackground from "@/components/landing_page_gradient_background";
 import { Button } from "@/components/button";
-import { ChevronRight } from "lucide-react";
 import { LandingPageAccordion } from "@/components/landing_page_accordion";
+import LandingPageGradientBackground from "@/components/landing_page_gradient_background";
 import LandingPagePlatformFeatures from "@/components/landing_page_platform_features";
-import Link from "next/link";
 import LandingPageSecondaryFeatures from "@/components/landing_page_secondary_features";
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 const soehne = localFont({
   src: "../public/assets/fonts/soehne/soehne-var.woff2",
@@ -29,6 +31,13 @@ const recoletaBlack = localFont({
 });
 
 export default function Home() {
+  const [cookie] = useCookies();
+  const { push } = useRouter();
+  useEffect(() => {
+    if (cookie.access_token || cookie.refresh_token) {
+      push("/teams");
+    }
+  }, []);
   return (
     <>
       <LandingPageGradientBackground />

@@ -1,18 +1,21 @@
 import { Complaint } from "@/app/reports/components/complaints-table/types";
 import { FormFields } from "@/app/reports/create/components/complaint-form";
 import useAxios from "@/hooks/useAxios";
+import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useReportStore } from "./store";
 
 const useReports = () => {
   const { userData } = useCurrentUserStore();
   const [loading, setLoading] = useState(false);
   const { code, linkedSchool, id, reports } = userData;
   const { axios } = useAxios();
-  console.log(userData);
+  const { currentSchool } = useCurrentSchoolStore();
+  const { setComplaints } = useReportStore();
+
   const isSchool = userData.role === "school";
-  console.log(id, "user id", userData);
 
   const redirect = () => {
     setTimeout(() => {
@@ -21,18 +24,15 @@ const useReports = () => {
     }, 1000);
   };
 
-  const getUserReports = async () => {
-    console.log(reports, "user reports");
-  };
-
   const sendReport = async (formData: FormFields) => {
-    const complaint: Complaint = {
+    const complaint: Complaint & { schoolId: string } = {
       description: formData.description,
       categories: formData.categories,
       userId: id,
       status: "open",
       endosers: formData.endosers,
       victim: formData.victim,
+      schoolId: currentSchool.id,
     };
 
     setLoading(true);
@@ -47,10 +47,6 @@ const useReports = () => {
     redirect();
     toast.message("Denúncia enviada com sucesso!");
   };
-
-  useEffect(() => {
-    getUserReports();
-  }, []);
 
   useEffect(() => {
     // onValue(ref(db, `schools/${linkedSchool}/reports`), (snapshot) => {
@@ -73,7 +69,7 @@ const useReports = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [code, linkedSchool]);
 
-  return { getUserReports, sendReport, loading };
+  return { sendReport, loading };
 };
 
 export default useReports;

@@ -11,7 +11,9 @@ import {
 } from "@/components/ui/card";
 import useNotificationReceive from "@/hooks/useNotificationReceive";
 import useTokenVerifier from "@/hooks/useTokenVerifier";
+import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { Smile } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
@@ -26,8 +28,11 @@ const Dashboard = () => {
 
   const { userData } = useCurrentUserStore();
   const { complaints } = useReportStore();
-
+  const { currentSchool } = useCurrentSchoolStore();
+  const { isCollaborator } = useCollaboratorStore();
+  console.log(isCollaborator, "is colaborator");
   useTokenVerifier();
+
   useEffect(() => {
     if (!receiver) {
       return;
@@ -52,7 +57,7 @@ const Dashboard = () => {
           <div className="flex w-full flex-wrap justify-between gap-6 py-3">
             <span className="flex flex-wrap items-start gap-x-2">
               <h1 className="font-bold">Bem-vindo, {userData?.name}</h1>
-              {userData.role === "school" ? (
+              {isCollaborator ? (
                 <p className="text-[#71717A]">
                   isso é o que ocorreu na sua escola
                 </p>
@@ -61,12 +66,10 @@ const Dashboard = () => {
             <div className="flex w-full items-center justify-between gap-4 lg:w-fit xl:gap-6">
               <div>
                 <h1 className="text-sm uppercase text-[#71717A]">
-                  {userData.role === "school"
-                    ? "Gerenciando"
-                    : "Vinculado a(o)"}
+                  {isCollaborator ? "Gerenciando" : "Vinculado a(o)"}
                 </h1>
                 <p className="text-lg font-bold text-[#4F46E5]">
-                  {userData.schoolName ?? userData.linkedSchool}
+                  {currentSchool.name}
                 </p>
               </div>
               {/*
@@ -85,7 +88,7 @@ const Dashboard = () => {
               {/* </Link> */}
             </div>
           </div>
-          {userData.role === "school" ? (
+          {isCollaborator ? (
             <>
               {complaints.length > 0 ? (
                 <div className="grid grid-cols-4 gap-4 xl:gap-6">

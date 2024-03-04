@@ -3,6 +3,7 @@ import { Complaint } from "@/app/reports/components/complaints-table/types";
 import { cn } from "@/lib/utils";
 import { useCurrentReportStore } from "@/store/currentReport";
 import { useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { ChevronRight, Sticker } from "lucide-react";
 import Link from "next/link";
 import ReportCard from "../report_card";
@@ -18,6 +19,7 @@ const RecentReports = () => {
   const { complaints } = useReportStore();
   const { userData } = useCurrentUserStore();
   const { setCurrentComplaint } = useCurrentReportStore();
+  const { isCollaborator } = useCollaboratorStore();
 
   const renderComplaintRow = (complaint: Complaint, index: React.Key) => (
     <div
@@ -55,7 +57,7 @@ const RecentReports = () => {
           </Link>
         </div>
         <CardDescription className="hidden md:flex">
-          {userData.role === "school"
+          {isCollaborator
             ? "Acompanhe as denúncias recebidas pela sua instituição"
             : "Acompanhe as denúncias que você realizou"}
         </CardDescription>

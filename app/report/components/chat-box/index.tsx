@@ -1,32 +1,37 @@
 "use client";
-import { useCurrentReportStore } from "@/store/currentReport";
-import { useCurrentUserStore } from "@/store/currentUser";
-import React, { useEffect, useRef } from "react";
-import Message from "../message";
-import Sender from "../sender";
-import useSender from "./hooks/useSender";
-import { IChatBox } from "./types";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { useCurrentReportStore } from "@/store/currentReport";
+import { useCurrentSchoolStore } from "@/store/currentSchool";
+import { useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { Loader2 } from "lucide-react";
+import React, { useEffect, useRef } from "react";
+import Message from "../message";
+import Sender from "../sender";
+import useSender from "./hooks/useSender";
+import { IChatBox } from "./types";
 
 const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
   const { userData } = useCurrentUserStore();
-  const { schoolName } = userData;
+  const {
+    currentSchool: { name },
+  } = useCurrentSchoolStore();
   const { currentComplaint } = useCurrentReportStore();
 
-  const { listenForNewMessages, addMessage, dbMessages } = useSender();
+  console.log(userData);
 
-  const isSchool = userData.role === "school";
+  const { listenForNewMessages, addMessage, dbMessages } = useSender();
+  const { isCollaborator } = useCollaboratorStore();
 
   useEffect(() => {
     listenForNewMessages(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, schoolName]);
+  }, [id, name]);
 
   const messagesEndRef: any = useRef(null);
 
@@ -35,7 +40,7 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
   };
 
   useEffect(scrollToBottom, [dbMessages]);
-
+  console.log(currentComplaint);
   return (
     <Card className="flex size-full flex-col bg-white pb-0">
       <CardHeader className="flex w-full flex-col items-center justify-center pb-3">
@@ -67,8 +72,8 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
               <React.Fragment key={i}>
                 <Message
                   variant={
-                    (isSchool && sender === schoolName) ||
-                    (!isSchool && sender === currentComplaint?.sender)
+                    (isCollaborator && sender === name) ||
+                    (!isCollaborator && sender !== userData.id)
                       ? "sender"
                       : "receiver"
                   }
@@ -92,8 +97,8 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
           onSendMessage={(content) => {
             addMessage(id, {
               content,
-              receiver: isSchool ? currentComplaint?.sender ?? "" : schoolName!,
-              sender: isSchool ? schoolName! : currentComplaint?.sender ?? "",
+              receiver: isCollaborator ? userData.id ?? "" : name || "Escola",
+              sender: isCollaborator ? name! : currentComplaint?.sender ?? "",
               time: new Date(),
             });
           }}

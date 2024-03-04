@@ -1,7 +1,7 @@
 "use client";
 
-import { handleSignOut } from "@/lib/client";
-import { useCurrentUserStore } from "@/store/currentUser";
+import { Data, useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import {
   Folder,
   LogOut,
@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
 import { Button } from "../button";
 import InviteTeamMembersCard from "../invite_team_members";
 import MenuItem from "./components/menu-item";
@@ -24,15 +26,17 @@ const soehne = localFont({
 });
 
 const Sidemenu = () => {
-  let quantity = 10;
-
   const {
     userData: { role },
+    setUserData,
   } = useCurrentUserStore();
 
+  const [_, __, removeCookie] = useCookies();
+  const { push } = useRouter();
+  const { isCollaborator } = useCollaboratorStore();
   return (
     <aside className={sideMenuDefaultClassName}>
-      {role !== "school" && (
+      {!isCollaborator && (
         <MenuItem
           buttonVariant={"primary"}
           href="/reports/create"
@@ -45,7 +49,7 @@ const Sidemenu = () => {
         Tela Inicial (Dashboard)
       </MenuItem>
       <MenuSection title="Denúncias">
-        {role === "school" ? (
+        {role === "collaborator" ? (
           <MenuItem
             href="/reports"
             icon={<MousePointerClick />}
@@ -97,7 +101,12 @@ const Sidemenu = () => {
             variant="link"
             size="lg"
             className="w-full justify-start gap-x-4 p-0 outline-0"
-            onClick={handleSignOut}
+            onClick={() => {
+              removeCookie("access_token");
+              removeCookie("refresh_token");
+              setUserData({} as Data);
+              push("/");
+            }}
           >
             <LogOut />
             Sair

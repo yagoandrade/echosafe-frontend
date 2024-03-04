@@ -1,25 +1,26 @@
 "use client";
+import { getDefaultPhotoURL } from "@/app/authentication/components/hooks/utils";
+import { getUserBySchoolCode } from "@/lib/utils";
+import { Data, useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
+import { ChevronRight, Users } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Button } from "../button";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
-  CardSubtitle,
   CardFooter,
+  CardHeader,
+  CardSubtitle,
+  CardTitle,
 } from "../ui/card";
-import { Avatar, AvatarImage } from "../ui/avatar";
-import Link from "next/link";
-import { ChevronRight, Users } from "lucide-react";
-import { Button } from "../button";
-import { Data, useCurrentUserStore } from "@/store/currentUser";
-import { getUserBySchoolCode } from "@/lib/utils";
-import { useEffect, useState } from "react";
-import { getDefaultPhotoURL } from "@/app/authentication/components/hooks/utils";
 
 const CompanyPeople = () => {
   const { userData } = useCurrentUserStore();
   const [schoolOwner, setSchoolOwner] = useState<Data | null>(null);
-
+  const { isCollaborator } = useCollaboratorStore();
   const schoolName = userData.schoolName;
 
   useEffect(() => {
@@ -80,7 +81,7 @@ const CompanyPeople = () => {
           </div>
         ))} */}
       </CardContent>
-      {userData.role === "school" ? (
+      {isCollaborator ? (
         <CardFooter className="mt-auto flex md:justify-end">
           <Link
             href="/team"

@@ -1,4 +1,5 @@
 import { db } from "@/config/firebase";
+import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { onValue, push, ref } from "firebase/database";
 import { useEffect, useState } from "react";
@@ -6,27 +7,22 @@ import { IMessage } from "../types";
 
 const useSender = () => {
   const {
-    userData: { code, linkedSchool },
+    userData: { linkedSchool },
   } = useCurrentUserStore();
-
-  const { userData } = useCurrentUserStore();
+  const {
+    currentSchool: { code },
+  } = useCurrentSchoolStore();
 
   const [dbMessages, setDbMessages] = useState<IMessage[]>([]);
   const [schoolNameFromUid, setSchoolNameFromUid] = useState("");
 
   const addMessage = (chatId: string, message: IMessage) => {
-    const messagesRef = ref(
-      db,
-      `schools/${code ?? linkedSchool}/messages/${chatId}`
-    );
+    const messagesRef = ref(db, `schools/${code}/messages/${chatId}`);
     push(messagesRef, { ...message, time: new Date().toISOString() });
   };
 
   const listenForNewMessages = (chatId: string) => {
-    const messagesRef = ref(
-      db,
-      `schools/${code ?? linkedSchool}/messages/${chatId}`
-    );
+    const messagesRef = ref(db, `schools/${code}/messages/${chatId}`);
 
     onValue(messagesRef, (snapshot) => {
       const messages: IMessage[] = [];
@@ -46,10 +42,10 @@ const useSender = () => {
   };
 
   useEffect(() => {
-    if (!code || !linkedSchool) {
+    if (!code) {
       return;
     }
-    onValue(ref(db, `schools/${code ?? linkedSchool}`), (snapshot) => {
+    onValue(ref(db, `schools/${code}`), (snapshot) => {
       setSchoolNameFromUid(snapshot.val().schoolName);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -1,5 +1,8 @@
 import { useReportStore } from "@/app/hooks/reports/store";
+import useTeams from "@/app/teams/hooks/useTeams";
+import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
@@ -8,8 +11,12 @@ import useAxios from "./useAxios";
 const useTokenVerifier = () => {
   const { axios } = useAxios();
   const [cookie] = useCookies();
-  const { setUserData } = useCurrentUserStore();
+  const { setUserData, userData } = useCurrentUserStore();
   const { setComplaints } = useReportStore();
+  const { currentSchoolId, setCurrentSchool, currentSchool } =
+    useCurrentSchoolStore();
+  const { verifyTeamRole } = useTeams();
+  const { isCollaborator } = useCollaboratorStore();
 
   const verifyTokenExistence = () => {
     return cookie.access_token ?? cookie.refresh_token ?? null;
@@ -18,8 +25,41 @@ const useTokenVerifier = () => {
   const getUserData = async (token: string) => {
     const { id } = jwtDecode(token) as { id: string };
     const user = await axios.get(`/users/${id}`);
+    console.log(userData, "userdata");
     setUserData(user.data);
-    setComplaints(user.data.reports);
+  };
+
+  const getSchoolData = async () => {
+    let schoolData;
+    if (currentSchoolId) {
+      const { data } = await axios.get(`/school/${currentSchoolId}`);
+      schoolData = data;
+      verifyTeamRole(currentSchoolId);
+    } else {
+      const { data } = await axios.get(`/school/${cookie.persisted_id_school}`);
+      schoolData = data;
+      verifyTeamRole(cookie.persisted_id_school);
+    }
+    console.log(schoolData, "dados");
+    setCurrentSchool(schoolData);
+  };
+
+  const getUserReports = async () => {
+    if (!currentSchool.reports) {
+      return;
+    }
+    console.log("opa", currentSchool.reports);
+    if (isCollaborator) {
+      setComplaints(currentSchool.reports);
+    } else {
+      const schoolReportIds = new Set(
+        currentSchool.reports.map((report) => report.id)
+      );
+      const userSchoolComplaints = userData.reports.filter((report) =>
+        schoolReportIds.has(report.id)
+      );
+      setComplaints(userSchoolComplaints);
+    }
   };
 
   const execute = () => {
@@ -27,12 +67,20 @@ const useTokenVerifier = () => {
     if (!token) {
       return;
     }
-
     getUserData(token);
+    if (!currentSchoolId && !cookie.persisted_id_school) {
+      return;
+    }
+    getSchoolData();
   };
+
   useEffect(() => {
     execute();
-  }, []);
+  }, [currentSchool.id]);
+
+  useEffect(() => {
+    getUserReports();
+  }, [currentSchool.code]);
 };
 
 export default useTokenVerifier;

@@ -2,18 +2,19 @@
 import useReports from "@/app/hooks/reports";
 import { useReportStore } from "@/app/hooks/reports/store";
 import { auth } from "@/config/firebase";
+import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentReportStore } from "@/store/currentReport";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
+  ReactNode,
   createContext,
   useContext,
   useEffect,
-  useState,
   useMemo,
-  ReactNode,
   useRef,
+  useState,
 } from "react";
 
 interface AuthContextProviderProps {
@@ -42,6 +43,7 @@ export function AuthContextProvider({
   const router = useRouter();
   const params = useSearchParams();
 
+  useTokenVerifier();
   useReports();
   const reportId =
     pathname === "/report" ? params.toString().substring(1) : null;
@@ -104,7 +106,7 @@ export function AuthContextProvider({
       value={useMemo(() => ({ user, loading }), [user, loading])}
     >
       {loading && pathname !== "/" ? (
-        <main className="w-full h-screen flex justify-center items-center bg-white">
+        <main className="flex h-screen w-full items-center justify-center bg-white">
           <video autoPlay muted ref={videoRef} className="loading-splash-logo">
             <source
               src="/assets/animation/animate_in_dark.mp4"

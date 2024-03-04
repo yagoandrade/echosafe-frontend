@@ -74,7 +74,7 @@ const useLogin = () => {
       // }
       toast.success("Login feito com sucesso!");
       setTimeout(() => {
-        push("/dashboard");
+        push("/teams");
       }, 1000);
     } catch (e: any) {
       toast.error("Ocorreu um erro no seu login.");

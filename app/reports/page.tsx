@@ -2,6 +2,7 @@
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import Sidemenu from "@/components/sidemenu";
 import { useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { NextPage } from "next";
 import { useState } from "react";
 import { useReportStore } from "../hooks/reports/store";
@@ -16,7 +17,7 @@ const Complaints: NextPage = () => {
   );
   const { complaints } = useReportStore();
   const { userData } = useCurrentUserStore();
-
+  const { isCollaborator } = useCollaboratorStore();
   const handleFilterChange = (newFilter: ComplaintFilter) => {
     setComplaintFilter(newFilter);
   };
@@ -29,7 +30,7 @@ const Complaints: NextPage = () => {
       <div className="flex w-full flex-col gap-3 p-6 lg:py-6 lg:pr-6">
         <Breadcrumbs />
         <h1 className="text-3xl font-bold">
-          {userData.role === "school" ? "Ver Denúncias" : "Ver Suas Denúncias"}
+          {isCollaborator ? "Ver Denúncias" : "Ver Suas Denúncias"}
         </h1>
 
         <div className="flex w-full flex-row gap-x-8">

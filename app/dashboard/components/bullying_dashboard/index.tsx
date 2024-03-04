@@ -1,29 +1,34 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import { monthlyData } from "../../mock";
-import { useDashStore } from "../../store";
-import { useRouter } from "next/navigation";
-import { monthlyCounts } from "../../utils";
+import { useReportStore } from "@/app/hooks/reports/store";
 import { Button } from "@/components/button";
 import { CardTitle } from "@/components/ui/card";
 import { FileDown, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { toast } from "sonner";
+import { monthlyData } from "../../mock";
+import { useDashStore } from "../../store";
+import { groupReportsByDay } from "../chart/utils";
 
 const BullyingDashboard = () => {
   const { push } = useRouter();
   const { setDashInfo } = useDashStore();
+  const { complaints } = useReportStore();
 
+  const data = groupReportsByDay(complaints);
+
+  console.log(data, "chart");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleNavigateToMonthCases = () => {
@@ -128,7 +133,9 @@ const BullyingDashboard = () => {
       <div className="w-full overflow-x-auto">
         <ResponsiveContainer height={300} width="100%" minWidth={780}>
           <LineChart
-            data={monthlyCounts}
+            data={data.sort(
+              (a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf()
+            )}
             margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
             onClick={({ activeLabel }) =>
               setCasesByMonth(
@@ -138,15 +145,15 @@ const BullyingDashboard = () => {
             className="-ml-8 text-xs"
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis interval={0} dataKey="month" tickMargin={10} />
+            <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
             <Legend />
             <Line
               type="monotone"
-              dataKey="totalCases"
-              name="Casos"
+              dataKey="count"
               stroke="#8884d8"
+              activeDot={{ r: 8 }}
             />
           </LineChart>
         </ResponsiveContainer>

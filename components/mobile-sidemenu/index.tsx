@@ -1,21 +1,23 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
+import { handleSignOut } from "@/lib/client";
+import { cn } from "@/lib/utils";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import {
   Folder,
   LogOut,
   Menu,
-  PanelsTopLeft,
   MousePointerClick,
+  PanelsTopLeft,
   Plus,
   Settings,
-  Bell,
-  BarChart3,
   X,
 } from "lucide-react";
+import localFont from "next/font/local";
+import Image from "next/image";
+import Link from "next/link";
 import MockupLogo from "../../public/assets/svg/mockup-logo.svg";
-import { cn } from "@/lib/utils";
+import { Button } from "../button";
 import {
   Drawer,
   DrawerClose,
@@ -26,13 +28,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../ui/drawer";
-import { Button } from "../button";
-import { useCurrentUserStore } from "@/store/currentUser";
-import { GeneratePeriodicReport } from "../generate_periodic_report";
-import { handleSignOut } from "@/lib/client";
 import MenuItem from "./components/menu-item";
-import InviteTeamMembersCard from "../invite_team_members";
-import localFont from "next/font/local";
 
 interface MobileSidemenuProps {
   className?: string;
@@ -45,9 +41,7 @@ const soehne = localFont({
 });
 
 const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
-  const { userData } = useCurrentUserStore();
-
-  let quantity = 10;
+  const { isCollaborator } = useCollaboratorStore();
 
   return (
     <Drawer>
@@ -85,7 +79,7 @@ const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
                 Tela Inicial (Dashboard)
               </MenuItem>
 
-              {userData?.role === "school" ? (
+              {isCollaborator ? (
                 <MenuItem
                   mobileClasses="border-t"
                   buttonVariant="wrapper"
@@ -118,7 +112,7 @@ const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
               >
                 Notificações
               </MenuItem> */}
-              {/* {userData?.role === "school" && (
+              {/* {isCollaborator && (
                 <DrawerClose>
                   <GeneratePeriodicReport>
                     <div className="flex w-full items-center gap-x-3">

@@ -60,7 +60,7 @@ const ReportCard = (complaint: ReportCardTypes) => {
       <div>
         <h1 className="font-bold">Categoria(s)</h1>
         <p className="font-medium text-[#71717A]">
-          {reportType.map((category) => category + " ")}
+          {(reportType ?? []).map((category) => category + " ")}
         </p>
       </div>
       <Button
