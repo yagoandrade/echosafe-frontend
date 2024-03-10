@@ -57,6 +57,9 @@ const useTeams = () => {
   };
 
   const verifyTeamRole = (id: string) => {
+    if (!userData.schools) {
+      return;
+    }
     console.log(id, "iddd");
     const foundSchool = userData.schools.find((school) => school.id === id);
     console.log("iscoll", foundSchool);

@@ -14,6 +14,9 @@ export interface Complaint {
   files?: string;
   userId: string;
   createdAt?: Date;
+  categoryAnalysis: string;
+  sentimentAnalysis: string;
+  orientationAnalysis: string;
 }
 
 export interface TableProps {

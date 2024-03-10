@@ -5,6 +5,7 @@ import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import useGPTAnalysis from "./analysis";
 import { useReportStore } from "./store";
 
 const useReports = () => {
@@ -14,6 +15,7 @@ const useReports = () => {
   const { axios } = useAxios();
   const { currentSchool } = useCurrentSchoolStore();
   const { setComplaints } = useReportStore();
+  const { getAnalysis } = useGPTAnalysis();
 
   const isSchool = userData.role === "school";
 
@@ -25,7 +27,17 @@ const useReports = () => {
   };
 
   const sendReport = async (formData: FormFields) => {
-    const complaint: Complaint & { schoolId: string } = {
+    setLoading(true);
+
+    const analysisResponse = await Promise.all([
+      getAnalysis(formData.description, "category"),
+      getAnalysis(formData.description, "orientation"),
+      getAnalysis(formData.description, "sentiment"),
+    ]);
+
+    const complaint: Complaint & {
+      schoolId: string;
+    } = {
       description: formData.description,
       categories: formData.categories,
       userId: id,
@@ -33,9 +45,10 @@ const useReports = () => {
       endosers: formData.endosers,
       victim: formData.victim,
       schoolId: currentSchool.id,
+      categoryAnalysis: `${analysisResponse[0]}`,
+      orientationAnalysis: `${analysisResponse[1]}`,
+      sentimentAnalysis: `${analysisResponse[2]}`,
     };
-
-    setLoading(true);
 
     const { status } = await axios.post("/reports", complaint);
 
@@ -43,6 +56,8 @@ const useReports = () => {
       toast.message("Houve um erro ao enviar a denúncia.");
       return;
     }
+
+    console.log(complaint, "denuncia");
 
     redirect();
     toast.message("Denúncia enviada com sucesso!");

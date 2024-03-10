@@ -9,7 +9,9 @@ import {
   CardHeader,
   CardSubtitle,
 } from "@/components/ui/card";
-import useNotificationReceive from "@/hooks/useNotificationReceive";
+import useNotificationReceive, {
+  useLatestMessageStore,
+} from "@/hooks/useNotificationReceive";
 import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
@@ -23,21 +25,24 @@ import BullyingChart from "./components/bullying_chart";
 
 const Dashboard = () => {
   const {
-    latestMessage: { messageId, receiver, sender },
-  } = useNotificationReceive();
+    latestMessage: { messageId, receiver, sender, content },
+  } = useLatestMessageStore();
 
   const { userData } = useCurrentUserStore();
   const { complaints } = useReportStore();
   const { currentSchool } = useCurrentSchoolStore();
   const { isCollaborator } = useCollaboratorStore();
-  console.log(isCollaborator, "is colaborator");
+
   useTokenVerifier();
 
   useEffect(() => {
     if (!receiver) {
       return;
     }
-    if (receiver === userData.schoolName) {
+    if (
+      (isCollaborator && receiver === currentSchool.name) ||
+      receiver === userData.id
+    ) {
       toast.success(
         <Link href={`/report?=${messageId}`}>
           Você recebeu uma nova mensagem!

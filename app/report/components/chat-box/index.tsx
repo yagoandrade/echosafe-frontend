@@ -23,8 +23,6 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
   } = useCurrentSchoolStore();
   const { currentComplaint } = useCurrentReportStore();
 
-  console.log(userData);
-
   const { listenForNewMessages, addMessage, dbMessages } = useSender();
   const { isCollaborator } = useCollaboratorStore();
 

@@ -1,3 +1,6 @@
+"use client";
+
+import { useReportStore } from "@/app/hooks/reports/store";
 import {
   getColorFromCode,
   getIconFromCode,
@@ -5,13 +8,53 @@ import {
 } from "@/components/report_card/utils";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import useAxios from "@/hooks/useAxios";
+import { useLatestMessageStore } from "@/hooks/useNotificationReceive";
 import { useCurrentReportStore } from "@/store/currentReport";
+import { Bot } from "lucide-react";
+import { useEffect } from "react";
 
 const ReportInfo = () => {
   const { currentComplaint } = useCurrentReportStore();
+  const categories = (currentComplaint?.categories ?? []).join(", ");
+  const { latestMessage } = useLatestMessageStore();
+  const { axios } = useAxios();
+  const formatOrientationAnalysis = (text: string) => {
+    if (!text) {
+      return;
+    }
+    const items = text.split("-").filter(Boolean);
+    return (
+      <ul className="list-disc pl-5">
+        {items.map((item, index) => (
+          <li
+            key={index}
+            className={`text-sm text-[#71717A] ${
+              index === 0 ? "list-none" : "list-disc"
+            }`}
+            style={{ marginLeft: index === 0 ? 0 : 24 }}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
-  console.log(currentComplaint, "current complaint");
-  const categories = currentComplaint?.categories.join(", ");
+  const getReportByNotification = async () => {
+    const { data } = await axios.get(`/reports/${latestMessage.messageId}`);
+    useReportStore.getState().setComplaints(data);
+  };
+  useEffect(() => {
+    if (!currentComplaint) {
+      getReportByNotification();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentComplaint, latestMessage.messageId]);
+
+  if (!currentComplaint || !latestMessage) {
+    return null;
+  }
 
   return currentComplaint ? (
     <Card>
@@ -39,51 +82,29 @@ const ReportInfo = () => {
               </Badge>
             </span>
           </div>
-          {/* TODO: Adicionar essa seção quando a autoridade responsável for definida pra cada report
-          <div className="flex flex-col space-y-1">
-            <span className="text-sm font-semibold">
-              Autoridade Responsável
-            </span>
-            <span className="text-sm">??????</span>
-          </div> */}
-          {/* TODO: Adicionar essa seção para o Marco 2
-          <div className="flex flex-col space-y-1">
-            <span className="text-sm font-semibold">Anexos</span>
-            <span className="text-sm"></span>
-          </div> */}
           <div className="flex flex-col space-y-1">
             <span className="text-sm font-semibold">Denúncia feita em</span>
             <span className="text-sm text-[#71717A]">
-              {new Date(
-                currentComplaint?.receivedDate ?? ""
-              ).toLocaleDateString()}
+              {new Date(currentComplaint?.createdAt ?? "").toLocaleDateString()}
             </span>
           </div>
-          {/* TODO: Adicionar essa seção para o Marco 2
-          <div className="flex flex-col space-y-1">
-            <span className="text-sm font-semibold">Denúncia resolvida em</span>
-            <span className="text-sm">Resolvido</span>
-          </div> */}
           <div className="flex flex-col space-y-1">
             <span className="text-sm font-semibold">Categoria(s)</span>
             <span className="text-sm text-[#71717A]">{categories}</span>
           </div>
         </div>
-
         <div>
           <h3 className="font-bold leading-none tracking-tight">
             Descrição da denúncia
           </h3>
           <span className="text-sm text-[#71717A]">
-            {currentComplaint?.details}
+            {currentComplaint?.description}
           </span>
         </div>
-
-        {/* TODO: Reinserir na aplicação quando tivermos o módulo de IA pronto
         <div>
           <span className="flex items-center gap-x-1.5">
-            <Bot size="1.25rem" />
-            <h3 className="font-bold leading-none tracking-tight">
+            <Bot size="2rem" />
+            <h3 className="text-xl font-bold leading-none tracking-tight">
               Relatório da inteligência artificial
             </h3>
           </span>
@@ -93,10 +114,7 @@ const ReportInfo = () => {
                 O que o aluno sentiu com a ofensa
               </span>
               <span className="text-sm text-[#71717A]">
-                O aluno provavelmente se sentiu constrangido, humilhado e
-                chateado com a situação. A atitude de ter um suco jogado nele e
-                ser chamado de bestao é claramente ofensiva e pode causar
-                impactos emocionais negativos.
+                {currentComplaint.sentimentAnalysis}
               </span>
             </div>
 
@@ -105,14 +123,22 @@ const ReportInfo = () => {
                 Em qual categoria de bullying entra a ofensa
               </span>
               <span className="text-sm text-[#71717A]">
-                O relato descreve um caso de bullying verbal e também envolve
-                uma forma de bullying físico leve, já que o suco foi jogado no
-                aluno. As ofensas verbais e a ação física caracterizam uma
-                situação de bullying misto.
+                {currentComplaint.categoryAnalysis}
+              </span>
+            </div>
+
+            <div className="flex flex-col space-y-1">
+              <span className="text-sm font-semibold">
+                Orientações para lidar com essa situação{" "}
+              </span>
+              <span className="text-sm text-[#71717A]">
+                {formatOrientationAnalysis(
+                  currentComplaint.orientationAnalysis
+                )}
               </span>
             </div>
           </div>
-        </div> */}
+        </div>
       </CardContent>
     </Card>
   ) : null;
