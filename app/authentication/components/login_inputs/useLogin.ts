@@ -66,12 +66,6 @@ const useLogin = () => {
 
       saveOnCookies(tokens);
 
-      // if (!userCredential.photoURL) {
-      //   await updateProfile(userCredential, {
-      //     photoURL: getDefaultPhotoURL(userCredential.uid),
-      //   });
-      //   await updateCurrentUser(auth, userCredential);
-      // }
       toast.success("Login feito com sucesso!");
       setTimeout(() => {
         push("/teams");
