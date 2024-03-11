@@ -26,7 +26,7 @@ const useRegister = () => {
       formData
     );
 
-    if (!(status === 201)) {
+    if (status !== 201) {
       toast.error("Falha ao enviar dados para a API");
       return;
     }
