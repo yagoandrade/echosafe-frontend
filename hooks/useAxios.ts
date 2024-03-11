@@ -1,8 +1,8 @@
 import axios from "axios";
- 
+
 const useAxios = () => {
   const axiosClient = axios.create({
-    baseURL: process.env.BACKEND_BASE_URL,
+    baseURL: "https://echosafe-production.up.railway.app",
     responseType: "json",
   });
 
