@@ -39,7 +39,7 @@ const Header: React.FC<IHeaderProps> = () => {
           : "bg-[#f8f4f2]/50 backdrop-blur border-b border-[#e5e6e9]/30 px-4 lg:px-12 xl:px-32 2xl:px-80 2xl:gap-x-12"
       )}
     >
-      {getHeaderButtons(loading, hasUserData === undefined ? false : true)}
+      {getHeaderButtons(loading, hasUserData !== undefined)}
     </header>
   ) : null;
 };
