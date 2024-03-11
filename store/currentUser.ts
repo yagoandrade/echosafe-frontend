@@ -30,6 +30,7 @@ export type Data = {
   reports: Complaint[];
   schoolRoles: Role[];
   access_token?: string;
+  photoUrl?: string;
 };
 
 interface IUserData {

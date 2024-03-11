@@ -9,7 +9,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { auth } from "@/config/firebase";
 import useUserAvatar from "@/hooks/useUserAvatar";
 import { handleSignOut } from "@/lib/client";
 import { useCurrentUserStore } from "@/store/currentUser";
@@ -26,21 +25,16 @@ import Avatar from "../avatar";
 import { Button } from "../button";
 
 const AvatarWithDropdown = () => {
-  const { avatarSrc } = useUserAvatar();
   const { userData } = useCurrentUserStore();
   const { isCollaborator } = useCollaboratorStore();
-
-  const user = auth.currentUser;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="mt-1.5 cursor-pointer" asChild>
-        <Avatar src={avatarSrc ?? ""} />
+        <Avatar src={userData.photoUrl ?? ""} />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>
-          {user?.displayName ?? userData.name}
-        </DropdownMenuLabel>
+        <DropdownMenuLabel>{userData.name}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {/* <Link href="/statistics">
