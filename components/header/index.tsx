@@ -21,7 +21,7 @@ const Header: React.FC<IHeaderProps> = () => {
 
   const isHeaderVisible = pathname !== "/authentication";
 
-  const hasUserData = Object.keys(userData ?? []).length !== 0;
+  const hasUserData = userData.access_token;
 
   const hiddenHeaderClasses =
     "sticky h-16 flex inset-x-0 top-0 z-20 ease-in-out duration-500 transition-transform -translate-y-full items-center justify-between w-full gap-x-2 top-0 z-50";
@@ -39,7 +39,7 @@ const Header: React.FC<IHeaderProps> = () => {
           : "bg-[#f8f4f2]/50 backdrop-blur border-b border-[#e5e6e9]/30 px-4 lg:px-12 xl:px-32 2xl:px-80 2xl:gap-x-12"
       )}
     >
-      {getHeaderButtons(loading, hasUserData)}
+      {getHeaderButtons(loading, hasUserData === undefined ? false : true)}
     </header>
   ) : null;
 };
