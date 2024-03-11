@@ -20,7 +20,6 @@ const useRegister = () => {
   const sendRegisterInfo = async (
     formData: Pick<IRegisterFormData, "email" | "name" | "password">
   ) => {
-    console.log(JSON.stringify(formData));
     const { data, status } = await axios.post(
       "/authentication/register",
       formData
@@ -46,7 +45,7 @@ const useRegister = () => {
       });
 
       toast.message(
-        "Verifique seu e-mail, confirme sua conta e faça login novamente"
+        "Conta criada com sucesso!"
       );
       setTimeout(() => {
         routerPush("/");

@@ -10,6 +10,3 @@ export const generateRandomCode = (): string => {
 
   return code;
 };
-
-export const getDefaultPhotoURL = (uid: string) =>
-  `https://source.boringavatars.com/beam/400/${uid}`;
