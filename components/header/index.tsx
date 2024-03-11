@@ -14,6 +14,8 @@ const Header: React.FC<IHeaderProps> = () => {
   const { userData } = useCurrentUserStore();
   const { loading } = useContext(AuthContext) as IAuthContext; // Access the loading state from the AuthContext
 
+  console.log(userData);
+
   const pathname = usePathname();
   const isScrollingDown = useScrollDirection();
 
