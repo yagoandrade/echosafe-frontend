@@ -14,14 +14,14 @@ const Header: React.FC<IHeaderProps> = () => {
   const { userData } = useCurrentUserStore();
   const { loading } = useContext(AuthContext) as IAuthContext; // Access the loading state from the AuthContext
 
-  console.log(userData);
+  console.log(userData, !!userData.id);
 
   const pathname = usePathname();
   const isScrollingDown = useScrollDirection();
 
   const isHeaderVisible = pathname !== "/authentication";
 
-  const hasUserData = Object.keys(userData ?? []).length !== 0;;
+  const hasUserData = !!userData.id;
 
   const hiddenHeaderClasses =
     "sticky h-16 flex inset-x-0 top-0 z-20 ease-in-out duration-500 transition-transform -translate-y-full items-center justify-between w-full gap-x-2 top-0 z-50";

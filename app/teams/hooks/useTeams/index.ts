@@ -3,14 +3,12 @@ import useAxios from "@/hooks/useAxios";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { ref, update } from "firebase/database";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const useTeams = () => {
   const { axios } = useAxios();
   const { userData } = useCurrentUserStore();
   const { setIsCollaborator } = useCollaboratorStore();
-  const { refresh } = useRouter();
 
   const joinSchool = async (
     code: string,
@@ -27,9 +25,6 @@ const useTeams = () => {
       return;
     }
     toast.info("Cadastrado na escola com sucesso!");
-    setTimeout(() => {
-      refresh();
-    }, 1000);
   };
 
   const createSchool = async (name: string) => {
@@ -51,17 +46,17 @@ const useTeams = () => {
       return;
     }
     toast.info("Nova escola criada com sucesso!");
-    setTimeout(() => {
-      refresh();
-    }, 1000);
   };
 
   const verifyTeamRole = (id: string) => {
-    if (!userData.schools) {
+    console.log(userData.schoolRoles, "roles");
+    if (!userData.schoolRoles) {
       return;
     }
     console.log(id, "iddd");
-    const foundSchool = userData.schools.find((school) => school.id === id);
+    const foundSchool = userData.schoolRoles.find(
+      (schoolRole) => schoolRole.school.id === id
+    );
     console.log("iscoll", foundSchool);
     if (!foundSchool) {
       return;

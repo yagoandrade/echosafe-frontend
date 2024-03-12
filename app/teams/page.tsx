@@ -11,12 +11,17 @@ import useTeams from "./hooks/useTeams";
 
 const Teams: NextPage = () => {
   const {
-    userData: { ownedSchools, schools },
+    userData: { ownedSchools, schoolRoles },
   } = useCurrentUserStore();
   const { joinSchool, createSchool, verifyTeamRole } = useTeams();
   const { setCurrentSchoolId } = useCurrentSchoolStore();
   const [_, setCookie, removeCookie] = useCookies();
 
+  const schools = Array.from(
+    new Set(schoolRoles?.map((schoolRole) => schoolRole.school))
+  );
+
+  console.log(schools, "schoshcoshocshochso");
   useEffect(() => {
     removeCookie("persisted_id_school");
   }, []);
