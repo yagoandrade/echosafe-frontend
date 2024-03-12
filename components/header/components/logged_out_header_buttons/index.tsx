@@ -44,7 +44,7 @@ const LoggedOutHeaderButtons = () => {
         <Image priority src={MockupLogo} alt="Logo" width={180} height={180} />
       </Link>
 
-      <NavigationMenu className="hidden md:flex">
+      {/* <NavigationMenu className="hidden md:flex">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuTrigger>Para alunos</NavigationMenuTrigger>
@@ -108,7 +108,8 @@ const LoggedOutHeaderButtons = () => {
             </Link>
           </NavigationMenuItem>
         </NavigationMenuList>
-      </NavigationMenu>
+      </NavigationMenu> */}
+
       <section className="hidden w-fit gap-x-2 md:flex">
         <Button variant="white" size="lg" onClick={handleSignIn}>
           Entrar
@@ -130,10 +131,7 @@ const LoggedOutHeaderButtons = () => {
           <DrawerContent className="w-10/12 bg-white lg:w-2/3">
             <div className="flex size-full flex-col">
               <DrawerTitle className="flex w-full justify-between">
-                <Link
-                  href="/dashboard"
-                  className="flex size-full px-3 py-4"
-                >
+                <Link href="/dashboard" className="flex size-full px-3 py-4">
                   <Image
                     priority
                     src={MockupLogo}
@@ -146,7 +144,7 @@ const LoggedOutHeaderButtons = () => {
                   <X size="1.8rem" />
                 </DrawerClose>
               </DrawerTitle>
-              <div className="flex h-full flex-col overflow-y-scroll p-4">
+              {/* <div className="flex h-full flex-col overflow-y-scroll p-4">
                 <Card
                   key="1"
                   className="mx-auto flex max-h-[200px] w-full items-center overflow-hidden rounded-lg transition-all duration-200"
@@ -168,7 +166,7 @@ const LoggedOutHeaderButtons = () => {
                     </p>
                   </CardContent>
                 </Card>
-              </div>
+              </div> */}
               <DrawerFooter className="mb-0 p-3">
                 <Button
                   variant="primary"
