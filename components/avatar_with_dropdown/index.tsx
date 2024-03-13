@@ -9,9 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import useUserAvatar from "@/hooks/useUserAvatar";
-import { handleSignOut } from "@/lib/client";
-import { useCurrentUserStore } from "@/store/currentUser";
+import { Data, useCurrentUserStore } from "@/store/currentUser";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
 import {
   Cloud,
@@ -23,10 +21,15 @@ import {
 import Link from "next/link";
 import Avatar from "../avatar";
 import { Button } from "../button";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/navigation";
 
 const AvatarWithDropdown = () => {
-  const { userData } = useCurrentUserStore();
+  const { userData, setUserData } = useCurrentUserStore();
   const { isCollaborator } = useCollaboratorStore();
+  const { push } = useRouter();
+
+  const [_, __, removeCookie] = useCookies();
 
   return (
     <DropdownMenu>
@@ -152,12 +155,16 @@ const AvatarWithDropdown = () => {
           variant="wrapper"
           size="sm"
           className="h-fit w-full gap-x-0 px-0 font-normal"
-          onClick={handleSignOut}
+          onClick={() => {
+            removeCookie("access_token");
+            removeCookie("refresh_token");
+            setUserData({} as Data);
+            push("/");
+          }}
         >
           <DropdownMenuItem className="w-full cursor-pointer">
             <LogOut className="mr-2 size-4" />
             <span>Sair</span>
-            {/* <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut> */}
           </DropdownMenuItem>
         </Button>
       </DropdownMenuContent>

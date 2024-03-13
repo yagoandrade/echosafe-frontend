@@ -1,6 +1,5 @@
 "use client";
 
-import { handleSignOut } from "@/lib/client";
 import { cn } from "@/lib/utils";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
 import {
@@ -29,6 +28,9 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import MenuItem from "./components/menu-item";
+import { Data, useCurrentUserStore } from "@/store/currentUser";
+import { useRouter } from "next/navigation";
+import { useCookies } from "react-cookie";
 
 interface MobileSidemenuProps {
   className?: string;
@@ -42,6 +44,11 @@ const soehne = localFont({
 
 const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
   const { isCollaborator } = useCollaboratorStore();
+
+  const { setUserData } = useCurrentUserStore();
+  const { push } = useRouter();
+
+  const [_, __, removeCookie] = useCookies();
 
   return (
     <Drawer>
@@ -141,7 +148,12 @@ const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
                 <Button
                   variant="wrapper"
                   size="fullWidth"
-                  onClick={handleSignOut}
+                  onClick={() => {
+                    removeCookie("access_token");
+                    removeCookie("refresh_token");
+                    setUserData({} as Data);
+                    push("/");
+                  }}
                   className="justify-start gap-x-4 rounded-none border-b px-4 py-8 active:scale-[1] active:text-[#4F46E5]"
                 >
                   <LogOut />
