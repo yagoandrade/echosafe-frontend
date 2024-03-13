@@ -16,12 +16,36 @@ import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
-import { Smile } from "lucide-react";
+import { BoxSelect, Smile } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useReportStore } from "../hooks/reports/store";
 import BullyingChart from "./components/bullying_chart";
+import { Button } from "@/components/button";
+
+const getUserRelationshipToSchool = (
+  schoolName: string,
+  isCollaborator: boolean
+) => {
+  if (!schoolName)
+    return (
+      <div>
+        <h1 className="text-sm uppercase text-[#71717A]">
+          Não vinculado a nenhuma escola
+        </h1>
+      </div>
+    );
+
+  return (
+    <div>
+      <h1 className="text-sm uppercase text-[#71717A]">
+        {isCollaborator ? "Gerenciando" : "Vinculado a(o)"}
+      </h1>
+      <p className="text-lg font-bold text-[#4F46E5]">{schoolName}</p>
+    </div>
+  );
+};
 
 const Dashboard = () => {
   const {
@@ -54,6 +78,22 @@ const Dashboard = () => {
 
   useNotificationReceive();
 
+  if (!currentSchool.name) {
+    return (
+      <main className="size-full text-black">
+        <section className="relative flex size-full flex-col items-center justify-center gap-4 p-6">
+          <BoxSelect size="6rem" className="opacity-20" />
+          <h3>Você não está cadastrado em nenhuma instituição.</h3>
+          <Button variant="outline" asChild>
+            <Link href="/teams">
+              Ir para a página de cadastro de instituições
+            </Link>
+          </Button>
+        </section>
+      </main>
+    );
+  }
+
   return (
     <main className="size-full text-black">
       <section className="relative flex h-full">
@@ -69,14 +109,7 @@ const Dashboard = () => {
               ) : null}
             </span>
             <div className="flex w-full items-center justify-between gap-4 lg:w-fit xl:gap-6">
-              <div>
-                <h1 className="text-sm uppercase text-[#71717A]">
-                  {isCollaborator ? "Gerenciando" : "Vinculado a(o)"}
-                </h1>
-                <p className="text-lg font-bold text-[#4F46E5]">
-                  {currentSchool.name}
-                </p>
-              </div>
+              {getUserRelationshipToSchool(currentSchool.name, isCollaborator)}
               {/*
               TODO: Reabilitar quando tivermos as páginas de instituição
               <Link

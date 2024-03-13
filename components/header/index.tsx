@@ -9,10 +9,11 @@ import LoadingHeaderButtons from "./components/loading_header_buttons";
 import LoggedInHeaderButtons from "./components/logged_in_header_buttons";
 import LoggedOutHeaderButtons from "./components/logged_out_header_buttons";
 import { IHeaderProps } from "./types";
+import useTokenVerifier from "@/hooks/useTokenVerifier";
 
 const Header: React.FC<IHeaderProps> = () => {
   const { userData } = useCurrentUserStore();
-  const { loading } = useContext(AuthContext) as IAuthContext; // Access the loading state from the AuthContext
+  const { loading } = useContext(AuthContext) as IAuthContext;
 
   console.log(userData, !!userData.id);
 
