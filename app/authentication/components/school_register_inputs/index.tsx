@@ -23,12 +23,12 @@ const SchoolRegisterInputs: React.FC<{ children: React.ReactNode }> = ({
       <CustomInput
         label="Nome completo"
         type="text"
-        {...register("ownerName", {
+        {...register("name", {
           required: "É necessário inserir o seu nome completo",
         })}
         placeholder="Insira o seu nome completo"
-        error={errors.ownerName?.message}
-        onChange={(e) => setValue("ownerName", e.target.value)}
+        error={errors.name?.message}
+        onChange={(e) => setValue("name", e.target.value)}
       />
       <CustomInput
         label="E-mail"

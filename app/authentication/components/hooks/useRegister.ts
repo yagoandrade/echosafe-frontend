@@ -4,6 +4,7 @@ import { ref, update } from "firebase/database";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useAuthStore } from "../../store/auth";
+import useLogin from "../login_inputs/useLogin";
 import type { IRegisterFormData } from "../types";
 import { IRegisterApiReturn } from "./types";
 import { generateRandomCode } from "./utils";
@@ -16,14 +17,17 @@ const useRegister = () => {
   const { push: routerPush } = useRouter();
   const { currentAuthState } = useAuthStore();
   const { axios } = useAxios();
+  const { onSubmit: onLoginSubmit } = useLogin();
 
   const sendRegisterInfo = async (
-    formData: Pick<IRegisterFormData, "email" | "name" | "password">
+    formData: Pick<IRegisterFormData, "email" | "name" | "password" | "role">
   ) => {
+    console.log(formData, "formdata");
     const { data, status } = await axios.post(
       "/authentication/register",
       formData
     );
+    console.log(data, status, "data astatus");
 
     if (status !== 201) {
       toast.error("Falha ao enviar dados para a API");
@@ -35,7 +39,11 @@ const useRegister = () => {
 
   const register = async (data: IRegisterFormData) => {
     try {
-      const userData = await sendRegisterInfo(data);
+      const userData = await sendRegisterInfo({
+        ...data,
+        role: currentAuthState === "school" ? "collaborator" : "student",
+      });
+      console.log("user data register", userData);
 
       if (!userData) return;
 
@@ -44,11 +52,9 @@ const useRegister = () => {
         uid: userData.id,
       });
 
-      toast.message(
-        "Conta criada com sucesso!"
-      );
+      toast.message("Conta criada com sucesso!");
       setTimeout(() => {
-        routerPush("/");
+        onLoginSubmit({ email: userData.email, password: data.password });
       }, 1000);
     } catch (error) {
       console.error(error);

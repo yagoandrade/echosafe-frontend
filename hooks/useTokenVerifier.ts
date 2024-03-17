@@ -48,7 +48,6 @@ const useTokenVerifier = () => {
     if (!currentSchool.reports) {
       return;
     }
-    console.log("opa", currentSchool.reports);
     if (isCollaborator) {
       setComplaints(currentSchool.reports);
     } else {
@@ -76,7 +75,7 @@ const useTokenVerifier = () => {
 
   useEffect(() => {
     execute();
-  }, [currentSchool.id]);
+  }, [currentSchool.id, cookie.access_token]);
 
   useEffect(() => {
     getUserReports();

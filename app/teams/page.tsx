@@ -11,7 +11,7 @@ import useTeams from "./hooks/useTeams";
 
 const Teams: NextPage = () => {
   const {
-    userData: { ownedSchools, schoolRoles },
+    userData: { ownedSchools, schoolRoles, role },
   } = useCurrentUserStore();
   const { joinSchool, createSchool, verifyTeamRole } = useTeams();
   const { setCurrentSchoolId } = useCurrentSchoolStore();
@@ -43,25 +43,28 @@ const Teams: NextPage = () => {
           }}
         />
       ))}
-      <SchoolDialog
-        variant={variant}
-        onSubmit={
-          variant === "create"
-            ? (code) => createSchool(code)
-            : (code) => joinSchool(code)
-        }
-        trigger={<SchoolManagement variant={variant} />}
-      />
+      {role === "student" && variant === "create" ? null : (
+        <SchoolDialog
+          variant={variant}
+          onSubmit={
+            variant === "create"
+              ? (code) => createSchool(code)
+              : (code) => joinSchool(code)
+          }
+          trigger={<SchoolManagement variant={variant} />}
+        />
+      )}
     </>
   );
 
   return (
     <div className="flex flex-col p-8">
-      <span className="mb-2 text-xl font-semibold">Meus ambientes</span>
+      {role === "collaborator" && (
+        <span className="mb-2 text-xl font-semibold">Meus ambientes</span>
+      )}
       <section className="flex flex-row flex-wrap gap-8">
         {renderSchoolCards(ownedSchools, "create")}
       </section>
-
       <span className="mb-2 text-xl font-semibold">
         Ambientes que eu participo
       </span>
