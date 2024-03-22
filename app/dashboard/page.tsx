@@ -86,7 +86,7 @@ const Dashboard = () => {
           <h3>Você não está cadastrado em nenhuma instituição.</h3>
           <Button variant="outline" asChild>
             <Link href="/teams">
-              Ir para a página de cadastro de instituições
+              Voltar para a página de instituições
             </Link>
           </Button>
         </section>

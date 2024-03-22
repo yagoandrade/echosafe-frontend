@@ -19,7 +19,7 @@ import { INSTITUTION_CODES } from "@/lib/utils";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { auth } from "@/config/firebase";
 import { getDatabase, ref, update } from "firebase/database";
-import { updateEmail, updateProfile } from "firebase/auth";
+import useAxios from "@/hooks/useAxios";
 
 type FormFields =
   | "displayName"
@@ -40,7 +40,7 @@ const formSchema = z.object({
   role: z.string().min(1).optional(),
 });
 
-const Changeuserrmation = () => {
+const ChangeUserInformation = () => {
   const { userData, setUserData } = useCurrentUserStore();
 
   const [isEditing, setIsEditing] = useState({
@@ -65,25 +65,19 @@ const Changeuserrmation = () => {
     defaultValues: {
       displayName: user?.displayName ?? userData.name ?? "",
       email: userData.email,
-      // TODO: Tornar senha editável
-      // password: "",
       institutionCode: userData.linkedSchool,
-      // TODO: Tornar classe do estudante editável
-      // class: "3º Ano C",
       role: userData.role,
     },
   });
 
-  // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  const { axios } = useAxios();
 
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      if (values.displayName)
-        await updateProfile(user!, {
-          displayName: values.displayName,
-        });
+      if (values.displayName) await axios("users/", { displayName: values.displayName });
+      await updateProfile(user!, {
+        displayName: values.displayName,
+      });
 
       if (values.email) {
         await updateEmail(user!, values.email);
@@ -207,15 +201,6 @@ const Changeuserrmation = () => {
           "E-mail",
           user?.email ?? "Insira seu novo e-mail"
         )}
-        <Separator />
-        {renderFormField(
-          "institutionCode",
-          isEditing.institutionCode
-            ? "Insira um novo código de Instituição"
-            : "Vinculado a(o)",
-          "Novo código de instituição"
-        )}
-        <Separator />
         {/* TODO: Reativar o campo de classe quando soubermos qual turma o usuário está cadastrado através do código(?) */}
         {/* TODO: Precisamos discutir isso ^^^ */}
         {/* {renderFormField("class", "Turma", "3º Ano C", true)}
@@ -226,4 +211,4 @@ const Changeuserrmation = () => {
   );
 };
 
-export default Changeuserrmation;
+export default ChangeUserInformation;

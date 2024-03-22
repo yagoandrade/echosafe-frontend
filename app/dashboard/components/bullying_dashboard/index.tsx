@@ -137,11 +137,11 @@ const BullyingDashboard = () => {
               (a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf()
             )}
             margin={{ top: 20, right: 30, left: 20, bottom: 10 }}
-            onClick={({ activeLabel }) =>
+            /* onClick={({ activeLabel }) =>
               setCasesByMonth(
                 typeof activeLabel === "string" ? activeLabel : ""
               )
-            }
+            } */
             className="-ml-8 text-xs"
           >
             <CartesianGrid strokeDasharray="3 3" />
