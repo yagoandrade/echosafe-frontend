@@ -41,10 +41,8 @@ const ReportTypes = () => {
     { value: "last_year", label: "Últimos 12 Meses" },
   ]; */
 
-  const maximumReports = 10;
-
   const getPercentageOfReports = (reports: number) => {
-    return reports * maximumReports;
+    return 100 / reports;
   };
 
   /*
