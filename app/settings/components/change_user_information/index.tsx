@@ -74,14 +74,14 @@ const ChangeUserInformation = () => {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      if (values.displayName) await axios("users/", { displayName: values.displayName });
+      /* if (values.displayName) await axios("users/", { displayName: values.displayName });
       await updateProfile(user!, {
         displayName: values.displayName,
       });
 
       if (values.email) {
         await updateEmail(user!, values.email);
-      }
+      } */
 
       if (values.institutionCode) {
         const db = getDatabase();
