@@ -5,6 +5,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentReportStore } from "@/store/currentReport";
 import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
@@ -25,7 +26,7 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
 
   const { listenForNewMessages, addMessage, dbMessages } = useSender();
   const { isCollaborator } = useCollaboratorStore();
-
+  useTokenVerifier();
   useEffect(() => {
     listenForNewMessages(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,23 +39,13 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
   };
 
   useEffect(scrollToBottom, [dbMessages]);
-  console.log(currentComplaint);
+
+  console.log(dbMessages, " dbsmes");
+
   return (
     <Card className="flex size-full flex-col bg-white pb-0">
       <CardHeader className="flex w-full flex-col items-center justify-center pb-3">
         <h3 className="font-medium">Chamado #{id}</h3>
-        {/* TODO: Readicionar quando tivermos certeza que funciona corretamente
-         <time
-          className="font-light text-sm"
-          dateTime={new Date().toISOString()}
-        >
-          Ultima atualização há{" "}
-          {dbMessages.length
-            ? new Date().getSeconds() -
-              messages[messages.length - 1].time.getSeconds()
-            : "..."}{" "}
-          segundos
-        </time> */}
       </CardHeader>
       <hr className="my-2" />
       <CardContent
@@ -70,8 +61,8 @@ const ChatBox: React.FC<IChatBox> = ({ id, messages }) => {
               <React.Fragment key={i}>
                 <Message
                   variant={
-                    (isCollaborator && sender === name) ||
-                    (!isCollaborator && sender !== userData.id)
+                    (!isCollaborator && sender === "") ||
+                    (isCollaborator && sender === name)
                       ? "sender"
                       : "receiver"
                   }

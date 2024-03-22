@@ -54,11 +54,17 @@ const useTeams = () => {
       return;
     }
     console.log(id, "iddd");
-    const foundSchool = userData.schoolRoles.find(
-      (schoolRole) => schoolRole.school.id === id
+    const foundOwnedSchool = userData.ownedSchools.find(
+      (ownedSchool) => ownedSchool.id === id
     );
-    console.log("iscoll", foundSchool);
+    const foundSchool =
+      userData.schoolRoles.find((schoolRole) => schoolRole.school.id === id) ||
+      foundOwnedSchool;
     if (!foundSchool) {
+      return;
+    }
+    if (foundOwnedSchool) {
+      setIsCollaborator(true);
       return;
     }
     setIsCollaborator(

@@ -19,7 +19,7 @@ const useTokenVerifier = () => {
   const { isCollaborator } = useCollaboratorStore();
 
   const verifyTokenExistence = () => {
-    return cookie.access_token ?? cookie.refresh_token ?? null;
+    return cookie.access_token ?? null;
   };
 
   const getUserData = async (token: string) => {
@@ -45,6 +45,7 @@ const useTokenVerifier = () => {
   };
 
   const getUserReports = async () => {
+    console.log(currentSchool.reports);
     if (!currentSchool.reports) {
       return;
     }
@@ -54,6 +55,7 @@ const useTokenVerifier = () => {
       const schoolReportIds = new Set(
         currentSchool.reports.map((report) => report.id)
       );
+      console.log(userData.reports);
       const userSchoolComplaints = userData.reports.filter((report) =>
         schoolReportIds.has(report.id)
       );
@@ -81,7 +83,7 @@ const useTokenVerifier = () => {
     getUserReports();
   }, [currentSchool.code]);
 
-  return { getUserData };
+  return { getUserData, verifyTokenExistence };
 };
 
 export default useTokenVerifier;
