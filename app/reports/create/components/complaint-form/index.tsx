@@ -3,26 +3,40 @@ import useReports from "@/app/hooks/reports";
 import { Button } from "@/components/button";
 import CheckBox from "@/components/checkbox";
 import CustomInput from "@/components/input";
-import FileInput from "@/components/input/components/file_input";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import AutoComplete from "../auto-complete";
+import Tag from "../tag";
 
 export interface FormFields {
   description: string;
   victim: boolean;
   endosers: string[];
   categories: string[];
-  files: string[];
   checkbox: boolean;
 }
 
 const ComplaintForm: React.FC = () => {
-  const { register, setValue, handleSubmit, watch } = useForm<FormFields>();
-  const { back } = useRouter();
+  const { register, setValue, handleSubmit, watch, getValues } =
+    useForm<FormFields>();
+  const router = useRouter();
+  const { back } = router;
   const { sendReport, loading } = useReports();
   const victimValue = watch("victim");
+  const [endosers, setEndosers] = useState<string[]>([]);
+  const [endosersText, setEndosersText] = useState<string>("");
+
+  const handleAddEndorser = () => {
+    if (endosers.length < 3) {
+      setEndosers((prevEndosers) => [...prevEndosers, endosersText]);
+      setEndosersText("");
+    }
+  };
+
+  useEffect(() => {
+    setValue("endosers", endosers);
+  }, [endosers, setValue]);
 
   return (
     <form className="w-full" onSubmit={handleSubmit(sendReport)}>
@@ -32,9 +46,7 @@ const ComplaintForm: React.FC = () => {
         label="O que aconteceu?"
         placeholder="Resuma o evento que aconteceu"
         onChange={(e) =>
-          setValue("description", e.target.value, {
-            shouldValidate: true,
-          })
+          setValue("description", e.target.value, { shouldValidate: true })
         }
       />
 
@@ -43,44 +55,40 @@ const ComplaintForm: React.FC = () => {
         {...register("victim")}
         defaultChecked={victimValue}
         onChange={(e) =>
-          setValue("victim", e.target.checked, {
-            shouldValidate: false,
-          })
+          setValue("victim", e.target.checked, { shouldValidate: false })
         }
       />
-      <CustomInput
-        {...register("endosers")}
-        type="text"
-        label="Insira o nome de até 3 pessoas (separado por vírgulas) que possam reforçar a denúncia"
-        placeholder="Insira o nome da pessoa"
-        onChange={(e) => {
-          const values = e.target.value.split(",");
-          setValue("endosers", values, {
-            shouldValidate: true,
-          });
-        }}
-      />
+
+      <div className="mb-4 mt-2">
+        <CustomInput
+          {...register("endosers")}
+          type="text"
+          label="Insira o nome de até 3 pessoas que possam reforçar a denúncia"
+          placeholder="Insira o nome da pessoa"
+          onChange={(e) => setEndosersText(`${e.target?.value}`)}
+        />
+        <div className="flex flex-row items-center gap-12">
+          <Button
+            type="button"
+            disabled={endosers.length === 3}
+            onClick={handleAddEndorser}
+          >
+            Adicionar
+          </Button>
+          <Tag cn="" onRemoveTag={() => {}} tags={endosers} remove />
+        </div>
+      </div>
+
       <AutoComplete
         onChangeTags={(newTags) => setValue("categories", newTags)}
         {...register("categories", { required: false })}
-      />
-
-      <FileInput
-        className="mb-3"
-        label="Se houver, anexe provas do incidente (áudios, vídeos, imagens)"
-        onFileSelect={(file) =>
-          setValue("files", file, { shouldValidate: false })
-        }
-        {...register("files", { required: false })}
       />
 
       <CheckBox
         label="Eu confirmo que as informações aqui descritas são verdadeiras e que dar falso testemunho pode acarretar em punições severas da escola ou da justiça."
         {...register("checkbox", { required: true })}
         onChange={(e) =>
-          setValue("checkbox", e.target.checked, {
-            shouldValidate: true,
-          })
+          setValue("checkbox", e.target.checked, { shouldValidate: true })
         }
       />
 

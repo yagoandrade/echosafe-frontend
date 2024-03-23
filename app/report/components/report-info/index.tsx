@@ -11,10 +11,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useAxios from "@/hooks/useAxios";
 import { useLatestMessageStore } from "@/hooks/useNotificationReceive";
 import { useCurrentReportStore } from "@/store/currentReport";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { Bot } from "lucide-react";
 import { useEffect } from "react";
 
 const ReportInfo = () => {
+  const { isCollaborator } = useCollaboratorStore();
   const { currentComplaint } = useCurrentReportStore();
   const categories = (currentComplaint?.categories ?? []).join(", ");
   const { latestMessage } = useLatestMessageStore();
@@ -56,7 +58,7 @@ const ReportInfo = () => {
     return null;
   }
 
-  return currentComplaint ? (
+  return currentComplaint && isCollaborator ? (
     <Card>
       <CardHeader>
         <CardTitle>Informações do Chamado</CardTitle>
@@ -101,44 +103,46 @@ const ReportInfo = () => {
             {currentComplaint?.description}
           </span>
         </div>
-        <div>
-          <span className="flex items-center gap-x-1.5">
-            <Bot size="2rem" />
-            <h3 className="text-xl font-bold leading-none tracking-tight">
-              Relatório da inteligência artificial
-            </h3>
-          </span>
-          <div className="grid grid-cols-1 gap-4 py-4">
-            <div className="flex flex-col space-y-1">
-              <span className="text-sm font-semibold">
-                O que o aluno sentiu com a ofensa
-              </span>
-              <span className="text-sm text-[#71717A]">
-                {currentComplaint.sentimentAnalysis}
-              </span>
-            </div>
+        {isCollaborator && (
+          <div>
+            <span className="flex items-center gap-x-1.5">
+              <Bot size="2rem" />
+              <h3 className="text-xl font-bold leading-none tracking-tight">
+                Relatório da inteligência artificial
+              </h3>
+            </span>
+            <div className="grid grid-cols-1 gap-4 py-4">
+              <div className="flex flex-col space-y-1">
+                <span className="text-sm font-semibold">
+                  O que o aluno sentiu com a ofensa
+                </span>
+                <span className="text-sm text-[#71717A]">
+                  {currentComplaint.sentimentAnalysis}
+                </span>
+              </div>
 
-            <div className="flex flex-col space-y-1">
-              <span className="text-sm font-semibold">
-                Em qual categoria de bullying entra a ofensa
-              </span>
-              <span className="text-sm text-[#71717A]">
-                {currentComplaint.categoryAnalysis}
-              </span>
-            </div>
+              <div className="flex flex-col space-y-1">
+                <span className="text-sm font-semibold">
+                  Em qual categoria de bullying entra a ofensa
+                </span>
+                <span className="text-sm text-[#71717A]">
+                  {currentComplaint.categoryAnalysis}
+                </span>
+              </div>
 
-            <div className="flex flex-col space-y-1">
-              <span className="text-sm font-semibold">
-                Orientações para lidar com essa situação{" "}
-              </span>
-              <span className="text-sm text-[#71717A]">
-                {formatOrientationAnalysis(
-                  currentComplaint.orientationAnalysis
-                )}
-              </span>
+              <div className="flex flex-col space-y-1">
+                <span className="text-sm font-semibold">
+                  Orientações para lidar com essa situação{" "}
+                </span>
+                <span className="text-sm text-[#71717A]">
+                  {formatOrientationAnalysis(
+                    currentComplaint.orientationAnalysis
+                  )}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </CardContent>
     </Card>
   ) : null;
