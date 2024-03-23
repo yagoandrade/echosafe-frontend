@@ -153,8 +153,7 @@ const AvatarWithDropdown = () => {
           size="sm"
           className="h-fit w-full gap-x-0 px-0 font-normal"
           onClick={() => {
-            localStorage.removeItem("access_token");
-            localStorage.removeItem("refresh_token");
+            localStorage.clear();
             setUserData({} as Data);
             push("/");
           }}

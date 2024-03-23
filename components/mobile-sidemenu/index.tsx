@@ -146,8 +146,7 @@ const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
                   variant="wrapper"
                   size="fullWidth"
                   onClick={() => {
-                    localStorage.removeItem("access_token");
-                    localStorage.removeItem("refresh_token");
+                    localStorage.clear();
                     setUserData({} as Data);
                     push("/");
                   }}

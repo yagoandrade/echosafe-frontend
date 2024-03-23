@@ -12,7 +12,7 @@ import useTeams from "./hooks/useTeams";
 
 const Teams: NextPage = () => {
   const {
-    userData: { ownedSchools, schoolRoles, role },
+    userData: { ownedSchools, schoolRoles, role, id },
   } = useCurrentUserStore();
   const { joinSchool, createSchool, verifyTeamRole } = useTeams();
   const { setCurrentSchoolId } = useCurrentSchoolStore();
@@ -24,23 +24,39 @@ const Teams: NextPage = () => {
     new Set(schoolRoles?.map((schoolRole) => schoolRole.school))
   );
 
-  useEffect(() => {
+  const cleanUpData = () => {
     localStorage.removeItem("persisted_id_school");
     localStorage.removeItem("is_collaborator");
+    localStorage.removeItem("currentSchool-storage");
+    localStorage.removeItem("complaints-storage");
+    localStorage.removeItem("collaborator-storage");
     setComplaints([]);
     setCurrentSchoolId("");
+  };
+
+  useEffect(() => {
+    const hasValue = localStorage.getItem("firstLoginWorkaround");
+
+    if (!hasValue) {
+      localStorage.setItem("firstLoginWorkaround", "done");
+      window.location.reload();
+    }
   }, []);
+
+  useEffect(() => {
+    cleanUpData();
+  }, [id]);
 
   const renderSchoolCards = (
     schoolList: School[],
     variant: "create" | "join"
   ) => (
     <>
-      {schoolList?.map((school) => (
+      {schoolList?.map((school, index) => (
         <Card
           name={school.name}
           image="https://img.freepik.com/free-vector/school-building-illustration_138676-2399.jpg"
-          key={school.id}
+          key={index}
           onChooseSchool={() => {
             setCurrentSchoolId(school.id);
             verifyTeamRole(school.id);
@@ -63,7 +79,7 @@ const Teams: NextPage = () => {
   );
 
   return (
-    <div className="flex flex-col p-8">
+    <div className="flex flex-col p-8" key={id}>
       {role === "collaborator" && (
         <span className="mb-2 text-xl font-semibold">Meus ambientes</span>
       )}

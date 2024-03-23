@@ -99,8 +99,7 @@ const Sidemenu = () => {
             size="lg"
             className="w-full justify-start gap-x-4 p-0 outline-0"
             onClick={() => {
-              localStorage.removeItem("access_token");
-              localStorage.removeItem("refresh_token");
+              localStorage.clear();
               setUserData({} as Data);
               push("/");
             }}
