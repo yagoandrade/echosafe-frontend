@@ -2,15 +2,16 @@
 
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import Sidemenu from "@/components/sidemenu";
+import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { NextPage } from "next";
 import { useSearchParams } from "next/navigation";
 import ChatBox from "./components/chat-box";
-import { chat } from "./utils";
 import ReportInfo from "./components/report-info";
+import { chat } from "./utils";
 
 const ReportPage: NextPage = () => {
   const id = useSearchParams().get("");
-
+  useTokenVerifier();
   return (
     <div className="flex w-full flex-row p-2">
       <Sidemenu />

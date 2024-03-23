@@ -2,7 +2,6 @@
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import Sidemenu from "@/components/sidemenu";
 import useTokenVerifier from "@/hooks/useTokenVerifier";
-import { useCurrentUserStore } from "@/store/currentUser";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -21,13 +20,11 @@ const Complaints: NextPage = () => {
   const handleFilterChange = (newFilter: ComplaintFilter) => {
     setComplaintFilter(newFilter);
   };
-  const { getUserReports } = useTokenVerifier();
-  const { userData } = useCurrentUserStore();
-  console.log(userData, "data usiars");
-
+  const { getUserReports, getSchoolData } = useTokenVerifier();
   const tableComplaints = filteredComplaints(complaintFilter, complaints);
 
   useEffect(() => {
+    getSchoolData();
     getUserReports();
   }, []);
 

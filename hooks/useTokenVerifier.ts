@@ -2,6 +2,7 @@ import { useReportStore } from "@/app/hooks/reports/store";
 import useTeams from "@/app/teams/hooks/useTeams";
 import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
+import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 import useAxios from "./useAxios";
@@ -9,14 +10,14 @@ import useAxios from "./useAxios";
 const useTokenVerifier = () => {
   const { axios } = useAxios();
   const { setUserData, userData } = useCurrentUserStore();
-  const { setComplaints } = useReportStore();
+  const { setComplaints, complaints } = useReportStore();
   const { currentSchoolId, setCurrentSchool, currentSchool } =
     useCurrentSchoolStore();
   const { verifyTeamRole } = useTeams();
 
   const [accessToken, setAccessToken] = useState("");
   const [persistedIdSchool, setPersistedIdSchool] = useState("");
-  const [isCollaborator, setIsCollaborator] = useState(false);
+  const { isCollaborator } = useCollaboratorStore();
 
   const verifyTokenExistence = () => {
     return accessToken ?? null;
@@ -78,10 +79,8 @@ const useTokenVerifier = () => {
     const access_token = localStorage.getItem("access_token");
     const persisted_id_school =
       localStorage.getItem("persisted_id_school") ?? "";
-    const is_collaborator = localStorage.getItem("is_collaborator");
     setAccessToken(access_token ?? "");
     setPersistedIdSchool(persisted_id_school ?? "");
-    setIsCollaborator(is_collaborator?.length ? true : false);
   }, []);
 
   useEffect(() => {
@@ -92,7 +91,7 @@ const useTokenVerifier = () => {
     getUserReports();
   }, [currentSchool.code]);
 
-  return { getUserData, verifyTokenExistence, getUserReports };
+  return { getUserData, verifyTokenExistence, getUserReports, getSchoolData };
 };
 
 export default useTokenVerifier;

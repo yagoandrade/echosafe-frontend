@@ -4,6 +4,7 @@ import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { School, useCurrentUserStore } from "@/store/currentUser";
 import { NextPage } from "next";
 import { useEffect } from "react";
+import { useReportStore } from "../hooks/reports/store";
 import Card from "./components/Card";
 import SchoolDialog from "./components/Dialog";
 import SchoolManagement from "./components/SchoolManagement";
@@ -15,6 +16,7 @@ const Teams: NextPage = () => {
   } = useCurrentUserStore();
   const { joinSchool, createSchool, verifyTeamRole } = useTeams();
   const { setCurrentSchoolId } = useCurrentSchoolStore();
+  const { setComplaints } = useReportStore();
 
   useTokenVerifier();
 
@@ -25,6 +27,8 @@ const Teams: NextPage = () => {
   useEffect(() => {
     localStorage.removeItem("persisted_id_school");
     localStorage.removeItem("is_collaborator");
+    setComplaints([]);
+    setCurrentSchoolId("");
   }, []);
 
   const renderSchoolCards = (

@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/button";
 import CompanyPeople from "@/components/company_people";
 import RecentReports from "@/components/recent_reports";
 import ReportTypes from "@/components/report_types";
@@ -17,7 +16,7 @@ import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
-import { BoxSelect, Smile } from "lucide-react";
+import { Loader2, Smile } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { toast } from "sonner";
@@ -58,9 +57,11 @@ const Dashboard = () => {
   const { complaints } = useReportStore();
   const { currentSchool } = useCurrentSchoolStore();
   const { isCollaborator } = useCollaboratorStore();
-
-  useTokenVerifier();
-
+  console.log(currentSchool, "current school");
+  const { getUserReports } = useTokenVerifier();
+  useEffect(() => {
+    getUserReports();
+  }, []);
   useEffect(() => {
     if (!receiver) {
       return;
@@ -82,17 +83,9 @@ const Dashboard = () => {
 
   if (!currentSchool.name) {
     return (
-      <main className="size-full text-black">
-        <section className="relative flex size-full flex-col items-center justify-center gap-4 p-6">
-          <BoxSelect size="6rem" className="opacity-20" />
-          <h3>Você não está cadastrado em nenhuma instituição.</h3>
-          <Button variant="outline" asChild>
-            <Link href="/teams">
-              Voltar para a página de instituições
-            </Link>
-          </Button>
-        </section>
-      </main>
+      <div className="flex min-h-full w-full items-center justify-center">
+        <Loader2 className="animate-spin" />
+      </div>
     );
   }
 

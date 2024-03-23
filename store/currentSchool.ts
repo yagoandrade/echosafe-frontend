@@ -1,16 +1,29 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { School } from "./currentUser";
 
-interface IComplaintData {
+interface ICurrentSchoolData {
   currentSchoolId: string;
   setCurrentSchoolId: (schoolId: string) => void;
   currentSchool: School;
   setCurrentSchool: (school: School) => void;
 }
 
-export const useCurrentSchoolStore = create<IComplaintData>((set) => ({
-  currentSchoolId: "",
-  setCurrentSchoolId: (currentSchoolId) => set({ currentSchoolId }),
-  currentSchool: {} as School,
-  setCurrentSchool: (currentSchool) => set({ currentSchool }),
-}));
+export const useCurrentSchoolStore = create(
+  persist<ICurrentSchoolData>(
+    (set) => ({
+      currentSchoolId: "",
+      setCurrentSchoolId: (currentSchoolId) => {
+        set({ currentSchoolId });
+      },
+      currentSchool: {} as School,
+      setCurrentSchool: (currentSchool) => {
+        set({ currentSchool });
+      },
+    }),
+    {
+      name: "currentSchool-storage",
+      getStorage: () => localStorage,
+    }
+  )
+);
