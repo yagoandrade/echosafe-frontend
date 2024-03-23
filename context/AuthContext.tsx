@@ -84,12 +84,12 @@ export function AuthContextProvider({
     };
   }, []);
 
-  useEffect(() => {
-    if (reportId)
-      setCurrentComplaint(
-        complaints.filter((complaint) => complaint.id === reportId)[0]
-      );
-  }, [complaints]);
+  // useEffect(() => {
+  //   if (reportId)
+  //     setCurrentComplaint(
+  //       complaints.filter((complaint) => complaint.id === reportId)[0]
+  //     );
+  // }, [complaints]);
 
   // Make video faster on loading screen
   const videoRef = useRef<HTMLVideoElement | null>(null);

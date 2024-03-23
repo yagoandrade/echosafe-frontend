@@ -1,4 +1,5 @@
 "use client";
+import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { School, useCurrentUserStore } from "@/store/currentUser";
 import { NextPage } from "next";
@@ -15,11 +16,12 @@ const Teams: NextPage = () => {
   const { joinSchool, createSchool, verifyTeamRole } = useTeams();
   const { setCurrentSchoolId } = useCurrentSchoolStore();
 
+  useTokenVerifier();
+
   const schools = Array.from(
     new Set(schoolRoles?.map((schoolRole) => schoolRole.school))
   );
 
-  console.log(schools, "schoshcoshocshochso");
   useEffect(() => {
     localStorage.removeItem("persisted_id_school");
     localStorage.removeItem("is_collaborator");
