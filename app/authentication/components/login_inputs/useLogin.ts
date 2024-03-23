@@ -1,13 +1,11 @@
 import useAxios from "@/hooks/useAxios";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
 import { toast } from "sonner";
 import { ILogin, ILoginToken } from "./types";
 
 const useLogin = () => {
   const { push } = useRouter();
-  const [_, setCookie] = useCookies();
   const { axios } = useAxios();
 
   const getEncodedExpiration = (tokens: ILoginToken) => {
@@ -29,16 +27,9 @@ const useLogin = () => {
     };
   };
 
-  const saveOnCookies = async (tokens: ILoginToken) => {
-    const { accessTokenExpiration, refreshTokenExpiration } =
-      getEncodedExpiration(tokens);
-
-    setCookie("access_token", tokens.access_token, {
-      expires: new Date(`${accessTokenExpiration}`),
-    });
-    setCookie("refresh_token", tokens.refresh_token, {
-      expires: new Date(`${refreshTokenExpiration}`),
-    });
+  const saveOnStorage = async (tokens: ILoginToken) => {
+    localStorage.setItem("access_token", tokens.access_token);
+    localStorage.setItem("refresh_token", tokens.refresh_token);
   };
 
   const sendLoginInfo = async ({ email, password }: ILogin) => {
@@ -64,7 +55,7 @@ const useLogin = () => {
 
       console.log(tokens);
 
-      saveOnCookies(tokens);
+      saveOnStorage(tokens);
 
       toast.success("Login feito com sucesso!");
       setTimeout(() => {

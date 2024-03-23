@@ -19,17 +19,14 @@ import {
   Settings,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Avatar from "../avatar";
 import { Button } from "../button";
-import { useCookies } from "react-cookie";
-import { useRouter } from "next/navigation";
 
 const AvatarWithDropdown = () => {
   const { userData, setUserData } = useCurrentUserStore();
   const { isCollaborator } = useCollaboratorStore();
   const { push } = useRouter();
-
-  const [_, __, removeCookie] = useCookies();
 
   return (
     <DropdownMenu>
@@ -156,8 +153,8 @@ const AvatarWithDropdown = () => {
           size="sm"
           className="h-fit w-full gap-x-0 px-0 font-normal"
           onClick={() => {
-            removeCookie("access_token");
-            removeCookie("refresh_token");
+            localStorage.removeItem("access_token");
+            localStorage.removeItem("refresh_token");
             setUserData({} as Data);
             push("/");
           }}

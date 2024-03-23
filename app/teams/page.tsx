@@ -3,7 +3,6 @@ import { useCurrentSchoolStore } from "@/store/currentSchool";
 import { School, useCurrentUserStore } from "@/store/currentUser";
 import { NextPage } from "next";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import Card from "./components/Card";
 import SchoolDialog from "./components/Dialog";
 import SchoolManagement from "./components/SchoolManagement";
@@ -15,7 +14,6 @@ const Teams: NextPage = () => {
   } = useCurrentUserStore();
   const { joinSchool, createSchool, verifyTeamRole } = useTeams();
   const { setCurrentSchoolId } = useCurrentSchoolStore();
-  const [_, setCookie, removeCookie] = useCookies();
 
   const schools = Array.from(
     new Set(schoolRoles?.map((schoolRole) => schoolRole.school))
@@ -23,7 +21,8 @@ const Teams: NextPage = () => {
 
   console.log(schools, "schoshcoshocshochso");
   useEffect(() => {
-    removeCookie("persisted_id_school");
+    localStorage.removeItem("persisted_id_school");
+    localStorage.removeItem("is_collaborator");
   }, []);
 
   const renderSchoolCards = (
@@ -39,7 +38,7 @@ const Teams: NextPage = () => {
           onChooseSchool={() => {
             setCurrentSchoolId(school.id);
             verifyTeamRole(school.id);
-            setCookie("persisted_id_school", school.id, { path: "/" });
+            localStorage.setItem("persisted_id_school", school.id);
           }}
         />
       ))}

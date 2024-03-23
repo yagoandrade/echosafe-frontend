@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/button";
 import CompanyPeople from "@/components/company_people";
 import RecentReports from "@/components/recent_reports";
 import ReportTypes from "@/components/report_types";
@@ -22,11 +23,11 @@ import { useEffect } from "react";
 import { toast } from "sonner";
 import { useReportStore } from "../hooks/reports/store";
 import BullyingChart from "./components/bullying_chart";
-import { Button } from "@/components/button";
 
 const getUserRelationshipToSchool = (
   schoolName: string,
-  isCollaborator: boolean
+  isCollaborator: boolean,
+  code: string
 ) => {
   if (!schoolName)
     return (
@@ -41,6 +42,7 @@ const getUserRelationshipToSchool = (
     <div>
       <h1 className="text-sm uppercase text-[#71717A]">
         {isCollaborator ? "Gerenciando" : "Vinculado a(o)"}
+        {isCollaborator && <p>{code}</p>}
       </h1>
       <p className="text-lg font-bold text-[#4F46E5]">{schoolName}</p>
     </div>
@@ -109,7 +111,11 @@ const Dashboard = () => {
               ) : null}
             </span>
             <div className="flex w-full items-center justify-between gap-4 lg:w-fit xl:gap-6">
-              {getUserRelationshipToSchool(currentSchool.name, isCollaborator)}
+              {getUserRelationshipToSchool(
+                currentSchool.name,
+                isCollaborator,
+                currentSchool.code
+              )}
               {/*
               TODO: Reabilitar quando tivermos as páginas de instituição
               <Link

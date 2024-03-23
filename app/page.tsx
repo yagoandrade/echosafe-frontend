@@ -18,7 +18,6 @@ import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 
 const soehne = localFont({
   src: "../public/assets/fonts/soehne/soehne-var.woff2",
@@ -31,10 +30,9 @@ const recoletaBlack = localFont({
 });
 
 export default function Home() {
-  const [cookie] = useCookies();
   const { push } = useRouter();
   useEffect(() => {
-    if (cookie.access_token || cookie.refresh_token) {
+    if (localStorage.access_token || localStorage.refresh_token) {
       push("/teams");
     }
   }, []);

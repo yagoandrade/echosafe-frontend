@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { Data, useCurrentUserStore } from "@/store/currentUser";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
 import {
   Folder,
@@ -15,6 +16,7 @@ import {
 import localFont from "next/font/local";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import MockupLogo from "../../public/assets/svg/mockup-logo.svg";
 import { Button } from "../button";
 import {
@@ -28,9 +30,6 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import MenuItem from "./components/menu-item";
-import { Data, useCurrentUserStore } from "@/store/currentUser";
-import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
 
 interface MobileSidemenuProps {
   className?: string;
@@ -47,8 +46,6 @@ const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
 
   const { setUserData } = useCurrentUserStore();
   const { push } = useRouter();
-
-  const [_, __, removeCookie] = useCookies();
 
   return (
     <Drawer>
@@ -149,8 +146,8 @@ const MobileSidemenu = ({ className, children }: MobileSidemenuProps) => {
                   variant="wrapper"
                   size="fullWidth"
                   onClick={() => {
-                    removeCookie("access_token");
-                    removeCookie("refresh_token");
+                    localStorage.removeItem("access_token");
+                    localStorage.removeItem("refresh_token");
                     setUserData({} as Data);
                     push("/");
                   }}

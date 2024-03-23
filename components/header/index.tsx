@@ -6,7 +6,6 @@ import { cn } from "@/lib/utils";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { usePathname } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 import LoadingHeaderButtons from "./components/loading_header_buttons";
 import LoggedInHeaderButtons from "./components/logged_in_header_buttons";
 import LoggedOutHeaderButtons from "./components/logged_out_header_buttons";
@@ -16,7 +15,6 @@ const Header: React.FC<IHeaderProps> = () => {
   const { userData } = useCurrentUserStore();
   const { loading } = useContext(AuthContext) as IAuthContext;
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [cookie] = useCookies();
 
   const pathname = usePathname();
   const isScrollingDown = useScrollDirection();
@@ -32,8 +30,9 @@ const Header: React.FC<IHeaderProps> = () => {
 
   useTokenVerifier();
   useEffect(() => {
-    setIsLoggedIn(!!cookie.access_token);
-  }, [cookie.access_token]);
+    setIsLoggedIn(Boolean(localStorage.getItem("access_token")?.length));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStorage.getItem("access_token")]);
 
   return isHeaderVisible ? (
     <header

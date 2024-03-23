@@ -13,7 +13,6 @@ import {
 import localFont from "next/font/local";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCookies } from "react-cookie";
 import { Button } from "../button";
 import InviteTeamMembersCard from "../invite_team_members";
 import MenuItem from "./components/menu-item";
@@ -30,8 +29,6 @@ const Sidemenu = () => {
     userData: { role },
     setUserData,
   } = useCurrentUserStore();
-
-  const [_, __, removeCookie] = useCookies();
   const { push } = useRouter();
   const { isCollaborator } = useCollaboratorStore();
   return (
@@ -102,8 +99,8 @@ const Sidemenu = () => {
             size="lg"
             className="w-full justify-start gap-x-4 p-0 outline-0"
             onClick={() => {
-              removeCookie("access_token");
-              removeCookie("refresh_token");
+              localStorage.removeItem("access_token");
+              localStorage.removeItem("refresh_token");
               setUserData({} as Data);
               push("/");
             }}

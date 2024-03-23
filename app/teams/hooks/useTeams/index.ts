@@ -64,15 +64,19 @@ const useTeams = () => {
       return;
     }
     if (foundOwnedSchool) {
+      localStorage.setItem("is_collaborator", "true");
       setIsCollaborator(true);
       return;
     }
-    setIsCollaborator(
-      userData.schoolRoles.some(
-        ({ id, role, school }) =>
-          foundSchool.id === school.id && role === "collaborator"
-      )
+
+    const hasCollaboratorRole = userData.schoolRoles.some(
+      ({ id, role, school }) =>
+        foundSchool.id === school.id && role === "collaborator"
     );
+    if (hasCollaboratorRole) {
+      localStorage.setItem("is_collaborator", "true");
+    }
+    setIsCollaborator(hasCollaboratorRole);
   };
 
   return { joinSchool, createSchool, verifyTeamRole };

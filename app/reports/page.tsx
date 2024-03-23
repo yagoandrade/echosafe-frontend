@@ -1,10 +1,11 @@
 "use client";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import Sidemenu from "@/components/sidemenu";
+import useTokenVerifier from "@/hooks/useTokenVerifier";
 import { useCurrentUserStore } from "@/store/currentUser";
 import { useCollaboratorStore } from "@/store/currentUserRoles";
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useReportStore } from "../hooks/reports/store";
 import ComplaintsFilter from "./components/complaints-filter";
 import { ComplaintFilter } from "./components/complaints-filter/types";
@@ -16,13 +17,19 @@ const Complaints: NextPage = () => {
     COMPLAINTS_INITIAL_STATE
   );
   const { complaints } = useReportStore();
-  const { userData } = useCurrentUserStore();
   const { isCollaborator } = useCollaboratorStore();
   const handleFilterChange = (newFilter: ComplaintFilter) => {
     setComplaintFilter(newFilter);
   };
+  const { getUserReports } = useTokenVerifier();
+  const { userData } = useCurrentUserStore();
+  console.log(userData, "data usiars");
 
   const tableComplaints = filteredComplaints(complaintFilter, complaints);
+
+  useEffect(() => {
+    getUserReports();
+  }, []);
 
   return (
     <div className="flex w-full justify-start pr-8">
