@@ -6,12 +6,11 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
-import crypto from "crypto";
+import bcrypt from "bcryptjs";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { api } from "@/trpc/server";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -69,22 +68,22 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
+        if (!credentials) throw new Error("No credentials provided");
+
         const user = await db.user.findUnique({
           where: {
-            email: credentials?.email,
+            email: credentials.email,
           },
         });
 
-        if (!user) throw new Error("No user found");
+        if (!user) throw new Error("Invalid credentials");
 
-        // TODO: Change this hash to bcrypt or scrypt
-        const hash = crypto.createHash("sha256");
-        const hashedPassword = hash
-          .update(credentials?.password ?? "")
-          .digest("hex");
+        const isPasswordValid = await bcrypt.compare(
+          credentials.password,
+          user.password ?? "",
+        );
 
-        if (user.password !== hashedPassword)
-          throw new Error("Invalid credentials");
+        if (!isPasswordValid) throw new Error("Invalid credentials");
 
         return user;
       },

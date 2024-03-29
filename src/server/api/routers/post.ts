@@ -1,5 +1,4 @@
 import { z } from "zod";
-import crypto from "crypto";
 
 import {
   createTRPCRouter,
@@ -7,6 +6,7 @@ import {
   publicProcedure,
 } from "@/server/api/trpc";
 import { Prisma } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -27,6 +27,9 @@ export const postRouter = createTRPCRouter({
       }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email)
+        throw new Error("You must be logged in to create a task");
+
       return ctx.db.post.create({
         data: {
           title: input.title,
@@ -54,8 +57,12 @@ export const postRouter = createTRPCRouter({
       z.object({ name: z.string(), email: z.string(), password: z.string() }),
     )
     .mutation(async ({ ctx, input }) => {
-      const hash = crypto.createHash("sha256");
-      const hashedPassword = hash.update(input.password).digest("hex");
+      const salt: string = await bcrypt.genSalt(10);
+      const hashedPassword: string = await bcrypt.hash(input.password, salt);
+
+      if (!hashedPassword || typeof hashedPassword !== "string") {
+        throw new Error("Failed to hash password");
+      }
 
       const user = await ctx.db.user
         .create({
@@ -63,6 +70,7 @@ export const postRouter = createTRPCRouter({
             name: input.name,
             email: input.email,
             password: hashedPassword,
+            salt: salt,
             image: `https://source.boringavatars.com/beam/400/${input.email}`,
           },
         })

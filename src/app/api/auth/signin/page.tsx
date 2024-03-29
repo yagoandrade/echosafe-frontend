@@ -37,7 +37,8 @@ export default function SignInPage() {
     })
       .then((res) => {
         if (res?.error) throw new Error(res.error);
-        toast.success("Logged in successfully");
+        // Redirect is too fast to even show this message.
+        // toast.success("Logged in successfully");
       })
       .catch((err) => {
         toast.error(err as string);
