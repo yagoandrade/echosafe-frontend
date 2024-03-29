@@ -47,18 +47,20 @@ export default function Register() {
       router.push("/api/auth/signin?csrf=true");
     },
     onError: (error) => {
+      console.error(error);
       toast.error(error.message);
     },
   });
 
   const onSubmit = async ({ name, email, password }: RegisterData) => {
+    console.log("here");
     registerUser.mutate({ name, email, password });
   };
 
   return (
     <form
       className="flex h-full min-h-screen w-full items-center justify-center"
-      onSubmit={() => handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Card className="mx-auto max-w-sm">
         <CardHeader>

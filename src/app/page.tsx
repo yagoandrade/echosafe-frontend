@@ -45,7 +45,7 @@ export default async function Home() {
               )}
             </div>
           </div>
-          <CrudShowcase />
+          {session && <CrudShowcase />}
         </div>
       </div>
     </main>
