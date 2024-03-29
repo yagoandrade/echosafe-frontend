@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -16,26 +15,38 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import SignInWithGoogleButton from "@/components/sign-in-with-google";
 import Link from "next/link";
+import { toast } from "sonner";
+import { waitASecondBeforeCallingFunction } from "util/client";
 
 export default function SignInPage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const result = await signIn("credentials", { ...data, callbackUrl: "/" });
-    if (result.error) {
-      alert(result.error);
-    }
-  };
+  const router = useRouter();
+
+  const { status } = useSession();
 
   if (status === "authenticated") {
-    router.push("/");
+    window.location.href = "/";
   }
+
+  const onSubmit = async (data: { email: string; password: string }) => {
+    await signIn("credentials", {
+      ...data,
+      callbackUrl: "/",
+      redirect: false,
+    })
+      .then((res) => {
+        if (res?.error) throw new Error(res.error);
+        toast.success("Logged in successfully");
+      })
+      .catch((err) => {
+        toast.error(err as string);
+      });
+  };
 
   return (
     <form
@@ -57,20 +68,32 @@ export default function SignInPage() {
                 id="email"
                 type="email"
                 placeholder="me@example.com"
-                required
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: true,
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: "Entered value does not match email format",
+                  },
+                })}
               />
-              {errors.email && <span>This field is required</span>}
+              {errors.email && (
+                <p className="text-xs font-medium text-red-500">
+                  Email is required
+                </p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
-                required
                 {...register("password", { required: true })}
               />
-              {errors.password && <span>This field is required</span>}
+              {errors.password && (
+                <p className="text-xs font-medium text-red-500">
+                  Password is required
+                </p>
+              )}
             </div>
             <Button type="submit" className="w-full">
               Sign in

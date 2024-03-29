@@ -75,17 +75,16 @@ export const authOptions: NextAuthOptions = {
           },
         });
 
+        if (!user) throw new Error("No user found");
+
+        // TODO: Change this hash to bcrypt or scrypt
         const hash = crypto.createHash("sha256");
         const hashedPassword = hash
           .update(credentials?.password ?? "")
           .digest("hex");
 
-        if (user?.password !== hashedPassword)
+        if (user.password !== hashedPassword)
           throw new Error("Invalid credentials");
-
-        if (!user) {
-          throw new Error("No user found");
-        }
 
         return user;
       },

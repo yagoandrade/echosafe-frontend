@@ -6,6 +6,7 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
+import { Prisma } from "@prisma/client";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -52,14 +53,25 @@ export const postRouter = createTRPCRouter({
       const hash = crypto.createHash("sha256");
       const hashedPassword = hash.update(input.password).digest("hex");
 
-      const user = await ctx.db.user.create({
-        data: {
-          name: input.name,
-          email: input.email,
-          password: hashedPassword,
-          image: `https://source.boringavatars.com/beam/400/${input.email}`,
-        },
-      });
+      const user = await ctx.db.user
+        .create({
+          data: {
+            name: input.name,
+            email: input.email,
+            password: hashedPassword,
+            image: `https://source.boringavatars.com/beam/400/${input.email}`,
+          },
+        })
+        .catch((error) => {
+          if (
+            error instanceof Prisma.PrismaClientKnownRequestError &&
+            error.code === "P2002"
+          ) {
+            throw new Error("Error: This email is already in use");
+          } else {
+            throw new Error("Failed to create user");
+          }
+        });
 
       return user;
     }),

@@ -3,9 +3,10 @@
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 
 import Link from "next/link";
+import SignInWithGoogleButton from "@/components/sign-in-with-google";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -16,37 +17,49 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import SignInWithGoogleButton from "@/components/sign-in-with-google";
+import { toast } from "sonner";
+import { useSession } from "next-auth/react";
+import { waitASecondBeforeCallingFunction } from "util/client";
+
+interface RegisterData {
+  name: string;
+  email: string;
+  password: string;
+}
 
 export default function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const router = useRouter();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
+  const router = useRouter();
+
+  const { status } = useSession();
+
+  if (status === "authenticated") {
+    void waitASecondBeforeCallingFunction(() => router.push("/"));
+  }
+
   const registerUser = api.post.registerUser.useMutation({
     onSuccess: () => {
-      setName("");
-      setEmail("");
-      setPassword("");
-      router.refresh();
+      toast.success("Account created successfully");
+      router.push("/api/auth/signin?csrf=true");
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
+
+  const onSubmit = async ({ name, email, password }: RegisterData) => {
+    registerUser.mutate({ name, email, password });
+  };
 
   return (
     <form
       className="flex h-full min-h-screen w-full items-center justify-center"
-      onSubmit={(e) => {
-        e.preventDefault();
-        registerUser.mutate({ name, email, password });
-      }}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <Card className="mx-auto max-w-sm">
         <CardHeader>
@@ -60,36 +73,51 @@ export default function Register() {
             <div className="grid gap-2">
               <Label htmlFor="name">Full name</Label>
               <Input
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                {...register("name", { required: "Name is required" })}
                 placeholder="John Doe"
-                required
               />
-              {errors.name && <span>This field is required</span>}
+              {errors.name && (
+                <p className="text-xs font-medium text-red-500">
+                  {errors.name.message?.toString()}
+                </p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
-                id="email"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /\S+@\S+\.\S+/,
+                    message: "What you typed in does not match email format",
+                  },
+                })}
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 placeholder="me@example.com"
-                required
               />
-              {errors.email && <span>This field is required</span>}
+              {errors.email && (
+                <p className="text-xs font-medium text-red-500">
+                  {errors.email.message?.toString()}
+                </p>
+              )}
             </div>
             <div className="grid gap-2">
               <Label htmlFor="password">Password</Label>
               <Input
-                id="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 5,
+                    message: "The minimum length of password is 5",
+                  },
+                })}
               />
-              {errors.password && <span>This field is required</span>}
+              {errors.password && (
+                <p className="text-xs font-medium text-red-500">
+                  {errors.password.message?.toString()}
+                </p>
+              )}
             </div>
             <Button type="submit" className="w-full">
               Create an account
