@@ -16,12 +16,17 @@ import SignInWithGoogleButton from "@/components/sign-in-with-google";
 import Link from "next/link";
 import { toast } from "sonner";
 
+interface LoginData {
+  email: string;
+  password: string;
+}
+
 export default function SignInPage() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginData>();
 
   const { status } = useSession();
 
@@ -29,7 +34,7 @@ export default function SignInPage() {
     window.location.href = "/";
   }
 
-  const onSubmit = async (data: { email: string; password: string }) => {
+  const onSubmit = async (data: LoginData) => {
     await signIn("credentials", {
       ...data,
       callbackUrl: "/",

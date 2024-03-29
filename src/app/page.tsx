@@ -53,16 +53,18 @@ export default async function Home() {
 }
 
 async function CrudShowcase() {
-  const session = await getServerAuthSession();
-  if (!session?.user) return null;
-
   const tasks = await api.post.getTasks();
+
+  const formattedTasks = tasks.map((task) => ({
+    ...task,
+    id: task.id.toString(), // Convert the 'id' property to a string
+  }));
 
   return (
     <div className="w-full space-y-4">
       <CreateTask />
-      {tasks.length > 0 ? (
-        <DataTable data={tasks} columns={columns} />
+      {formattedTasks.length > 0 ? (
+        <DataTable data={formattedTasks} columns={columns} />
       ) : (
         <p>You have no posts yet.</p>
       )}

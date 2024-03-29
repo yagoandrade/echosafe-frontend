@@ -19,6 +19,7 @@ import {
 
 import { labels } from "@/data/data";
 import { DotSquare } from "lucide-react";
+import { type Task } from "@/data/schema";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -27,14 +28,14 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: Readonly<DataTableRowActionsProps<TData>>) {
-  const task = row.original;
+  const task = row.original as Task;
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="data-[state=open]:bg-muted flex h-8 w-8 p-0"
+          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
         >
           <DotSquare className="h-4 w-4" />
           <span className="sr-only">Open menu</span>

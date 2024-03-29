@@ -31,7 +31,7 @@ export default function Register() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<RegisterData>();
 
   const router = useRouter();
 
@@ -58,7 +58,7 @@ export default function Register() {
   return (
     <form
       className="flex h-full min-h-screen w-full items-center justify-center"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={() => handleSubmit(onSubmit)}
     >
       <Card className="mx-auto max-w-sm">
         <CardHeader>

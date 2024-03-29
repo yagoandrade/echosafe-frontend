@@ -30,5 +30,7 @@ export async function createContext(
 ): Promise<Context> {
   // for API-response caching see https://trpc.io/docs/v11/caching
 
-  return await createContextInner({});
+  return await createContextInner({
+    session: null,
+  });
 }
