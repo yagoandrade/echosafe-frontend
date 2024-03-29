@@ -19,7 +19,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
-import { waitASecondBeforeCallingFunction } from "util/client";
 
 interface RegisterData {
   name: string;
@@ -39,7 +38,7 @@ export default function Register() {
   const { status } = useSession();
 
   if (status === "authenticated") {
-    void waitASecondBeforeCallingFunction(() => router.push("/"));
+    window.location.href = "/";
   }
 
   const registerUser = api.post.registerUser.useMutation({

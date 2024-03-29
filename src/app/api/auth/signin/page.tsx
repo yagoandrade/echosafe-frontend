@@ -1,7 +1,6 @@
 "use client";
 
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,7 +15,6 @@ import { Label } from "@/components/ui/label";
 import SignInWithGoogleButton from "@/components/sign-in-with-google";
 import Link from "next/link";
 import { toast } from "sonner";
-import { waitASecondBeforeCallingFunction } from "util/client";
 
 export default function SignInPage() {
   const {
@@ -24,8 +22,6 @@ export default function SignInPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const router = useRouter();
 
   const { status } = useSession();
 
