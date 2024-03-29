@@ -55,7 +55,7 @@ export function CreateTask() {
         <CardContent>
           <div className="grid gap-6 sm:grid-cols-4">
             <div className="grid gap-3">
-              <Label htmlFor="title">Title</Label>
+              <Label>Title</Label>
               <Input
                 id="title"
                 type="text"
@@ -66,10 +66,10 @@ export function CreateTask() {
               />
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="status">Status</Label>
+              <Label>Status</Label>
               <Select
                 value={status}
-                onValueChange={(e) => setStatus(e.target.value)}
+                onValueChange={(value) => setStatus(value)}
               >
                 <SelectTrigger id="status" aria-label="Select status">
                   <SelectValue placeholder="Select status" />
@@ -84,11 +84,8 @@ export function CreateTask() {
               </Select>
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="label">Label</Label>
-              <Select
-                value={label}
-                onValueChange={(e) => setLabel(e.target.value)}
-              >
+              <Label>Label</Label>
+              <Select value={label} onValueChange={(value) => setLabel(value)}>
                 <SelectTrigger id="label" aria-label="Select label">
                   <SelectValue placeholder="Select label" />
                 </SelectTrigger>
@@ -102,10 +99,10 @@ export function CreateTask() {
               </Select>
             </div>
             <div className="grid gap-3">
-              <Label htmlFor="priority">Priority</Label>
+              <Label>Priority</Label>
               <Select
                 value={priority}
-                onValueChange={(e) => setPriority(e.target.value)}
+                onValueChange={(value) => setPriority(value)}
               >
                 <SelectTrigger id="priority" aria-label="Select priority">
                   <SelectValue placeholder="Select priority" />
