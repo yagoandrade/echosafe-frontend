@@ -42,7 +42,9 @@ export const postRouter = createTRPCRouter({
   }),
 
   registerUser: publicProcedure
-    .input(z.object({ email: z.string(), password: z.string() }))
+    .input(
+      z.object({ name: z.string(), email: z.string(), password: z.string() }),
+    )
     .mutation(async ({ ctx, input }) => {
       // simulate a slow db call
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -52,8 +54,10 @@ export const postRouter = createTRPCRouter({
 
       const user = await ctx.db.user.create({
         data: {
+          name: input.name,
           email: input.email,
           password: hashedPassword,
+          image: `https://source.boringavatars.com/beam/400/${input.email}`,
         },
       });
 

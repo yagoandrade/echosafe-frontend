@@ -68,17 +68,17 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
+        const user = await db.user.findUnique({
+          where: {
+            email: credentials?.email,
+          },
+        });
+
         const hash = crypto.createHash("sha256");
         const hashedPassword = hash
           .update(credentials?.password ?? "")
           .digest("hex");
-
-        const user = await api.get.getUser({
-          email: credentials?.email ?? "",
-        });
-
-        console.log(user?.password === hashedPassword);
 
         if (user?.password !== hashedPassword)
           throw new Error("Invalid credentials");

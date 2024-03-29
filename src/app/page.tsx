@@ -45,6 +45,13 @@ export default async function Home() {
 
           <div className="flex flex-col items-center justify-center gap-4">
             <p className="text-center text-2xl text-white">
+              {session && (
+                <img
+                  src={session.user?.image}
+                  className="h-16 w-16 rounded-full"
+                  alt="User avatar"
+                />
+              )}
               {session && <span>Logged in as {session.user?.name}</span>}
             </p>
             <Link

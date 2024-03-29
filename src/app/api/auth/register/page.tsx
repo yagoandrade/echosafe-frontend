@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 export default function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,6 +20,7 @@ export default function Register() {
 
   const registerUser = api.post.registerUser.useMutation({
     onSuccess: () => {
+      setName("");
       setEmail("");
       setPassword("");
       router.refresh();
@@ -29,13 +31,20 @@ export default function Register() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        registerUser.mutate({ email, password });
+        registerUser.mutate({ name, email, password });
       }}
     >
       <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="name"
+        required
+      />
+      {errors.name && <span>This field is required</span>}
+      <input
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
+        placeholder="email"
         required
       />
       {errors.email && <span>This field is required</span>}
