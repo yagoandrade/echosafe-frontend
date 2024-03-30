@@ -3,23 +3,25 @@ import { columns } from "../columns";
 import { DataTable } from "../data-table";
 import { CreateTask } from "@/app/_components/create-post";
 import { getServerAuthSession } from "@/server/auth";
+import RecentReports from "../recent_reports";
 
 async function Dashboard() {
   const session = await getServerAuthSession();
 
   return (
-    <div className="hidden h-full w-full flex-1 flex-col space-y-8 p-8 md:flex">
+    <div className="h-full w-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div className="flex items-center justify-between space-y-2">
         <div>
-          <h2 className="text-2xl font-semibold tracking-tight">
+          <h3 className="text-xl font-semibold tracking-tight">
             Welcome back, {session?.user.name}!
-          </h2>
+          </h3>
           <p className="text-muted-foreground">
-            Here&apos;s a list of your tasks for this month:
+            Here&apos;s a what happened in your institution today.
           </p>
         </div>
       </div>
       {session?.user && <CrudShowcase />}
+      <RecentReports />
     </div>
   );
 }
