@@ -30,7 +30,7 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
             />
           </Avatar>
           {isExtended && (
-            <span className="text-sm">
+            <span className="text-left text-sm">
               <p className="font-normal text-[#cbccd9]">{user?.name}</p>
               <p className="font-light text-[#949da7]">{user?.email}</p>
             </span>
