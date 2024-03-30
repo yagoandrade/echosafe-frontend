@@ -10,7 +10,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { env } from "@/env";
 import { db } from "@/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { validatePassword } from "util/server";
+import { validatePassword } from "@/lib/utils";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`

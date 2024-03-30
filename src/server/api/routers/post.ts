@@ -7,6 +7,7 @@ import {
 } from "@/server/api/trpc";
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import { validateEmail } from "@/lib/utils";
 
 export const postRouter = createTRPCRouter({
   hello: publicProcedure
@@ -57,6 +58,9 @@ export const postRouter = createTRPCRouter({
       z.object({ name: z.string(), email: z.string(), password: z.string() }),
     )
     .mutation(async ({ ctx, input }) => {
+      if (validateEmail(input.email) === false)
+        throw new Error("Invalid email address");
+
       const salt: string = await bcrypt.genSalt(10);
       const hashedPassword: string = await bcrypt.hash(input.password, salt);
 
