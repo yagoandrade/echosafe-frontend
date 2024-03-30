@@ -20,6 +20,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import { Separator } from "@/components/ui/separator";
 
 interface RegisterData {
   name: string;
@@ -76,6 +77,8 @@ export default function Register() {
           </CardHeader>
           <CardContent>
             <div className="grid gap-4">
+              <SignInWithGoogleButton />
+              <Separator />
               <div className="grid gap-2">
                 <Label htmlFor="name">Full name</Label>
                 <Input
@@ -128,18 +131,17 @@ export default function Register() {
               <Button type="submit" variant="primary" className="w-full">
                 Create an account
               </Button>
-              <SignInWithGoogleButton />
             </div>
-            <div className="mt-4 text-center text-sm text-[#7f8093]">
+            {/* <div className="mt-4 text-center text-sm text-[#7f8093]">
               Already have an account?{" "}
               <Link
                 href="/api/auth/signin?csrf=true"
-                className="font-medium text-[#838496] hover:underline cursor-default"
+                className="cursor-default font-medium text-[#838496] hover:underline"
               >
                 Sign in
               </Link>
               .
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </motion.div>

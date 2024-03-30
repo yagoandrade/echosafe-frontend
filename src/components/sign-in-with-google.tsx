@@ -6,7 +6,10 @@ const SignInWithGoogleButton = () => {
     <Button
       className="gap-x-2"
       variant="provider"
-      onClick={() => signIn("google")}
+      onClick={(e) => {
+        e.preventDefault();
+        void signIn("google");
+      }}
     >
       <svg
         width="16"
