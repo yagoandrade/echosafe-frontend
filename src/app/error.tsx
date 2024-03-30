@@ -11,9 +11,9 @@ export default function ErrorPage({
 }>) {
   return (
     <div className="flex h-full min-h-screen w-full flex-col items-center justify-center space-y-4">
-      <h2>Algo deu errado!</h2>
+      <h2>Something went terribly wrong!</h2>
       <Button variant="primary" onClick={() => reset()}>
-        Tentar de novo
+        Try again
       </Button>
     </div>
   );

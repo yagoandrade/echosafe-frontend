@@ -15,9 +15,10 @@ import Link from "next/link";
 
 interface UserNavProps {
   user: DefaultSession["user"];
+  isExtended: boolean;
 }
 
-export function UserNav({ user }: Readonly<UserNavProps>) {
+export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,11 +32,17 @@ export function UserNav({ user }: Readonly<UserNavProps>) {
               alt={`${user?.name ?? "User"}'s avatar`}
             />
           </Avatar>
+          {isExtended && (
+            <span className="text-sm">
+              <p className="font-normal text-[#cbccd9]">{user?.name}</p>
+              <p className="font-light text-[#949da7]">{user?.email}</p>
+            </span>
+          )}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-56 bg-gradient-to-b from-[#252634] to-[#16171a] border border-[#303146]"
-        align="end"
+        className="w-56 border border-[#303146] bg-gradient-to-b from-[#252634] to-[#16171a]"
+        align="center"
         forceMount
       >
         <DropdownMenuLabel className="font-normal">
