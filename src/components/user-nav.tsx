@@ -39,7 +39,7 @@ export function UserNav({ user }: Readonly<UserNavProps>) {
             <p className="text-sm font-medium leading-none">
               {user?.name ?? "User"}
             </p>
-            <p className="text-muted-foreground text-xs leading-none">
+            <p className="text-xs leading-none text-muted-foreground">
               {user?.email ?? "me@example.com"}
             </p>
           </div>

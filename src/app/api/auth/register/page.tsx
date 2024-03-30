@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { api } from "@/trpc/react";
 import { useForm } from "react-hook-form";
+import { motion } from "framer-motion";
 
 import Link from "next/link";
 import SignInWithGoogleButton from "@/components/sign-in-with-google";
@@ -53,86 +54,95 @@ export default function Register() {
   });
 
   const onSubmit = async ({ name, email, password }: RegisterData) => {
-    console.log("here");
     registerUser.mutate({ name, email, password });
   };
 
   return (
     <form
-      className="flex h-full min-h-screen w-full items-center justify-center"
+      className="flex h-full min-h-screen w-full items-center justify-center bg-gradient-to-b from-[#2a2b3a] to-[#191a23]"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <Card className="mx-auto max-w-sm">
-        <CardHeader>
-          <CardTitle className="text-xl">Sign Up</CardTitle>
-          <CardDescription>
-            Enter your information to create an account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="name">Full name</Label>
-              <Input
-                {...register("name", { required: "Name is required" })}
-                placeholder="John Doe"
-              />
-              {errors.name && (
-                <p className="text-xs font-medium text-red-500">
-                  {errors.name.message?.toString()}
-                </p>
-              )}
+      <motion.div
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      >
+        <Card className="mx-auto max-w-sm border-0 bg-transparent">
+          <CardHeader>
+            <CardTitle className="text-xl">Create your account</CardTitle>
+            <CardDescription>
+              Enter your information to create an account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="name">Full name</Label>
+                <Input
+                  {...register("name", { required: "Name is required" })}
+                  placeholder="John Doe"
+                />
+                {errors.name && (
+                  <p className="text-xs font-medium text-red-500">
+                    {errors.name.message?.toString()}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  {...register("email", {
+                    required: "Email is required",
+                    pattern: {
+                      value: /\S+@\S+\.\S+/,
+                      message: "What you typed in does not match email format",
+                    },
+                  })}
+                  type="email"
+                  placeholder="Enter your email address..."
+                />
+                {errors.email && (
+                  <p className="text-xs font-medium text-red-500">
+                    {errors.email.message?.toString()}
+                  </p>
+                )}
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                  type="password"
+                  {...register("password", {
+                    required: "Password is required",
+                    minLength: {
+                      value: 5,
+                      message: "The minimum length of password is 5",
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-xs font-medium text-red-500">
+                    {errors.password.message?.toString()}
+                  </p>
+                )}
+              </div>
+              <Button type="submit" variant="primary" className="w-full">
+                Create an account
+              </Button>
+              <SignInWithGoogleButton />
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                {...register("email", {
-                  required: "Email is required",
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: "What you typed in does not match email format",
-                  },
-                })}
-                type="email"
-                placeholder="me@example.com"
-              />
-              {errors.email && (
-                <p className="text-xs font-medium text-red-500">
-                  {errors.email.message?.toString()}
-                </p>
-              )}
+            <div className="mt-4 text-center text-sm text-[#7f8093]">
+              Already have an account?{" "}
+              <Link
+                href="/api/auth/signin?csrf=true"
+                className="font-medium text-[#838496] hover:underline cursor-default"
+              >
+                Sign in
+              </Link>
+              .
             </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                type="password"
-                {...register("password", {
-                  required: "Password is required",
-                  minLength: {
-                    value: 5,
-                    message: "The minimum length of password is 5",
-                  },
-                })}
-              />
-              {errors.password && (
-                <p className="text-xs font-medium text-red-500">
-                  {errors.password.message?.toString()}
-                </p>
-              )}
-            </div>
-            <Button type="submit" className="w-full">
-              Create an account
-            </Button>
-            <SignInWithGoogleButton />
-          </div>
-          <div className="mt-4 text-center text-sm">
-            Already have an account?{" "}
-            <Link href="/api/auth/signin?csrf=true" className="underline">
-              Sign in
-            </Link>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </motion.div>
     </form>
   );
 }

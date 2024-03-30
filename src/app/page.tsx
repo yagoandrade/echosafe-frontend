@@ -31,13 +31,13 @@ export default async function Home() {
                 <>
                   <Link
                     href={session ? "/api/auth/signout" : "/api/auth/register"}
-                    className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+                    className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20 cursor-default"
                   >
                     {session ? "Sign out" : "Sign up"}
                   </Link>
                   <Link
                     href={session ? "/api/auth/signout" : "/api/auth/signin"}
-                    className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
+                    className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20 cursor-default"
                   >
                     {session ? "Sign out" : "Sign in"}
                   </Link>

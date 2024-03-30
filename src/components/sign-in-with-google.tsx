@@ -5,7 +5,7 @@ const SignInWithGoogleButton = () => {
   return (
     <Button
       className="gap-x-2"
-      variant="outline"
+      variant="provider"
       onClick={() => signIn("google")}
     >
       <svg

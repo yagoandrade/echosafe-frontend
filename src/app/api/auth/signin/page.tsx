@@ -69,7 +69,7 @@ export default function SignInPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="me@example.com"
+                placeholder="Enter your email address..."
                 {...register("email", {
                   required: true,
                   pattern: {
@@ -104,7 +104,7 @@ export default function SignInPage() {
           </div>
           <div className="mt-4 text-center text-sm">
             Don&apos;t have an account yet?{" "}
-            <Link href="/api/auth/register" className="underline">
+            <Link href="/api/auth/register" className="underline cursor-default">
               Register here
             </Link>
           </div>
