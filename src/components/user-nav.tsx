@@ -22,10 +22,7 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="relative h-8 w-8 gap-x-3 rounded-full"
-        >
+        <Button variant="ghost" className="flex size-full gap-x-3">
           <Avatar className="h-9 w-9">
             <AvatarImage
               src={user?.image ?? ""}
