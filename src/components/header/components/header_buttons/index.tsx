@@ -13,7 +13,7 @@ const HeaderButtons = () => {
   return (
     <>
       <Link href="/" className="h-fit lg:min-w-fit">
-        <Image priority src={Logo} alt="Logo" width={180} height={180} />
+        <Image priority src={Logo} alt="Logo" width={150} height={150} />
       </Link>
 
       <section className="hidden w-fit gap-x-2 md:flex">
@@ -43,10 +43,10 @@ const HeaderContent = () => {
     <UserNav user={session?.user} />
   ) : (
     <>
-      <Button variant="primary" size="lg" onClick={handleSignIn}>
+      <Button variant="primary" size="sm" onClick={handleSignIn}>
         Log in
       </Button>
-      <Button variant="provider" size="lg" onClick={handleRegister}>
+      <Button variant="provider" size="sm" onClick={handleRegister}>
         Sign up
       </Button>
     </>

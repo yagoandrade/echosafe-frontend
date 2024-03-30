@@ -1,10 +1,16 @@
 import "@/styles/globals.css";
 
+import localFont from "next/font/local";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import Header from "@/components/header";
+
+const soehne = localFont({
+  src: "../../public/assets/fonts/soehne/soehne-var.woff2",
+  display: "swap",
+  variable: "--font-soehne",
+});
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`dark bg-gradient-to-b from-[#2a2b3a] to-[#191a23] font-sans ${inter.variable}`}
+        className={`dark bg-gradient-to-b from-[#2a2b3a] to-[#191a23] ${soehne.className}`}
       >
         <TRPCReactProvider>
           <Toaster />
