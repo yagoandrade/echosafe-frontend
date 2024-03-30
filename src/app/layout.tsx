@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import Header from "@/components/header";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,7 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans dark ${inter.variable}`}>
+      <body
+        className={`dark bg-gradient-to-b from-[#2a2b3a] to-[#191a23] font-sans ${inter.variable}`}
+      >
         <TRPCReactProvider>
           <Toaster />
           {children}

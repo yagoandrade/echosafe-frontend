@@ -54,7 +54,7 @@ export default function SignInPage() {
 
   return (
     <form
-      className="flex h-full min-h-screen w-full items-center justify-center bg-gradient-to-b from-[#2a2b3a] to-[#191a23]"
+      className="flex h-full min-h-screen w-full items-center justify-center"
       onSubmit={handleSubmit(onSubmit)}
     >
       <motion.div
