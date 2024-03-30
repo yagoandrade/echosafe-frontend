@@ -6,11 +6,11 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
-import bcrypt from "bcryptjs";
 
 import { env } from "@/env";
 import { db } from "@/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { validatePassword } from "util/server";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -26,11 +26,6 @@ declare module "next-auth" {
       // role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 /**
@@ -69,25 +64,43 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        if (!credentials) throw new Error("No credentials provided");
 
-        const user = await db.user.findUnique({
+      /**
+       * This function is used to authenticate a user.
+       *
+       * @param {Object} credentials - The credentials object should contain the user's email and password.
+       *
+       * @throws {Error} If no credentials are provided, an error is thrown.
+       * @throws {Error} If the provided email does not match any user in the database, an error is thrown.
+       *
+       * @returns {Promise<User | null>} The function returns a Promise that resolves to the authenticated user, or null if no user is found.
+       *
+       * @see https://next-auth.js.org/providers/credentials#authorize
+       */
+
+      async authorize(providedCredentials) {
+        if (!providedCredentials) throw new Error("No credentials provided");
+
+        // Find a user in the database with the provided email
+        const registeredUserInDB = await db.user.findUnique({
           where: {
-            email: credentials.email,
+            email: providedCredentials.email,
           },
         });
 
-        if (!user) throw new Error("Invalid credentials");
+        if (!registeredUserInDB) throw new Error("User not found");
+        if (!registeredUserInDB.password)
+          throw new Error("User password not set");
 
-        const isPasswordValid = await bcrypt.compare(
-          credentials.password,
-          user.password ?? "",
+        // Validate the provided password against the user's password in the database
+        const isPasswordValid = await validatePassword(
+          providedCredentials.password,
+          registeredUserInDB.password,
         );
 
-        if (!isPasswordValid) throw new Error("Invalid credentials");
+        if (!isPasswordValid) throw new Error("Incorrect password");
 
-        return user;
+        return registeredUserInDB;
       },
     }),
 
