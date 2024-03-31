@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export function CreateTask() {
+export function createTask() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("");
@@ -123,9 +123,9 @@ export function CreateTask() {
             type="submit"
             variant="secondary"
             className="rounded-full bg-white/10 px-10 py-3 font-semibold transition hover:bg-white/20"
-            disabled={CreateTask.isPending}
+            disabled={createTask.isPending}
           >
-            {CreateTask.isPending ? "Submitting..." : "Submit"}
+            {createTask.isPending ? "Submitting..." : "Submit"}
           </Button>
         </CardFooter>
       </Card>
