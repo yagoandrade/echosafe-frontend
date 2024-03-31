@@ -1,6 +1,6 @@
 "use client";
 
-import { SessionProvider, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { UserNav } from "../user-nav";
 import { motion } from "framer-motion";
@@ -14,14 +14,6 @@ import Search from "../search";
 import InviteTeamMembersCard from "../invite_team_members";
 
 const Sidemenu = () => {
-  return (
-    <SessionProvider>
-      <SidemenuContent />
-    </SessionProvider>
-  );
-};
-
-const SidemenuContent = () => {
   const { data: session } = useSession();
 
   const sideMenuDefaultClassName =

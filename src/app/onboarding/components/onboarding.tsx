@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Step from "./step";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { SessionProvider, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";
@@ -12,14 +12,6 @@ import { api } from "@/trpc/react";
 const STEP_LENGTH = 4;
 
 export default function Onboarding() {
-  return (
-    <SessionProvider>
-      <OnboardingContent />
-    </SessionProvider>
-  );
-}
-
-export function OnboardingContent() {
   const { data: session, status } = useSession();
   const router = useRouter();
 

@@ -5,7 +5,6 @@ import { api } from "@/trpc/react";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 
-import Link from "next/link";
 import SignInWithGoogleButton from "@/components/sign-in-with-google";
 
 import { Button } from "@/components/ui/button";

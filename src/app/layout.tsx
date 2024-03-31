@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 
 import { TRPCReactProvider } from "@/trpc/react";
+import Providers from "./providers";
 
 const soehne = localFont({
   src: "../../public/assets/fonts/soehne/soehne-var.woff2",
@@ -105,8 +106,10 @@ export default function RootLayout({
         className={`dark bg-gradient-to-b from-[#2a2b3a] to-[#191a23] ${soehne.className}`}
       >
         <TRPCReactProvider>
-          <Toaster />
-          {children}
+          <Providers>
+            <Toaster />
+            {children}
+          </Providers>
         </TRPCReactProvider>
       </body>
     </html>
