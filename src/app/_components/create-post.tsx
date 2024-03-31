@@ -23,7 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export function createTask() {
+export function CreateTask() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [status, setStatus] = useState("");
