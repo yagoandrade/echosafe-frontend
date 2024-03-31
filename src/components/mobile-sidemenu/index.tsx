@@ -1,7 +1,7 @@
 "use client";
 
 import { Menu, X } from "lucide-react";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import Logo from "@/../public/assets/svg/light-logo.svg";
 
@@ -38,7 +38,7 @@ const MobileSidemenu = ({ children }: MobileSidemenuProps) => {
               <Link href="/" className="m-auto h-fit">
                 <Image
                   priority
-                  src={Logo}
+                  src={Logo as StaticImageData} // Explicitly specify the type of the Logo variable
                   alt="Mock up logo"
                   width={150}
                   height={100}

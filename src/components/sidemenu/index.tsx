@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { UserNav } from "../user-nav";
 import { motion } from "framer-motion";
 
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 
 import Logo from "@/../public/assets/svg/light-logo.svg";
@@ -30,7 +30,13 @@ const Sidemenu = () => {
       <Card className="flex h-full w-full flex-col gap-y-3 border-0 bg-transparent">
         <CardHeader className="space-y-3">
           <Link href="/" className="mx-auto h-fit lg:min-w-fit">
-            <Image priority src={Logo} alt="Logo" width={150} height={150} />
+            <Image
+              priority
+              src={Logo as StaticImageData}
+              alt="Logo"
+              width={150}
+              height={150}
+            />
           </Link>
           <Search />
         </CardHeader>

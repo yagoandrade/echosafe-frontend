@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import Logo from "@/../public/assets/svg/light-logo.svg";
 
@@ -13,7 +13,7 @@ const HeaderButtons = () => {
   return (
     <>
       <Link href="/" className="h-fit lg:min-w-fit">
-        <Image priority src={Logo} alt="Logo" width={150} height={150} />
+        <Image priority src={Logo as StaticImageData} alt="Logo" width={150} height={150} />
       </Link>
 
       <section className="hidden w-fit gap-x-2 md:flex">

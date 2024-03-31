@@ -15,7 +15,7 @@ import Link from "next/link";
 
 interface UserNavProps {
   user: DefaultSession["user"];
-  isExtended: boolean;
+  isExtended?: boolean;
 }
 
 export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
