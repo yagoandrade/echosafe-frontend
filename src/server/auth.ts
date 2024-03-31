@@ -6,7 +6,7 @@ import {
 } from "next-auth";
 import { type Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
-
+import { type User } from "@prisma/client";
 import { env } from "@/env";
 import { db } from "@/server/db";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -22,6 +22,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      onboardingCompleted: boolean;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -40,12 +41,14 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     session: async ({ session, user }) => {
+      console.log(user);
       if (user) {
-        session.user = {
-          ...session.user,
-          id: user.id,
-        };
+        session.user.id = user.id;
+        session.user.onboardingCompleted = (user as User).onboardingCompleted;
       }
+
+      console.log("session", session);
+
       return session;
     },
   },

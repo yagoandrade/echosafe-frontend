@@ -20,10 +20,10 @@ export default function Onboarding() {
 }
 
 export function OnboardingContent() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
 
-  if (status === "unauthenticated") {
+  if (status === "unauthenticated" || session?.user?.onboardingCompleted) {
     window.location.href = "/";
   }
 
@@ -34,6 +34,7 @@ export function OnboardingContent() {
 
   // Store the step in localStorage whenever it changes
   useEffect(() => {
+    console.log(session?.user);
     localStorage.setItem("onboardingStep", String(step));
   }, [step]);
 
@@ -68,7 +69,7 @@ export function OnboardingContent() {
       {step === 1 && (
         <section>
           <h2 className="mt-8 px-8 text-2xl font-semibold">
-            Welcome to ThePlatform™
+            Welcome to ThePlatform™, {session?.user.name}
           </h2>
           <p className="mt-2 px-8 text-neutral-400">
             Welcome to ThePlatform™. Let&apos;s get started by setting up your

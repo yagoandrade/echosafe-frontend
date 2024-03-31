@@ -9,7 +9,7 @@ const OnboardingPage = async () => {
   return (
     <main className={`flex justify-center text-white ${pageHeight}`}>
       <div className="container flex flex-col gap-12 px-4 py-12">
-        {session && <Onboarding />}
+        <Onboarding />
       </div>
     </main>
   );
