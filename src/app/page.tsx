@@ -8,9 +8,7 @@ import Dashboard from "@/components/dashboard";
 export default async function Home() {
   const session = await getServerAuthSession();
 
-  const pageHeight = !session?.user.name
-    ? "min-h-[calc(100vh-4rem)]"
-    : "min-h-screen";
+  const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 
   return (
     <>

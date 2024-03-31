@@ -30,7 +30,7 @@ export function CreateTask() {
   const [label, setLabel] = useState("");
   const [priority, setPriority] = useState("");
 
-  const CreateTask: ReturnType<typeof api.post.create.useMutation> =
+  const createTask: ReturnType<typeof api.post.create.useMutation> =
     api.post.create.useMutation({
       onSuccess: () => {
         router.refresh();
@@ -45,7 +45,7 @@ export function CreateTask() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        CreateTask.mutate({ title, status, label, priority });
+        createTask.mutate({ title, status, label, priority });
       }}
     >
       <Card>

@@ -53,6 +53,18 @@ export const postRouter = createTRPCRouter({
     return "you can now see this secret message!";
   }),
 
+  finishOnboarding: protectedProcedure.mutation(async ({ ctx }) => {
+    if (!ctx.session.user.email)
+      throw new Error("You must be logged in to finish onboarding");
+
+    const user = await ctx.db.user.update({
+      where: { email: ctx.session.user.email },
+      data: { onboardingCompleted: true },
+    });
+
+    return user;
+  }),
+
   registerUser: publicProcedure
     .input(
       z.object({ name: z.string(), email: z.string(), password: z.string() }),
