@@ -12,28 +12,47 @@ import { api } from "@/trpc/react";
 const STEP_LENGTH = 4;
 
 export default function Onboarding() {
-  const { data: session, status } = useSession();
   const router = useRouter();
+  const { data: session, status, update } = useSession();
 
-  if (status === "unauthenticated" || session?.user?.onboardingCompleted) {
+  const [isFinishingOnboarding, setIsFinishingOnboarding] = useState(false);
+
+  if (
+    typeof window !== "undefined" &&
+    status === "unauthenticated" &&
+    !session
+  ) {
+    alert("This was called HEREEE");
     window.location.href = "/";
   }
 
   // Retrieve the step from localStorage or default to 1
-  const [step, setStep] = useState(
-    () => Number(localStorage.getItem("onboardingStep")) || 1,
+  const [step, setStep] = useState(() =>
+    typeof window !== "undefined"
+      ? Number(window.localStorage.getItem("onboardingStep")) || 1
+      : 1,
   );
+
+  if (
+    status === "authenticated" &&
+    session?.user?.isOnboarded &&
+    !isFinishingOnboarding
+  ) {
+    alert("WTF HERE THIS 3");
+    window.location.href = "/";
+  }
 
   // Store the step in localStorage whenever it changes
   useEffect(() => {
-    console.log(session?.user);
     localStorage.setItem("onboardingStep", String(step));
   }, [step]);
 
   const finishOnboarding: ReturnType<
     typeof api.post.finishOnboarding.useMutation
   > = api.post.finishOnboarding.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
+      setIsFinishingOnboarding(true);
+      await update({ isOnboarded: true });
       localStorage.removeItem("onboardingStep");
       toast.success("Onboarding complete! Welcome to ThePlatform™");
       router.push("/");
@@ -117,12 +136,8 @@ export default function Onboarding() {
             Back
           </Button>
           {step > STEP_LENGTH ? (
-            <Button
-              variant="provider"
-              onClick={handleCompleteOnboarding}
-              asChild
-            >
-              <Link href="/">Go to ThePlatform™</Link>
+            <Button variant="provider" onClick={handleCompleteOnboarding}>
+              Go to ThePlatform™
             </Button>
           ) : (
             <Button

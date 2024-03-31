@@ -24,7 +24,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      onboardingCompleted: boolean;
+      isOnboarded: boolean;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -42,11 +42,22 @@ export const authOptions: NextAuthOptions = {
     newUser: "/auth/register",
   },
   callbacks: {
-    session: async ({ session, user }) => {
-      if (user) {
-        session.user.id = user.id;
-        session.user.onboardingCompleted = (user as User).onboardingCompleted;
+    async jwt({ token, user, trigger, session }) {
+      if (user) token.isOnboarded = (user as User).isOnboarded;
+      if (typeof session === "undefined") return token;
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const isOnboardedVariable = session?.isOnboarded as boolean;
+
+      if (trigger === "update" && isOnboardedVariable) {
+        token.isOnboarded = isOnboardedVariable;
       }
+
+      return token;
+    },
+    session: async ({ session, token, user }) => {
+      if (user) session.user.id = user.id;
+      if (token) session.user.isOnboarded = token.isOnboarded as boolean;
 
       return session;
     },

@@ -59,7 +59,7 @@ export const postRouter = createTRPCRouter({
 
     const user = await ctx.db.user.update({
       where: { email: ctx.session.user.email },
-      data: { onboardingCompleted: true },
+      data: { isOnboarded: true },
     });
 
     return user;

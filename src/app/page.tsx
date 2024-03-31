@@ -4,9 +4,12 @@ import Header from "@/components/header";
 import Sidemenu from "@/components/sidemenu";
 import LandingPage from "@/components/landing-page";
 import Dashboard from "@/components/dashboard";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await getServerAuthSession();
+
+  if (session?.user && !session?.user.isOnboarded) redirect("/onboarding");
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 
