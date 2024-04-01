@@ -20,7 +20,7 @@ export default async function BillingPage() {
     redirect("/api/auth/signin?csrf=true");
   }
 
-  const subscriptionPlan = await getUserSubscriptionPlan(session.user.id);
+  const subscriptionPlan = await getUserSubscriptionPlan(session.user.email!);
 
   return (
     <DashboardShell>

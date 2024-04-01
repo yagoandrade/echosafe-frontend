@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Step from "./step";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -38,7 +37,6 @@ export default function Onboarding() {
     session?.user?.isOnboarded &&
     !isFinishingOnboarding
   ) {
-    alert("WTF HERE THIS 3");
     window.location.href = "/";
   }
 

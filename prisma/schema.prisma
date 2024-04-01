@@ -44,9 +44,12 @@ model Account {
     scope             String?
     id_token          String? // @db.Text
     session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@index([userId])
+    @@map(name: "accounts")
 }
 
 model Session {
@@ -55,6 +58,9 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId])
+    @@map(name: "sessions")
 }
 
 model User {
@@ -75,6 +81,8 @@ model User {
     stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
 
     posts Post[]
+
+    @@map(name: "users")
 }
 
 model VerificationToken {
@@ -83,4 +91,5 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+    @@map(name: "verification_tokens")
 }

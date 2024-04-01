@@ -14,10 +14,11 @@ export async function POST(req: Request) {
     event = stripe.webhooks.constructEvent(
       body,
       signature,
-      process.env.STRIPE_WEBHOOK_SECRET,
+      process.env.STRIPE_WEBHOOK_SECRET!,
     );
   } catch (error) {
-    return new Response(`Webhook Error: ${error.message}`, { status: 400 });
+    const err = error as Error;
+    return new Response(`Webhook Error: ${err.message}`, { status: 400 });
   }
 
   const session = event.data.object as Stripe.Checkout.Session;
@@ -31,9 +32,10 @@ export async function POST(req: Request) {
     // Update the user stripe into in our database.
     // Since this is the initial subscription, we need to update
     // the subscription id and customer id.
+
     await db.user.update({
       where: {
-        id: session?.metadata?.userId,
+        email: session?.metadata?.userEmail,
       },
       data: {
         stripeSubscriptionId: subscription.id,
@@ -58,7 +60,7 @@ export async function POST(req: Request) {
         stripeSubscriptionId: subscription.id,
       },
       data: {
-        stripePriceId: subscription.items.data[0].price.id,
+        stripePriceId: subscription.items.data[0]?.price?.id ?? "",
         stripeCurrentPeriodEnd: new Date(
           subscription.current_period_end * 1000,
         ),

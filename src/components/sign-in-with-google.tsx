@@ -8,7 +8,7 @@ const SignInWithGoogleButton = () => {
       variant="provider"
       onClick={(e) => {
         e.preventDefault();
-        void signIn("google");
+        void signIn("google", { redirect: true, callbackUrl: "/" });
       }}
     >
       <svg

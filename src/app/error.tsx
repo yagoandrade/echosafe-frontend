@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 
 export default function ErrorPage({
-  error,
+  _error,
   reset,
 }: Readonly<{
-  error: Error & { digest?: string };
+  _error: Error & { digest?: string };
   reset: () => void;
 }>) {
   return (

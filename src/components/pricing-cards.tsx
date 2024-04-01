@@ -12,7 +12,7 @@ import { HeaderSection } from "@/components/shared/header-section";
 import { Check, X } from "lucide-react";
 
 interface PricingCardsProps {
-  userEmail?: string;
+  userEmail: string | undefined | null;
   subscriptionPlan?: UserSubscriptionPlan;
 }
 
@@ -21,9 +21,8 @@ export function PricingCards({
   subscriptionPlan,
 }: PricingCardsProps) {
   const isYearlyDefault =
-    !subscriptionPlan?.interval || subscriptionPlan.interval === "year"
-      ? true
-      : false;
+    !subscriptionPlan?.interval || subscriptionPlan.interval === "year";
+
   const [isYearly, setIsYearly] = useState<boolean>(!!isYearlyDefault);
 
   const toggleBilling = () => {

@@ -1,4 +1,4 @@
-import { InfoLdg } from "types";
+import { type InfoLdg } from "types";
 
 export const infos: InfoLdg[] = [
   {

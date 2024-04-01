@@ -17,7 +17,7 @@ const billingUrl = absoluteUrl("/pricing");
 export async function generateUserStripe(
   priceId: string,
 ): Promise<responseAction> {
-  let redirectUrl: string = "";
+  let redirectUrl = "";
 
   try {
     const session = await getServerAuthSession();
@@ -36,7 +36,7 @@ export async function generateUserStripe(
         return_url: billingUrl,
       });
 
-      redirectUrl = stripeSession.url as string;
+      redirectUrl = stripeSession.url;
     } else {
       // User on Free Plan - Create a checkout session to upgrade.
       console.log(`here 2`);
@@ -59,7 +59,7 @@ export async function generateUserStripe(
         },
       });
 
-      redirectUrl = stripeSession.url as string;
+      redirectUrl = stripeSession.url!;
     }
   } catch (error) {
     console.log(error);

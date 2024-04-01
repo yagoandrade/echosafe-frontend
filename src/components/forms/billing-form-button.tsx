@@ -2,7 +2,7 @@
 
 import { generateUserStripe } from "@/actions/generate-user-stripe";
 import { Button } from "@/components/ui/button";
-import { type SubscriptionPlan, type UserSubscriptionPlan } from "@/types";
+import { type SubscriptionPlan, type UserSubscriptionPlan } from "types";
 import { Loader } from "lucide-react";
 import { useTransition } from "react";
 
@@ -17,14 +17,18 @@ export function BillingFormButton({
   offer,
   subscriptionPlan,
 }: BillingFormButtonProps) {
-  let [isPending, startTransition] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const generateUserStripeSession = generateUserStripe.bind(
     null,
-    offer.stripeIds[year ? "yearly" : "monthly"],
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+    offer.stripeIds[year ? "yearly" : "monthly"]!,
   );
 
   const stripeSessionAction = () =>
-    startTransition(async () => await generateUserStripeSession());
+    startTransition(async (): Promise<void> => {
+      await generateUserStripeSession();
+      return;
+    });
 
   return (
     <Button

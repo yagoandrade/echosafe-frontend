@@ -18,9 +18,11 @@ const SignInWithMagicLink = () => {
     formState: { errors },
   } = useForm<LoginWithMagicLinkData>();
 
-  const onSubmit = async (data: LoginWithMagicLinkData) => {
+  const onSubmit = async (inputData: LoginWithMagicLinkData) => {
+    /* TODO: Add verification for when a user's account is not registered, then turn it back on */
+
     await signIn("email", {
-      ...data,
+      ...inputData,
       callbackUrl: "/",
       redirect: false,
     })

@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ChevronRight, Sticker } from "lucide-react";
 import Link from "next/link";
-import ReportCard, { ReportCardTypes } from "../report_card";
+import ReportCard, { type ReportCardTypes } from "../report_card";
 import {
   Card,
   CardContent,

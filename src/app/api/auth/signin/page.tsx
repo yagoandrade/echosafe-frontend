@@ -13,13 +13,11 @@ import SignInWithGoogleButton from "@/components/sign-in-with-google";
 
 import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
-import SignInWithMagicLink from "@/components/sign-in-with-magic-link";
 import SignInWithCredentials from "@/components/sign-in-with-credentials";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function SignInPage() {
-  const [selectedProvider, setSelectedProvider] = useState<
+  const [selectedProvider, _setSelectedProvider] = useState<
     "credentials" | "email"
   >("credentials");
 
@@ -48,7 +46,9 @@ export default function SignInPage() {
             <SignInWithGoogleButton />
             <Separator />
             {selectedProvider === "credentials" && <SignInWithCredentials />}
-            {selectedProvider === "email" && <SignInWithMagicLink />}
+            {/*
+            TODO: Add verification for when a user's account is not registered, then turn it back on
+            {selectedProvider === "email" && <SignInWithMagicLink />} */}
           </div>
           <div className="mt-4 flex flex-col gap-y-1 text-sm text-[#7f8093]">
             {/* <span className="mb-2">
@@ -62,8 +62,9 @@ export default function SignInPage() {
               .
             </span> */}
 
+            {/*
+            TODO: Add verification for when a user's account is not registered, then turn it back on
             <Separator />
-
             {selectedProvider === "credentials" ? (
               <Button
                 variant="link"
@@ -82,7 +83,7 @@ export default function SignInPage() {
               >
                 Sign in with email and password
               </Button>
-            )}
+            )} */}
           </div>
         </CardContent>
       </Card>
