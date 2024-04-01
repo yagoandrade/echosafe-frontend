@@ -1,6 +1,6 @@
 "use client";
 
-import useScrollDirection from "hooks/useScrollDirection";
+import useScrollDirection from "@/hooks/useScrollDirection";
 import { cn } from "@/lib/utils";
 import HeaderButtons from "./components/header_buttons";
 
