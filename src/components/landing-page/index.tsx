@@ -1,11 +1,8 @@
 "use client";
 import localFont from "next/font/local";
 import Image from "next/image";
-import LightLogo from "@/../public/assets/svg/light-logo.svg";
 
 import LandingPageImage1 from "@/../public/assets/images/landing-page-image-1.png";
-
-import TwitterSvg from "@/../public/assets/svg/twitter.svg";
 
 import LandingPageGradientBackground from "./gradient_background";
 import { ChevronRight } from "lucide-react";
@@ -100,7 +97,7 @@ const LandingPage = () => {
                 className="text-3xl font-bold"
                 style={recoletaBlack.style}
               >
-                As seen on
+                EchoSafe® technology is trusted by
               </CardTitle>
             </CardHeader>
             <CardContent>
