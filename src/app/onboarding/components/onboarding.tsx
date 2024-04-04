@@ -68,7 +68,7 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-lg bg-[#20212e] shadow-xl">
+    <div className="mx-auto w-full max-w-md rounded-lg shadow-xl dark:bg-[#20212e]">
       <div className="flex justify-between rounded p-8">
         {Array.from({ length: STEP_LENGTH }, (_, i) => (
           <Step key={i} step={i + 1} currentStep={step} />
@@ -77,7 +77,7 @@ export default function Onboarding() {
 
       {step === 1 && (
         <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold">
+          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
             Welcome to ThePlatform™, {session?.user.name}
           </h2>
           <p className="mt-2 px-8 text-neutral-400">
@@ -92,7 +92,9 @@ export default function Onboarding() {
 
       {step === 2 && (
         <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold">Step 2</h2>
+          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
+            Step 2
+          </h2>
           <p className="mt-2 px-8 text-neutral-400">
             This is the second step. Click continue to go to the next step.
           </p>
@@ -101,7 +103,9 @@ export default function Onboarding() {
 
       {step === 3 && (
         <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold">Step 3</h2>
+          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
+            Step 3
+          </h2>
           <p className="mt-2 px-8 text-neutral-400">
             This is the third step. Click continue to go to the next step.
           </p>
@@ -110,14 +114,18 @@ export default function Onboarding() {
 
       {step === 4 && (
         <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold">Step 4</h2>
+          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
+            Step 4
+          </h2>
           <p className="mt-2 px-8 text-neutral-400">This is the fourth step.</p>
         </section>
       )}
 
       {step === 5 && (
         <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold">Done!</h2>
+          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
+            Done!
+          </h2>
           <p className="mt-2 px-8 text-neutral-400">
             You are done! Click go to ThePlatform™ to finish.
           </p>

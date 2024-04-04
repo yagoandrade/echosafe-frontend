@@ -16,9 +16,9 @@ export default async function Home() {
   return (
     <>
       {!session && <Header />}
-      <main className={`flex justify-center text-white ${pageHeight}`}>
+      <main className={`flex justify-center ${pageHeight}`}>
         {session && <Sidemenu />}
-        <div className="container flex flex-col justify-center gap-12 px-4 py-12">
+        <div className="container flex flex-col justify-center gap-12 px-12 py-12">
           {session ? <Dashboard /> : <LandingPage />}
         </div>
       </main>

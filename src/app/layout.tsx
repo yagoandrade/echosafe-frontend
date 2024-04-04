@@ -98,7 +98,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body
-        className={`dark bg-gradient-to-b from-[#2a2b3a] to-[#191a23] ${soehne.className}`}
+        className={`bg-white dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23] ${soehne.className}`}
       >
         <TRPCReactProvider>
           <Providers>

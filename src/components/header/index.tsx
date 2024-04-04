@@ -16,7 +16,7 @@ const Header = () => {
     <header
       className={cn(
         isScrollingDown ? hiddenHeaderClasses : showingHeaderClasses,
-        "border-b border-[#121212]/30 px-4 backdrop-blur lg:px-12 xl:px-32 2xl:gap-x-12 2xl:px-80",
+        "border-b border-[#e5e6e9] px-4 backdrop-blur dark:border-[#121212]/30 lg:px-12 xl:px-32 2xl:gap-x-12 2xl:px-80",
       )}
     >
       {/* TODO: Make this better */}

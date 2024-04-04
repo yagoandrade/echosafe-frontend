@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from "next/image";
 
 const LaurelRatings = () => {
   return (
-    <div className="relative table invert dark:text-black">
+    <div className="relative table dark:invert dark:text-black">
       <Image
         priority
         src={Laurel as StaticImageData}
@@ -14,7 +14,7 @@ const LaurelRatings = () => {
       />
 
       <div className="absolute top-0 w-full space-y-0.5 text-center">
-        <p className="w-full text-sm">#1 Tech Community</p>
+        <p className="w-full text-sm">#1 Tech for Schools</p>
         <span className="flex w-full justify-center gap-x-1">
           <Star color="black" fill="black" size="1.2rem" />
           <Star color="black" fill="black" size="1.2rem" />
@@ -22,7 +22,7 @@ const LaurelRatings = () => {
           <Star color="black" fill="black" size="1.2rem" />
           <Star color="black" fill="black" size="1.2rem" />
         </span>
-        <p className="w-full text-[10px] uppercase">Since 2022</p>
+        <p className="w-full text-[10px] uppercase">Since 2023</p>
       </div>
     </div>
   );

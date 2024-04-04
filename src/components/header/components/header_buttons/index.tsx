@@ -1,21 +1,30 @@
 "use client";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import Logo from "@/../public/assets/svg/light-logo.svg";
+import Logo from "@/../public/assets/svg/logo.svg";
+import LightLogo from "@/../public/assets/svg/light-logo.svg";
 
 import { Button } from "@/components/ui/button";
 import { UserNav } from "@/components/user-nav";
 import { useSession } from "next-auth/react";
 import MobileSidemenu from "@/components/mobile-sidemenu";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 
 const HeaderButtons = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+  const { theme } = useTheme();
+
   return (
     <>
       <Link href="/" className="h-fit lg:min-w-fit">
         <Image
           priority
-          src={Logo as StaticImageData}
+          src={
+            theme === "dark"
+              ? (LightLogo as StaticImageData)
+              : (Logo as StaticImageData)
+          }
           alt="Logo"
           width={150}
           height={150}
@@ -52,7 +61,7 @@ const HeaderContent = () => {
       <Button variant="link" size="sm" onClick={handleSignIn}>
         Billing
       </Button>
-      <Button variant="primary" size="sm" onClick={handleSignIn}>
+      <Button variant="link" size="sm" onClick={handleSignIn}>
         Log in
       </Button>
       <Button variant="provider" size="sm" onClick={handleRegister}>

@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { getGPUTier } from "detect-gpu";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -67,4 +68,9 @@ export function capitalize(str: string) {
 export const truncate = (str: string, length: number) => {
   if (!str || str.length <= length) return str;
   return `${str.slice(0, length)}...`;
+};
+
+export const isHardwareAccelerationEnabled = async () => {
+  const gpuTier = await getGPUTier();
+  return gpuTier.tier >= 2;
 };
