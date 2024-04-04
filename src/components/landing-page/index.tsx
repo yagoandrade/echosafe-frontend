@@ -45,16 +45,16 @@ const LandingPage = () => {
                   💬 <u>100% Anonymous reporting</u> for all students
                 </p>
                 <p>
+                  🤖 <u>Respond better to students</u> with a specialized AI to
+                  auxiliate you
+                </p>
+                <p>
                   ❤️ <u>Get Psychological support</u> for impacted victims
                 </p>
                 {/* <p>
                   ❤️ <u>Identify the signs, mitigate risks,</u> and be proactive
                   in protecting each student
                 </p> */}
-                <p>
-                  🤖 <u>Respond better to students</u> with a specialized AI to
-                  auxiliate you
-                </p>
                 <p>
                   📈 <u>Keep track of recent occurrences</u> and talk directly
                   to the students involved

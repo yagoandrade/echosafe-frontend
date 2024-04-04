@@ -61,9 +61,11 @@ const HeaderContent = () => {
       <Button variant="link" size="sm" onClick={handleSignIn}>
         Billing
       </Button>
+      {/*
+        // Log in removed from here, as it's already part of the TopBar component
       <Button variant="link" size="sm" onClick={handleSignIn}>
         Log in
-      </Button>
+      </Button> */}
       <Button variant="provider" size="sm" onClick={handleRegister}>
         Sign up
       </Button>
