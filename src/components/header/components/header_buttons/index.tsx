@@ -26,8 +26,8 @@ const HeaderButtons = () => {
               : (Logo as StaticImageData)
           }
           alt="Logo"
-          width={150}
-          height={150}
+          width={130}
+          height={130}
         />
       </Link>
 
@@ -61,6 +61,7 @@ const HeaderContent = () => {
       <Button variant="link" size="sm" onClick={handleSignIn}>
         Billing
       </Button>
+
       {/*
         // Log in removed from here, as it's already part of the TopBar component
       <Button variant="link" size="sm" onClick={handleSignIn}>

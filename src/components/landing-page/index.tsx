@@ -16,6 +16,15 @@ import UdemyLogo from "@/../public/assets/svg/Udemy_light.svg";
 import GithubLogo from "@/../public/assets/svg/github-wordmark.svg";
 import IBMLogo from "@/../public/assets/svg/ibm.svg";
 import CloudflareLogo from "@/../public/assets/svg/cloudflare.svg";
+import { ContainerScroll } from "../ui/container-scroll-animation";
+import dynamic from "next/dynamic";
+import { globeConfig, sampleArcs } from "./config";
+import { motion } from "framer-motion";
+import { ContentGrid } from "./content-grid";
+
+const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
+  ssr: false,
+});
 
 const recoletaBlack = localFont({
   src: "../../../public/assets/fonts/recoleta/recoleta-black.woff2",
@@ -94,14 +103,14 @@ const LandingPage = () => {
         </section>
 
         <section>
-          <Card className="my-4 rounded-2xl bg-white shadow-lg">
+          <Card className="my-4 rounded-2xl bg-white shadow-lg dark:border-[#2d4351] dark:bg-[#1e2c3a]">
             <CardHeader className="text-start">
               <CardTitle className="text-base font-light text-[#656565]">
                 Trusted by students and institutions worldwide
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="mx-auto grid max-w-3xl gap-6 text-center text-center grayscale md:gap-8 lg:max-w-none lg:grid-cols-6">
+              <div className="mx-auto grid max-w-3xl gap-6 text-center text-center grayscale dark:grayscale-0 md:gap-8 lg:max-w-none lg:grid-cols-6">
                 <Image
                   className="mx-auto my-auto h-auto max-h-[50px] w-fit max-w-[150px] object-contain"
                   src={GoogleLogo as StaticImageData}
@@ -213,7 +222,74 @@ const LandingPage = () => {
           </Card>
         </section>
 
-        
+        <section>
+          <ContainerScroll
+            titleComponent={
+              <h1 className="text-4xl font-semibold text-black dark:text-white">
+                Everything related to your institution <br />
+                <span className="mt-1 text-4xl font-bold leading-none md:text-[6rem]">
+                  In One Place
+                </span>
+              </h1>
+            }
+          >
+            <Image
+              src="https://echosafe-images-bucket.s3.sa-east-1.amazonaws.com/echosafe.png"
+              alt="hero"
+              height={720}
+              width={1400}
+              className="mx-auto h-full rounded-2xl object-cover object-left-top"
+              draggable={false}
+            />
+          </ContainerScroll>
+        </section>
+
+        <section className="space-y-6">
+          <span className="max-w-xl space-y-3 text-center font-light">
+            <h3 className="text-4xl font-semibold">
+              What your institution needs
+            </h3>
+            <p className="text-xl">
+              EchoSafe® is a comprehensive solution to help you prevent
+              bullying and violence in your institution. We provide you with the
+              tools to detect, act, and prevent incidents in a safe and
+              inclusive environment.
+            </p>
+          </span>
+
+          <ContentGrid />
+        </section>
+
+        {/* <section className="relative flex h-screen w-full flex-col items-center justify-center bg-white py-20 dark:bg-black md:h-auto">
+          <div className="relative mx-auto h-full w-full max-w-7xl overflow-hidden px-4 md:h-[40rem]">
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: 0,
+              }}
+              transition={{
+                duration: 1,
+              }}
+              className="div"
+            >
+              <h2 className="text-center text-xl font-bold text-black dark:text-white md:text-4xl">
+                We are available worldwide
+              </h2>
+              <p className="mx-auto mt-2 max-w-md text-center text-base font-normal text-neutral-700 dark:text-neutral-200 md:text-lg">
+                It doesn&apos;t matter where your institution is located, we are
+                here to help you. EchoSafe® is available in multiple languages
+              </p>
+            </motion.div>
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-40 w-full select-none bg-gradient-to-b from-transparent to-white dark:to-black" />
+            <div className="absolute -bottom-20 z-10 h-72 w-full md:h-full">
+              <World data={sampleArcs} globeConfig={globeConfig} />;
+            </div>
+          </div>
+        </section> */}
 
         <section className="flex w-full flex-col items-center justify-center gap-y-16 py-12">
           <span className="space-y-3 text-center text-6xl font-light leading-10">

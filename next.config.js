@@ -15,7 +15,15 @@ const config = {
       },
       {
         protocol: "https",
+        hostname: "source.boringavatars.com",
+      },
+      {
+        protocol: "https",
         hostname: "i.imgflip.com",
+      },
+      {
+        protocol: "https",
+        hostname: "github.com",
       },
     ],
   },

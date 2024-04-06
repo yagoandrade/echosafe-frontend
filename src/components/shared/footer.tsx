@@ -12,7 +12,7 @@ const Footer = () => {
             EchoSafe® Technology - Built Worldwide
           </Link>
           <span className="text-[#9c9da1]">
-            © {new Date().getFullYear()} EchoSafe®. All rights reserved.
+            © {new Date().getFullYear()} EchoSafe® All rights reserved.
           </span>
         </div>
 
