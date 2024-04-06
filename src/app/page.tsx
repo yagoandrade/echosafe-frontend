@@ -5,6 +5,7 @@ import Sidemenu from "@/components/sidemenu";
 import LandingPage from "@/components/landing-page";
 import Dashboard from "@/components/dashboard";
 import { redirect } from "next/navigation";
+import Footer from "@/components/shared/footer";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -22,6 +23,7 @@ export default async function Home() {
           {session ? <Dashboard /> : <LandingPage />}
         </div>
       </main>
+      {!session && <Footer />}
     </>
   );
 }
