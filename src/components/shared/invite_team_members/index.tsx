@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent, CardHeader } from "../../ui/card";
 import InviteTeamMembers from "@/../public/assets/images/team_people.png";
 
 const InviteTeamMembersCard = () => {

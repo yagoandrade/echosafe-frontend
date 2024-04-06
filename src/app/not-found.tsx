@@ -3,7 +3,7 @@
 import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { MoveRight } from "lucide-react";
-import Header from "@/components/header";
+import Header from "@/components/shared/header";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";

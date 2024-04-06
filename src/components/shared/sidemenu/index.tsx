@@ -1,15 +1,15 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
-import { UserNav } from "../user-nav";
+import { Card, CardContent, CardFooter, CardHeader } from "../../ui/card";
+import { UserNav } from "../../user-nav";
 import { motion } from "framer-motion";
 
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 
 import Logo from "@/../public/assets/svg/light-logo.svg";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import Search from "../search";
 import InviteTeamMembersCard from "../invite_team_members";
 

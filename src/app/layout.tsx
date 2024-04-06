@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import Providers from "./providers";
+import Providers from "./_components/providers";
 
 const soehne = localFont({
   src: "../../public/assets/fonts/soehne/soehne-var.woff2",

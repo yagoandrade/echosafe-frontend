@@ -10,7 +10,7 @@ import {
   getColorFromCode,
   getIconFromCode,
   getStatusFromCode,
-} from "@/components/report_card/utils";
+} from "@/components/reports/report_card/utils";
 
 export function ContentGrid() {
   return (

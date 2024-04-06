@@ -21,7 +21,6 @@ export default function Onboarding() {
     status === "unauthenticated" &&
     !session
   ) {
-    alert("This was called HEREEE");
     window.location.href = "/";
   }
 

@@ -1,5 +1,5 @@
 import { Search as SearchIcon } from "lucide-react";
-import { Input } from "../ui/input";
+import { Input } from "../../ui/input";
 
 const Search = () => {
   return (

@@ -1,7 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 
-import Header from "@/components/header";
-import Sidemenu from "@/components/sidemenu";
+import Header from "@/components/shared/header";
+import Sidemenu from "@/components/shared/sidemenu";
 import LandingPage from "@/components/landing-page";
 import Dashboard from "@/components/dashboard";
 import { redirect } from "next/navigation";

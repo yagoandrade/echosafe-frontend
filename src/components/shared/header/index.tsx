@@ -1,15 +1,17 @@
 "use client";
 
-import useScrollDirection from "@/hooks/useScrollDirection";
 import { cn } from "@/lib/utils";
 import HeaderButtons from "./components/header_buttons";
-import TopBar from "../shared/top-bar";
+import TopBar from "../top-bar";
 
 const Header = () => {
+  /*
+  // Removed because it's not used
   const isScrollingDown = useScrollDirection();
 
   const hiddenHeaderClasses =
     "sticky h-12 flex inset-x-0 top-0 z-20 ease-in-out duration-500 transition-transform -translate-y-full items-center justify-between w-full gap-x-2 top-0 z-50";
+ */
   const showingHeaderClasses =
     "sticky h-12 flex inset-x-0 top-0 z-20 ease-in-out duration-500 transition-transform translate-y-0 items-center justify-between w-full gap-x-2 top-0 z-50";
 

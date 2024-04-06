@@ -21,6 +21,7 @@ import dynamic from "next/dynamic";
 import { globeConfig, sampleArcs } from "./config";
 import { motion } from "framer-motion";
 import { ContentGrid } from "./content-grid";
+import { Spotlight } from "../ui/spotlight";
 
 const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
   ssr: false,
@@ -225,7 +226,7 @@ const LandingPage = () => {
         <section>
           <ContainerScroll
             titleComponent={
-              <h1 className="text-4xl font-semibold text-black dark:text-white">
+              <h1 className="text-4xl font-light text-black dark:text-white">
                 Everything related to your institution <br />
                 <span className="mt-1 text-4xl font-bold leading-none md:text-[6rem]">
                   In One Place
@@ -244,16 +245,17 @@ const LandingPage = () => {
           </ContainerScroll>
         </section>
 
-        <section className="space-y-6">
-          <span className="max-w-xl space-y-3 text-center font-light">
-            <h3 className="text-4xl font-semibold">
-              What your institution needs
+        <section className="relative mx-auto max-w-5xl space-y-8">
+          <span className="w-full space-y-4 text-center font-light">
+            <h3 className="text-6xl font-light">
+              The future of school safety is here
             </h3>
-            <p className="text-xl">
+            <p className="text-xl font-extralight">
               EchoSafe® is a comprehensive solution to help you prevent
-              bullying and violence in your institution. We provide you with the
-              tools to detect, act, and prevent incidents in a safe and
-              inclusive environment.
+              bullying in your institution.
+              <br />
+              We provide you with the tools to detect, act, and prevent
+              incidents in a safe environment.
             </p>
           </span>
 

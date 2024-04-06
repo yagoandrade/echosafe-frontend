@@ -3,7 +3,7 @@ import { columns } from "../columns";
 import { DataTable } from "../data-table";
 import { CreateTask } from "@/app/_components/create-post";
 import { getServerAuthSession } from "@/server/auth";
-import RecentReports from "../recent_reports";
+import RecentReports from "../reports/recent_reports";
 
 async function Dashboard() {
   const session = await getServerAuthSession();
