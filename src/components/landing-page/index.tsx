@@ -36,7 +36,7 @@ const LandingPage = () => {
   return (
     <>
       <LandingPageGradientBackground />
-      <main className="space-y-8 px-4 py-12">
+      <main className="space-y-8 px-4 py-4 2xl:py-12">
         <section className="grid grid-cols-1 items-center gap-4 lg:grid-cols-12">
           <div className="col-span-6 space-y-6 opacity-90">
             <div className="space-y-3.5">
@@ -104,7 +104,7 @@ const LandingPage = () => {
         </section>
 
         <section>
-          <Card className="my-4 rounded-2xl bg-white shadow-lg dark:border-[#2d4351] dark:bg-[#1e2c3a]">
+          <Card className="my-4 rounded-2xl bg-white shadow-lg dark:border-[#2d4351] dark:bg-[#1e2c3a] space-y-0">
             <CardHeader className="text-start">
               <CardTitle className="text-base font-light text-[#656565]">
                 Trusted by students and institutions worldwide
