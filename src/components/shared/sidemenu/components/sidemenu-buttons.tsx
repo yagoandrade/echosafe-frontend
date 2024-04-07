@@ -1,6 +1,7 @@
 import SidemenuAIResponsesButton from "./buttons/ai-reponses";
 import SidemenuArchivedReportsButton from "./buttons/archived-reports";
 import SidemenuAttachmentsButton from "./buttons/attachments";
+import SidemenuCreateReportButton from "./buttons/create-report";
 import SidemenuManageInstitutionsButton from "./buttons/institutions-button";
 import SidemenuLogsButton from "./buttons/logs-button";
 import SidemenuMembersButton from "./buttons/members-button";
@@ -20,6 +21,7 @@ const SidemenuButtons = () => {
       <SidemenuArchivedReportsButton />
       <SidemenuAttachmentsButton />
       <SidemenuSettingsButton />
+      <SidemenuCreateReportButton className="mt-auto" />
     </>
   );
 };

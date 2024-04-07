@@ -1,9 +1,7 @@
 import { api } from "@/trpc/server";
 import { columns } from "../columns";
 import { DataTable } from "../data-table";
-import { CreateTask } from "@/app/_components/create-post";
 import { getServerAuthSession } from "@/server/auth";
-import RecentReports from "../reports/recent_reports";
 
 async function Dashboard() {
   const session = await getServerAuthSession();
@@ -27,7 +25,6 @@ async function Dashboard() {
         </div>
       </div>
       {session?.user && <CrudShowcase />}
-      <RecentReports />
     </div>
   );
 }
@@ -42,7 +39,6 @@ async function CrudShowcase() {
 
   return (
     <div className="w-full space-y-4">
-      <CreateTask />
       {formattedTasks.length > 0 ? (
         <DataTable data={formattedTasks} columns={columns} />
       ) : (

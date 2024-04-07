@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from "next/image";
 
 import LandingPageImage1 from "@/../public/assets/images/landing-page-image-1.png";
 
-import LandingPageGradientBackground from "./gradient_background";
+import LandingPageGradientBackground from "./gradient-background";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";

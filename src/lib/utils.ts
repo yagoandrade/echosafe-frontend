@@ -74,3 +74,33 @@ export const isHardwareAccelerationEnabled = async () => {
   const gpuTier = await getGPUTier();
   return gpuTier.tier >= 2;
 };
+
+export const parseBullyingReportOrientationsFromGPT = (text: string) => {
+  const points: string[] = [];
+  const specificPoints = ["1.", "2.", "3."];
+
+  for (const specificPoint of specificPoints) {
+    let startIndex = text.indexOf(specificPoint);
+
+    while (startIndex !== -1) {
+      // Find the index of the next occurrence of "."
+      const dotIndex = startIndex + specificPoint.length - 1;
+
+      // Find the end of the point text (next occurrence of specific point or end of string)
+      const nextSpecificPointIndex = text.indexOf(specificPoint, dotIndex + 1);
+      const endIndex =
+        nextSpecificPointIndex !== -1 ? nextSpecificPointIndex : text.length;
+
+      // Extract the point text
+      const pointText = text.substring(dotIndex + 1, endIndex).trim();
+
+      // Add point text to the array
+      points.push(pointText);
+
+      // Update the startIndex to continue searching from the end of this point
+      startIndex = text.indexOf(specificPoint, endIndex);
+    }
+  }
+
+  return points;
+};

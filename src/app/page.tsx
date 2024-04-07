@@ -6,6 +6,7 @@ import LandingPage from "@/components/landing-page";
 import Dashboard from "@/components/dashboard";
 import { redirect } from "next/navigation";
 import Footer from "@/components/shared/footer";
+import { cn } from "@/lib/utils";
 
 export default async function Home() {
   const session = await getServerAuthSession();
@@ -17,7 +18,7 @@ export default async function Home() {
   return (
     <>
       {!session && <Header isLoggedIn={!!session} />}
-      <main className={`flex justify-center ${pageHeight}`}>
+      <main className={cn("flex justify-center", pageHeight)}>
         {session ? (
           <>
             <Sidemenu />

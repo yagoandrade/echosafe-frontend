@@ -10,11 +10,10 @@ import Link from "next/link";
 
 import Logo from "@/../public/assets/svg/logo.svg";
 import LightLogo from "@/../public/assets/svg/light-logo.svg";
-import { Button } from "../../ui/button";
 
 import { useTheme } from "next-themes";
-import { Search } from "lucide-react";
 import SidemenuButtons from "./components/sidemenu-buttons";
+import { Button } from "@/components/ui/button";
 
 const Sidemenu = () => {
   const { data: session } = useSession();

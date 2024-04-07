@@ -24,7 +24,7 @@ test("Create and retrieve a post", async () => {
   const input: inferProcedureInput<AppRouter["post"]["create"]> = {
     title: faker.commerce.productName(),
     status:
-      statuses[Math.floor(Math.random() * statuses.length)]?.value ?? "backlog",
+      statuses[Math.floor(Math.random() * statuses.length)]?.value ?? "open",
     label: labels[Math.floor(Math.random() * labels.length)]?.value ?? "bug",
     priority:
       priorities[Math.floor(Math.random() * priorities.length)]?.value ?? "low",

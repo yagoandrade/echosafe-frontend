@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { ChevronRight, Sticker } from "lucide-react";
 import Link from "next/link";
-import ReportCard, { type ReportCardTypes } from "../report_card";
+import ReportCard, { type ReportCardTypes } from "../report-card";
 import {
   Card,
   CardContent,
@@ -84,7 +84,7 @@ const RecentReports = () => {
         <CardDescription className="hidden md:flex">
           {/* TODO: Update this text */}
           {true
-            ? "Monitor complaints received by your institution."
+            ? "Keep track of complaints received by your institution."
             : "Keep track of the reports you have made."}
         </CardDescription>
       </CardHeader>

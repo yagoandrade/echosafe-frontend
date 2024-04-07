@@ -8,7 +8,7 @@ export function DashboardHeader({
   heading,
   text,
   children,
-}: DashboardHeaderProps) {
+}: Readonly<DashboardHeaderProps>) {
   return (
     <div className="flex items-center justify-between px-2">
       <div className="grid gap-1">

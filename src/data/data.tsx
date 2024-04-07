@@ -26,8 +26,8 @@ export const labels = [
 
 export const statuses = [
   {
-    value: "backlog",
-    label: "Backlog",
+    value: "open",
+    label: "open",
     icon: FileQuestion,
   },
   {

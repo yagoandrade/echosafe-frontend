@@ -16,13 +16,17 @@ datasource db {
 }
 
 model Post {
-    id        Int      @id @default(autoincrement())
-    title     String
-    status    String
-    label     String
-    priority  String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    id                      Int      @id @default(autoincrement())
+    title                   String
+    description             String
+    AISentimentAnalysis     String?
+    AITypeOfBullying        String?
+    AIActionRecommendations String?
+    status                  String
+    label                   String
+    priority                String
+    createdAt               DateTime @default(now())
+    updatedAt               DateTime @updatedAt
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String

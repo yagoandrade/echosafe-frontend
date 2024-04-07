@@ -9,7 +9,7 @@ export const tasks = [
   {
     "id": "TASK-7878",
     "title": "Try to calculate the EXE feed, maybe it will index the multi-byte pixel!",
-    "status": "backlog",
+    "status": "open",
     "label": "documentation",
     "priority": "medium"
   },
@@ -23,7 +23,7 @@ export const tasks = [
   {
     "id": "TASK-5562",
     "title": "The SAS interface is down, bypass the open-source pixel so we can back up the PNG bandwidth!",
-    "status": "backlog",
+    "status": "open",
     "label": "feature",
     "priority": "medium"
   },
@@ -79,14 +79,14 @@ export const tasks = [
   {
     "id": "TASK-6699",
     "title": "I'll transmit the wireless JBOD capacitor, that should hard drive the SSD feed!",
-    "status": "backlog",
+    "status": "open",
     "label": "documentation",
     "priority": "medium"
   },
   {
     "id": "TASK-2858",
     "title": "We need to override the online UDP bus!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "medium"
   },
@@ -128,14 +128,14 @@ export const tasks = [
   {
     "id": "TASK-9885",
     "title": "We need to compress the auxiliary VGA driver!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "high"
   },
   {
     "id": "TASK-3216",
     "title": "Transmitting the transmitter won't do anything, we need to compress the virtual HDD sensor!",
-    "status": "backlog",
+    "status": "open",
     "label": "documentation",
     "priority": "medium"
   },
@@ -198,7 +198,7 @@ export const tasks = [
   {
     "id": "TASK-5581",
     "title": "I'll synthesize the digital COM pixel, that should transmitter the UTF8 protocol!",
-    "status": "backlog",
+    "status": "open",
     "label": "documentation",
     "priority": "high"
   },
@@ -240,7 +240,7 @@ export const tasks = [
   {
     "id": "TASK-1376",
     "title": "Generating the alarm won't do anything, we need to generate the mobile IP capacitor!",
-    "status": "backlog",
+    "status": "open",
     "label": "documentation",
     "priority": "low"
   },
@@ -345,7 +345,7 @@ export const tasks = [
   {
     "id": "TASK-7342",
     "title": "Use the neural CLI card, then you can parse the online port!",
-    "status": "backlog",
+    "status": "open",
     "label": "documentation",
     "priority": "low"
   },
@@ -380,7 +380,7 @@ export const tasks = [
   {
     "id": "TASK-9581",
     "title": "You can't index the port without hacking the cross-platform XSS monitor!",
-    "status": "backlog",
+    "status": "open",
     "label": "documentation",
     "priority": "low"
   },
@@ -436,7 +436,7 @@ export const tasks = [
   {
     "id": "TASK-4309",
     "title": "If we generate the system, we can get to the TCP sensor through the optical GB pixel!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "medium"
   },
@@ -464,7 +464,7 @@ export const tasks = [
   {
     "id": "TASK-9887",
     "title": "Use the auxiliary ASCII sensor, then you can connect the solid state port!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "medium"
   },
@@ -492,7 +492,7 @@ export const tasks = [
   {
     "id": "TASK-3652",
     "title": "The SQL interface is down, override the optical bus so we can program the ASCII interface!",
-    "status": "backlog",
+    "status": "open",
     "label": "feature",
     "priority": "low"
   },
@@ -520,7 +520,7 @@ export const tasks = [
   {
     "id": "TASK-7253",
     "title": "Programming the capacitor won't do anything, we need to bypass the neural IB hard drive!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "high"
   },
@@ -541,7 +541,7 @@ export const tasks = [
   {
     "id": "TASK-3922",
     "title": "You can't back up the capacitor without generating the wireless PCI program!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "low"
   },
@@ -555,7 +555,7 @@ export const tasks = [
   {
     "id": "TASK-5814",
     "title": "We need to calculate the 1080p AGP feed!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "high"
   },
@@ -597,7 +597,7 @@ export const tasks = [
   {
     "id": "TASK-3838",
     "title": "I'll bypass the online TCP application, that should panel the AGP system!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "high"
   },
@@ -618,21 +618,21 @@ export const tasks = [
   {
     "id": "TASK-7585",
     "title": "If we calculate the hard drive, we can get to the SSL program through the multi-byte CSS microchip!",
-    "status": "backlog",
+    "status": "open",
     "label": "feature",
     "priority": "low"
   },
   {
     "id": "TASK-6319",
     "title": "We need to copy the multi-byte SCSI program!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "high"
   },
   {
     "id": "TASK-4369",
     "title": "Try to input the SCSI bus, maybe it will generate the 1080p pixel!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "high"
   },
@@ -674,7 +674,7 @@ export const tasks = [
   {
     "id": "TASK-2007",
     "title": "I'll input the back-end USB protocol, that should bandwidth the PCI system!",
-    "status": "backlog",
+    "status": "open",
     "label": "bug",
     "priority": "high"
   },
