@@ -3,13 +3,13 @@ import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import Logo from "@/../public/assets/svg/logo.svg";
 import LightLogo from "@/../public/assets/svg/light-logo.svg";
+import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
 import { UserNav } from "@/components/user-nav";
 import { useSession } from "next-auth/react";
 import MobileSidemenu from "@/components/shared/mobile-sidemenu";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 
 const HeaderButtons = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call

@@ -16,12 +16,18 @@ export default async function Home() {
 
   return (
     <>
-      {!session && <Header />}
+      {!session && <Header isLoggedIn={!!session} />}
       <main className={`flex justify-center ${pageHeight}`}>
-        {session && <Sidemenu />}
-        <div className="container flex flex-col justify-center gap-12 px-12 py-12">
-          {session ? <Dashboard /> : <LandingPage />}
-        </div>
+        {session ? (
+          <>
+            <Sidemenu />
+            <Dashboard />
+          </>
+        ) : (
+          <div className="container flex flex-col justify-center gap-12 px-12 py-12">
+            <LandingPage />
+          </div>
+        )}
       </main>
       {!session && <Footer />}
     </>

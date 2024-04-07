@@ -8,58 +8,47 @@ import { motion } from "framer-motion";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 
-import Logo from "@/../public/assets/svg/light-logo.svg";
+import Logo from "@/../public/assets/svg/logo.svg";
+import LightLogo from "@/../public/assets/svg/light-logo.svg";
 import { Button } from "../../ui/button";
-import Search from "../search";
-import InviteTeamMembersCard from "../invite_team_members";
+
+import { useTheme } from "next-themes";
+import { Search } from "lucide-react";
+import SidemenuButtons from "./components/sidemenu-buttons";
 
 const Sidemenu = () => {
   const { data: session } = useSession();
+  const { theme } = useTheme();
 
   const sideMenuDefaultClassName =
-    "hidden lg:flex min-h-full flex flex-col sticky w-80 font-medium px-4 py-6 xl:p-0 gap-y-8 border-r border-[#303146]";
+    "hidden lg:flex min-h-full h-screen fixed left-0 flex flex-col sticky w-[240px] font-medium px-4 py-6 xl:p-0 gap-y-8";
 
   return (
-    <motion.aside
-      initial={{ opacity: 0, x: -15 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-      className={sideMenuDefaultClassName}
-      data-testid="sidemenu"
-    >
-      <Card className="flex h-full w-full flex-col gap-y-3 border-0 bg-transparent">
+    <aside className={sideMenuDefaultClassName} data-testid="sidemenu">
+      <Card className="flex h-full w-full flex-col gap-y-0.5 rounded-none bg-transparent p-0">
         <CardHeader className="space-y-3">
-          <Link href="/" className="mx-auto h-fit lg:min-w-fit">
+          <Link href="/" className="h-fit lg:min-w-fit">
             <Image
               priority
-              src={Logo as StaticImageData}
+              src={
+                theme === "dark"
+                  ? (LightLogo as StaticImageData)
+                  : (Logo as StaticImageData)
+              }
               alt="Logo"
-              width={150}
-              height={150}
+              width={120}
+              height={120}
             />
           </Link>
-          <Search />
         </CardHeader>
-        <CardContent className="space-y-3">
-          <Button variant="primary" className="w-full">
-            Example Button 1
-          </Button>
-          <Button variant="secondary" className="w-full">
-            Example Button 2
-          </Button>
-          <Button variant="provider" className="w-full">
-            Example Button 3
-          </Button>
-          <Button variant="outline" className="w-full">
-            Example Button 4
-          </Button>
-          <InviteTeamMembersCard />
+        <CardContent className="flex h-full flex-col gap-y-0.5 overflow-auto p-0.5">
+          <SidemenuButtons />
         </CardContent>
-        <CardFooter className="mt-auto flex justify-around p-3">
+        <CardFooter className="mt-auto flex justify-around p-0.5">
           <UserNav user={session?.user} isExtended />
         </CardFooter>
       </Card>
-    </motion.aside>
+    </aside>
   );
 };
 

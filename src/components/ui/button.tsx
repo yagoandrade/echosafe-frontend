@@ -22,12 +22,15 @@ const buttonVariants = cva(
           "bg-[#575bc7] hover:bg-[#666be1] text-[#fbfbfe] border border-[#575bc7] transition duration-50",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        sidemenu:
+          "hover:bg-accent hover:text-accent-foreground text-muted-foreground dark:text-[#cbccd9] outline-none rounded-sm font-normal",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
-        icon: "h-10 w-10",
+        fullSize: "h-full w-full px-6 py-2",
+        icon: "h-10 w-10 px-4 py-2",
       },
     },
     defaultVariants: {

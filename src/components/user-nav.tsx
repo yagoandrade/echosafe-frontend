@@ -10,6 +10,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ChevronsUpDown } from "lucide-react";
 import { type DefaultSession } from "next-auth";
 import Link from "next/link";
 
@@ -22,23 +23,23 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="flex size-full gap-x-3">
-          <Avatar className="h-9 w-9">
+        <Button variant="sidemenu" size="fullSize" className="gap-x-3">
+          <Avatar className="h-6 w-6">
             <AvatarImage
               src={user?.image ?? ""}
               alt={`${user?.name ?? "User"}'s avatar`}
             />
           </Avatar>
           {isExtended && (
-            <span className="text-left text-sm">
-              <p className="font-normal text-[#cbccd9]">{user?.name}</p>
-              <p className="font-light text-[#949da7]">{user?.email}</p>
-            </span>
+            <p className="w-full truncate text-sm font-medium text-primary dark:text-[#cbccd9]">
+              {user?.name}
+            </p>
           )}
+          <ChevronsUpDown className="h-4 w-4 min-w-fit text-muted-foreground dark:text-[#cbccd9]" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-56 border border-[#303146] bg-gradient-to-b from-[#252634] to-[#16171a]"
+        className="w-56 border border-[#e4e4e7] dark:border-[#303146] dark:bg-gradient-to-b dark:from-[#252634] dark:to-[#16171a]"
         align="center"
         forceMount
       >
@@ -55,10 +56,10 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            Profile
+            Invite a member
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
+          <DropdownMenuItem>Create a Institution</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <Link href="/api/auth/signout">

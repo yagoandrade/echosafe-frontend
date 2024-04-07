@@ -1,10 +1,15 @@
 import Image from "next/image";
 import { Card, CardContent, CardHeader } from "../../ui/card";
 import InviteTeamMembers from "@/../public/assets/images/team_people.png";
+import { cn } from "@/lib/utils";
 
-const InviteTeamMembersCard = () => {
+interface InviteTeamMembersCardProps {
+  className?: string;
+}
+
+const InviteTeamMembersCard = ({ className }: InviteTeamMembersCardProps) => {
   return (
-    <Card className="overflow-hidden">
+    <Card className={cn("overflow-hidden", className)}>
       <CardHeader className="flex w-full flex-row justify-between p-0 xl:pr-3 xl:pt-2">
         <Image
           src={InviteTeamMembers}
