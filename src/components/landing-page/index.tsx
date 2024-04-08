@@ -17,15 +17,7 @@ import GithubLogo from "@/../public/assets/svg/github-wordmark.svg";
 import IBMLogo from "@/../public/assets/svg/ibm.svg";
 import CloudflareLogo from "@/../public/assets/svg/cloudflare.svg";
 import { ContainerScroll } from "../ui/container-scroll-animation";
-import dynamic from "next/dynamic";
-import { globeConfig, sampleArcs } from "./config";
-import { motion } from "framer-motion";
 import { ContentGrid } from "./content-grid";
-import { Spotlight } from "../ui/spotlight";
-
-const World = dynamic(() => import("../ui/globe").then((m) => m.World), {
-  ssr: false,
-});
 
 const recoletaBlack = localFont({
   src: "../../../public/assets/fonts/recoleta/recoleta-black.woff2",
@@ -104,7 +96,7 @@ const LandingPage = () => {
         </section>
 
         <section>
-          <Card className="my-4 rounded-2xl bg-white shadow-lg dark:border-[#2d4351] dark:bg-[#1e2c3a] space-y-0">
+          <Card className="my-4 space-y-0 rounded-2xl bg-white shadow-lg dark:border-[#2d4351] dark:bg-[#1e2c3a]">
             <CardHeader className="text-start">
               <CardTitle className="text-base font-light text-[#656565]">
                 Trusted by students and institutions worldwide

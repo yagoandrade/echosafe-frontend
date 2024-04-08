@@ -17,7 +17,7 @@ const billingUrl = absoluteUrl("/pricing");
 export async function generateUserStripe(
   priceId: string,
 ): Promise<responseAction> {
-  let redirectUrl = "";
+  let redirectUrl = "/dashboard";
 
   try {
     const session = await getServerAuthSession();

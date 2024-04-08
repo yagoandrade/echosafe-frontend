@@ -30,7 +30,7 @@ const RecentReports = () => {
     },
     {
       id: "3",
-      status: "waiting",
+      status: "requires_action",
       username: "John Doe",
       reportClass: "Class 3",
       date: new Date(),
@@ -38,7 +38,7 @@ const RecentReports = () => {
     },
     {
       id: "4",
-      status: "resolved",
+      status: "solved",
       username: "Jane Doe",
       reportClass: "Class 4",
       date: new Date(),

@@ -52,7 +52,7 @@ export type StatusesObject = Record<
     value: Statuses;
     label: string;
     color: string;
-    icon: () => JSX.Element;
+    icon: () => JSX.Element | string;
   }
 >;
 

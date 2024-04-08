@@ -47,7 +47,7 @@ export const postRouter = createTRPCRouter({
       });
 
       const orientations = parseBullyingReportOrientationsFromGPT(
-        completion.choices[0].message.content,
+        completion.choices[0] ? completion.choices[0].message.content : "",
       );
 
       return ctx.db.post.create({

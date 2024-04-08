@@ -24,12 +24,12 @@ async function Dashboard() {
           <h3 className="font-semibold text-primary">Institute of Computing</h3>
         </div>
       </div>
-      {session?.user && <CrudShowcase />}
+      {session?.user && <ReportsTable />}
     </div>
   );
 }
 
-async function CrudShowcase() {
+async function ReportsTable() {
   const tasks = await api.post.getTasks();
 
   const formattedTasks = tasks.map((task) => ({

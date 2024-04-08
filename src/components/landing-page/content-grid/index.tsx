@@ -6,11 +6,6 @@ import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import { cn } from "@/lib/utils";
 import { AlignRight, Clipboard, FileWarning, Table } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import {
-  getColorFromCode,
-  getIconFromCode,
-  getStatusFromCode,
-} from "@/components/reports/report-card/utils";
 import { statuses } from "@/data/data";
 
 export function ContentGrid() {

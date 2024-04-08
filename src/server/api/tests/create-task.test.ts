@@ -4,7 +4,6 @@
 import type { inferProcedureInput } from "@trpc/server";
 import { createCaller, type AppRouter } from "@/server/api/root";
 import { createContextInner } from "@/server/context";
-import { labels, priorities, statuses } from "@/data/data";
 import { faker } from "@faker-js/faker";
 import { expect, test } from "vitest";
 
@@ -14,6 +13,7 @@ test("Create and retrieve a post", async () => {
       user: {
         id: "clucyx0fq0000r43oxr3dn1nq",
         email: "tester_account-yQ$Yk4yM9ahDNR$s@tester-email.com",
+        isOnboarded: true,
       },
       expires: "1",
     },
@@ -23,11 +23,7 @@ test("Create and retrieve a post", async () => {
 
   const input: inferProcedureInput<AppRouter["post"]["create"]> = {
     title: faker.commerce.productName(),
-    status:
-      statuses[Math.floor(Math.random() * statuses.length)]?.value ?? "open",
-    label: labels[Math.floor(Math.random() * labels.length)]?.value ?? "bug",
-    priority:
-      priorities[Math.floor(Math.random() * priorities.length)]?.value ?? "low",
+    description: faker.lorem.paragraph(),
   };
 
   await caller.post.create(input);

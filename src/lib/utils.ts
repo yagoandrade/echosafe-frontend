@@ -75,7 +75,8 @@ export const isHardwareAccelerationEnabled = async () => {
   return gpuTier.tier >= 2;
 };
 
-export const parseBullyingReportOrientationsFromGPT = (text: string) => {
+export const parseBullyingReportOrientationsFromGPT = (text: string | null) => {
+  if (!text) return [];
   const points: string[] = [];
   const specificPoints = ["1.", "2.", "3."];
 

@@ -12,7 +12,7 @@ function LandingPageGradientBackground() {
       setHardwareAcceleration(result);
     };
 
-    fetchHardwareAcceleration();
+    void fetchHardwareAcceleration();
   }, []); // Empty dependency array means this runs on mount only
 
   return hardwareAcceleration ? (

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Badge } from "../../ui/badge";
-import { type Statuses } from "@/data/data";
+import { statuses, type Statuses } from "@/data/data";
 
 export interface ReportCardTypes {
   id?: string;
@@ -26,16 +26,13 @@ const ReportCard = ({
       className="xs:grid-cols-2 pointer-events-none grid w-full min-w-full grid-cols-1 justify-start gap-4 overflow-x-auto rounded p-6 text-base transition duration-100 hover:bg-[#fbfbfb] hover:dark:bg-[#25263e] md:pointer-events-auto md:min-w-[40rem] md:grid-cols-4 md:items-center md:gap-x-4 md:py-12 md:text-sm"
     >
       <Badge
-        variant={status}
+        variant={statuses[status].value}
         className="xs:w-fit xs:justify-start h-fit w-full items-center justify-center gap-x-2 self-center text-base sm:text-sm md:w-fit"
       >
-        <span
-          className="flex size-4 items-center justify-center rounded-full text-xs font-black"
-          style={{ backgroundColor: getColorFromCode(status) }}
-        >
-          {getIconFromCode(status)}
+        <span className="flex size-4 items-center justify-center rounded-full text-xs font-black">
+          {statuses[status].icon()}
         </span>
-        <p>{getStatusFromCode(status)}</p>
+        <p>{statuses[status].label}</p>
       </Badge>
       <div>
         <h1 className="font-bold">{username}</h1>
