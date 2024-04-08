@@ -30,7 +30,7 @@ export const tasks = [
   {
     "id": "TASK-8686",
     "title": "I'll parse the wireless SSL protocol, that should driver the API panel!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "feature",
     "priority": "medium"
   },
@@ -156,7 +156,7 @@ export const tasks = [
   {
     "id": "TASK-7068",
     "title": "You can't generate the capacitor without indexing the wireless HEX pixel!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "bug",
     "priority": "low"
   },
@@ -177,7 +177,7 @@ export const tasks = [
   {
     "id": "TASK-6274",
     "title": "Use the virtual PCI circuit, then you can parse the bluetooth alarm!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "documentation",
     "priority": "low"
   },
@@ -191,7 +191,7 @@ export const tasks = [
   {
     "id": "TASK-9518",
     "title": "Compressing the interface won't do anything, we need to compress the online SDD matrix!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "documentation",
     "priority": "medium"
   },
@@ -254,7 +254,7 @@ export const tasks = [
   {
     "id": "TASK-2290",
     "title": "I'll compress the virtual JSON panel, that should application the UTF8 bus!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "documentation",
     "priority": "high"
   },
@@ -282,7 +282,7 @@ export const tasks = [
   {
     "id": "TASK-7103",
     "title": "We need to parse the multi-byte EXE bandwidth!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "feature",
     "priority": "low"
   },
@@ -338,7 +338,7 @@ export const tasks = [
   {
     "id": "TASK-8980",
     "title": "Try to navigate the SQL transmitter, maybe it will back up the virtual firewall!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "bug",
     "priority": "low"
   },
@@ -352,7 +352,7 @@ export const tasks = [
   {
     "id": "TASK-5608",
     "title": "I'll hack the haptic SSL program, that should bus the UDP transmitter!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "documentation",
     "priority": "low"
   },
@@ -366,14 +366,14 @@ export const tasks = [
   {
     "id": "TASK-7872",
     "title": "Transmitting the circuit won't do anything, we need to reboot the 1080p RSS monitor!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "feature",
     "priority": "medium"
   },
   {
     "id": "TASK-4167",
     "title": "Use the cross-platform SMS circuit, then you can synthesize the optical feed!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "bug",
     "priority": "medium"
   },
@@ -401,7 +401,7 @@ export const tasks = [
   {
     "id": "TASK-6806",
     "title": "The VGA protocol is down, reboot the back-end matrix so we can parse the CSS panel!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "documentation",
     "priority": "low"
   },
@@ -450,7 +450,7 @@ export const tasks = [
   {
     "id": "TASK-7962",
     "title": "Use the wireless RAM program, then you can hack the cross-platform feed!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "bug",
     "priority": "low"
   },
@@ -485,7 +485,7 @@ export const tasks = [
   {
     "id": "TASK-5150",
     "title": "I'll hack the wireless XSS port, that should transmitter the IP interface!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "feature",
     "priority": "medium"
   },
@@ -499,7 +499,7 @@ export const tasks = [
   {
     "id": "TASK-6884",
     "title": "Use the digital PCI circuit, then you can synthesize the multi-byte microchip!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "feature",
     "priority": "high"
   },
@@ -548,7 +548,7 @@ export const tasks = [
   {
     "id": "TASK-4921",
     "title": "I'll index the open-source IP feed, that should system the GB application!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "bug",
     "priority": "low"
   },
@@ -583,7 +583,7 @@ export const tasks = [
   {
     "id": "TASK-9745",
     "title": "If we connect the protocol, we can get to the GB system through the bluetooth PCI microchip!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "feature",
     "priority": "high"
   },
@@ -611,7 +611,7 @@ export const tasks = [
   {
     "id": "TASK-6665",
     "title": "If we parse the monitor, we can get to the SSD hard drive through the cross-platform AGP alarm!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "feature",
     "priority": "low"
   },
@@ -639,7 +639,7 @@ export const tasks = [
   {
     "id": "TASK-9035",
     "title": "We need to override the solid state PNG array!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "documentation",
     "priority": "low"
   },
@@ -660,7 +660,7 @@ export const tasks = [
   {
     "id": "TASK-4136",
     "title": "You can't hack the hard drive without hacking the primary JSON program!",
-    "status": "canceled",
+    "status": "cancelled",
     "label": "bug",
     "priority": "medium"
   },

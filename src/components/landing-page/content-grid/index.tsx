@@ -11,6 +11,7 @@ import {
   getIconFromCode,
   getStatusFromCode,
 } from "@/components/reports/report-card/utils";
+import { statuses } from "@/data/data";
 
 export function ContentGrid() {
   return (
@@ -206,16 +207,16 @@ const SkeletonFour = () => {
           Repeated Verbal Bullying Incident During Lunch Break
         </p>
         <Badge
-          variant="open"
+          variant={statuses.open.value}
           className="xs:w-fit xs:justify-start mt-3 h-fit w-full items-center justify-center gap-x-2 self-center text-base sm:text-xs md:w-fit"
         >
           <span
             className="flex size-4 items-center justify-center rounded-full text-xs font-black"
-            style={{ backgroundColor: getColorFromCode("open") }}
+            style={{ backgroundColor: statuses.open.color }}
           >
-            {getIconFromCode("open")}
+            {statuses.open.icon()}
           </span>
-          <p>{getStatusFromCode("open")}</p>
+          <p>{statuses.open.label}</p>
         </Badge>
       </motion.div>
       <motion.div className="relative z-20 flex h-full w-1/3 flex-col items-center justify-center rounded-2xl border border-neutral-200 bg-white p-4 dark:border-[#2d4351] dark:border-white/[0.1] dark:bg-[#20212e]">
@@ -230,16 +231,16 @@ const SkeletonFour = () => {
           I Am Experiencing Cyberbullying on Social Media Platforms
         </p>
         <Badge
-          variant="under_review"
+          variant={statuses.under_review.value}
           className="xs:w-fit xs:justify-start mt-3 h-fit w-full items-center justify-center gap-x-2 self-center text-base sm:text-xs md:w-fit"
         >
           <span
             className="flex size-4 items-center justify-center rounded-full text-xs font-black"
-            style={{ backgroundColor: getColorFromCode("under_review") }}
+            style={{ backgroundColor: statuses.under_review.color }}
           >
-            {getIconFromCode("under_review")}
+            {statuses.under_review.icon()}
           </span>
-          <p>{getStatusFromCode("under_review")}</p>
+          <p>{statuses.under_review.label}</p>
         </Badge>
       </motion.div>
       <motion.div
@@ -257,16 +258,16 @@ const SkeletonFour = () => {
           Harassment and Sabotage Within Academic Department
         </p>
         <Badge
-          variant="resolved"
+          variant={statuses.solved.value}
           className="xs:w-fit xs:justify-start mt-3 h-fit w-full items-center justify-center gap-x-2 self-center text-base sm:text-xs md:w-fit"
         >
           <span
             className="flex size-4 items-center justify-center rounded-full text-xs font-black"
-            style={{ backgroundColor: getColorFromCode("resolved") }}
+            style={{ backgroundColor: statuses.solved.color }}
           >
-            {getIconFromCode("resolved")}
+            {statuses.solved.icon()}
           </span>
-          <p>{getStatusFromCode("resolved")}</p>
+          <p>{statuses.solved.label}</p>
         </Badge>
       </motion.div>
     </motion.div>

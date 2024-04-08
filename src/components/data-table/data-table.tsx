@@ -31,13 +31,13 @@ import { motion } from "framer-motion";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  dataFromServer: TData[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+  dataFromServer,
+}: Readonly<DataTableProps<TData, TValue>>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -45,6 +45,7 @@ export function DataTable<TData, TValue>({
     [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [data, setData] = React.useState(dataFromServer);
 
   const table = useReactTable({
     data,
@@ -54,6 +55,23 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+    },
+    meta: {
+      updateData: (rowIndex: number, columnId: string, value: string) => {
+        console.log("Updated", rowIndex, columnId, value);
+        setData(
+          (old: TData[]) =>
+            old.map((row, index) => {
+              if (index === rowIndex) {
+                return {
+                  ...old[rowIndex],
+                  [columnId]: value,
+                };
+              }
+              return row;
+            }) as TData[],
+        );
+      },
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,

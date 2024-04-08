@@ -1,16 +1,11 @@
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Badge } from "../../ui/badge";
-import {
-  type Status,
-  getColorFromCode,
-  getIconFromCode,
-  getStatusFromCode,
-} from "./utils";
+import { type Statuses } from "@/data/data";
 
 export interface ReportCardTypes {
   id?: string;
-  status: Status;
+  status: Statuses;
   username: string;
   reportClass: string;
   date: Date;

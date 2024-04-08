@@ -17,8 +17,9 @@ const badgeVariants = cva(
         outline: "text-foreground",
         open: "gap-x-1 bg-[#fff] py-1 text-xs text-[#000]",
         under_review: "gap-x-1 bg-[#FEF9C3] py-1 text-xs text-[#423606]",
-        waiting: "gap-x-1 bg-[#ffc771] py-1 text-xs text-[#7e3610]",
-        resolved: "gap-x-1 bg-[#94F9B9] py-1 text-xs text-[#366F4B]",
+        requires_action: "gap-x-1 bg-[#ffc771] py-1 text-xs text-[#7e3610]",
+        solved: "gap-x-1 bg-[#94F9B9] py-1 text-xs text-[#366F4B]",
+        cancelled: "gap-x-1 bg-red-200 py-1 text-xs text-red-800",
       },
     },
     defaultVariants: {

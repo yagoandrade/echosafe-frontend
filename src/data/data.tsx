@@ -2,70 +2,118 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUp,
-  CheckCircle,
-  Circle,
-  CrossIcon,
-  FileQuestion,
-  StopCircle,
+  Check,
+  MoreHorizontal,
+  UserSearch,
+  X,
 } from "lucide-react";
 
 export const labels = [
   {
-    value: "bug",
-    label: "Bug",
+    value: "racism",
+    label: "Racism",
   },
   {
-    value: "feature",
-    label: "Feature",
+    value: "homophobia",
+    label: "Homophobia",
   },
   {
-    value: "documentation",
-    label: "Documentation",
+    value: "prejudice",
+    label: "Prejudice",
+  },
+  {
+    value: "transphobia",
+    label: "Transphobia",
+  },
+  {
+    value: "religious_intolerance",
+    label: "Religious Intolerance",
+  },
+  {
+    value: "harassment",
+    label: "Harassment",
+  },
+  {
+    value: "capacitism",
+    label: "Capacitism",
   },
 ];
 
-export const statuses = [
+export type Statuses =
+  | "open"
+  | "under_review"
+  | "requires_action"
+  | "solved"
+  | "cancelled";
+
+export type StatusesObject = Record<
+  Statuses,
   {
+    value: Statuses;
+    label: string;
+    color: string;
+    icon: () => JSX.Element;
+  }
+>;
+
+export const statuses: StatusesObject = {
+  open: {
     value: "open",
-    label: "open",
-    icon: FileQuestion,
+    label: "Open",
+    color: "#000",
+    icon: () => <MoreHorizontal size="0.7rem" strokeWidth={3} color="white" />,
   },
-  {
-    value: "todo",
-    label: "Todo",
-    icon: Circle,
+  under_review: {
+    value: "under_review",
+    label: "Under Review",
+    color: "#FACC15",
+    icon: () => <UserSearch size="0.7rem" strokeWidth={3} />,
   },
-  {
-    value: "in progress",
-    label: "In Progress",
-    icon: StopCircle,
+  requires_action: {
+    value: "requires_action",
+    label: "Requires Action",
+    color: "#fd8712",
+    icon: () => "!",
   },
-  {
-    value: "done",
-    label: "Done",
-    icon: CheckCircle,
+  solved: {
+    value: "solved",
+    label: "Solved",
+    color: "#22C55E",
+    icon: () => <Check size="0.7rem" strokeWidth={4} />,
   },
-  {
-    value: "canceled",
+  cancelled: {
+    value: "cancelled",
     label: "Canceled",
-    icon: CrossIcon,
+    color: "#f87171",
+    icon: () => <X size="0.7rem" strokeWidth={4} />,
   },
-];
+};
 
-export const priorities = [
+export type Priorities = "low" | "medium" | "high";
+
+export type PrioritiesObject = Record<
+  Priorities,
   {
+    label: string;
+    value: Priorities;
+    icon: React.ComponentType<{ className?: string }>;
+  }
+>;
+
+export const priorities: PrioritiesObject = {
+  low: {
     label: "Low",
     value: "low",
     icon: ArrowDown,
   },
-  {
+  medium: {
     label: "Medium",
     value: "medium",
     icon: ArrowRight,
   },
-  {
+  high: {
     label: "High",
     value: "high",
     icon: ArrowUp,
   },
-];
+};

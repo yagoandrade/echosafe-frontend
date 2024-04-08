@@ -7,8 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { type Task } from "../data/schema";
-import { DataTableColumnHeader } from "./data-table-column-header";
-import { DataTableRowActions } from "./data-table-row-actions";
+import { DataTableColumnHeader } from "./data-table/data-table-column-header";
+import { DataTableRowActions } from "./data-table/data-table-row-actions";
 import { labels, priorities, statuses } from "@/data/data";
 
 export const columns: ColumnDef<Task>[] = [
@@ -36,6 +36,7 @@ export const columns: ColumnDef<Task>[] = [
     enableSorting: false,
     enableHiding: false,
   },
+
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -60,20 +61,26 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status"),
-      );
+      const status = statuses[row.getValue("status") as keyof typeof statuses];
 
       if (!status) {
         return null;
       }
 
       return (
-        <div className="flex w-[100px] items-center">
-          {status.icon && (
-            <status.icon className="mr-2 h-4 w-4 text-muted-foreground" />
-          )}
-          <span>{status.label}</span>
+        <div className="flex w-[150px] items-center">
+          <Badge
+            variant={status.value}
+            className="xs:w-fit xs:justify-start mt-3 h-fit w-full items-center justify-center gap-x-2 self-center text-base sm:text-xs md:w-fit"
+          >
+            <span
+              className="flex size-4 items-center justify-center rounded-full text-xs font-black"
+              style={{ backgroundColor: status.color }}
+            >
+              {status.icon()}
+            </span>
+            <p>{status.label}</p>
+          </Badge>
         </div>
       );
     },
@@ -87,9 +94,8 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title="Priority" />
     ),
     cell: ({ row }) => {
-      const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority"),
-      );
+      const priority =
+        priorities[row.getValue("priority") as keyof typeof priorities];
 
       if (!priority) {
         return null;
@@ -109,7 +115,22 @@ export const columns: ColumnDef<Task>[] = [
     },
   },
   {
+    accessorKey: "updatedAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Updated At" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {new Date(row.getValue("updatedAt")).toLocaleDateString("en-US")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ table, row }) => <DataTableRowActions table={table} row={row} />,
   },
 ];

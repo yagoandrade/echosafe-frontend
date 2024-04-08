@@ -9,7 +9,6 @@ import {
 import { Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import {
-  Orientation,
   parseBullyingReportOrientationsFromGPT,
   validateEmail,
 } from "@/lib/utils";
@@ -63,6 +62,37 @@ export const postRouter = createTRPCRouter({
           AIActionRecommendations: orientations[2],
           createdBy: { connect: { email: ctx.session.user.email } },
         },
+      });
+    }),
+
+  updateTask: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+        status: z.string().optional(),
+        priority: z.string().optional(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email)
+        throw new Error("You must be logged in to update a task");
+
+      const updateData: {
+        status?: string;
+        priority?: string;
+      } = {};
+
+      if (input.status) {
+        updateData.status = input.status;
+      }
+
+      if (input.priority) {
+        updateData.priority = input.priority;
+      }
+
+      return ctx.db.post.update({
+        where: { id: input.id },
+        data: updateData,
       });
     }),
 

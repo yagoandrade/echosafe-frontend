@@ -1,6 +1,6 @@
 import { api } from "@/trpc/server";
 import { columns } from "../columns";
-import { DataTable } from "../data-table";
+import { DataTable } from "../data-table/data-table";
 import { getServerAuthSession } from "@/server/auth";
 
 async function Dashboard() {
@@ -40,7 +40,7 @@ async function CrudShowcase() {
   return (
     <div className="w-full space-y-4">
       {formattedTasks.length > 0 ? (
-        <DataTable data={formattedTasks} columns={columns} />
+        <DataTable dataFromServer={formattedTasks} columns={columns} />
       ) : (
         <p>You have no posts yet.</p>
       )}

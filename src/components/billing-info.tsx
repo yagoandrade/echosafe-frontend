@@ -38,7 +38,7 @@ export function BillingInfo({ subscriptionPlan }: BillingInfoProps) {
         {subscriptionPlan.isPaid ? (
           <p className="rounded-full text-xs font-medium">
             {subscriptionPlan.isCanceled
-              ? "Your plan will be canceled on "
+              ? "Your plan will be cancelled on "
               : "Your plan renews on "}
             {formatDate(subscriptionPlan.stripeCurrentPeriodEnd)}.
           </p>

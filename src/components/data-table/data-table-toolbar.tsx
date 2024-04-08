@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { Cross } from "lucide-react";
+import { X } from "lucide-react";
 import { DataTableViewOptions } from "./data-table-view-options";
 import { priorities, statuses } from "@/data/data";
 
@@ -34,14 +34,14 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("status")}
             title="Status"
-            options={statuses}
+            options={Object.values(statuses)}
           />
         )}
         {table.getColumn("priority") && (
           <DataTableFacetedFilter
             column={table.getColumn("priority")}
             title="Priority"
-            options={priorities}
+            options={Object.values(priorities)}
           />
         )}
         {isFiltered && (
@@ -51,7 +51,7 @@ export function DataTableToolbar<TData>({
             className="h-8 px-2 lg:px-3"
           >
             Reset
-            <Cross />
+            <X size="1rem" />
           </Button>
         )}
       </div>
