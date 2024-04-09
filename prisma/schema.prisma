@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
     provider = "prisma-client-js"
     seed     = "ts-node prisma/seed.ts"
@@ -8,10 +5,6 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-    // Further reading:
-    // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-    // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
     url      = env("DATABASE_URL")
 }
 
@@ -25,6 +18,7 @@ model Post {
     status                  String
     label                   String
     priority                String
+    associatedInstitution   Int
     createdAt               DateTime @default(now())
     updatedAt               DateTime @updatedAt
 
@@ -34,6 +28,25 @@ model Post {
     @@index([title])
 }
 
+model Institution {
+    id        Int    @id @default(autoincrement())
+    name      String
+    location  String
+    code      String
+    createdBy String
+
+    students User[] @relation("StudentInstitutions")
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Define admins many-to-many relation with Institution
+    admins          User[]            @relation("AdminInstitutions")
+    UserInstitution UserInstitution[]
+
+    @@map(name: "institutions")
+}
+
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -41,12 +54,12 @@ model Account {
     type              String
     provider          String
     providerAccountId String
-    refresh_token     String? // @db.Text
-    access_token      String? // @db.Text
+    refresh_token     String?
+    access_token      String?
     expires_at        Int?
     token_type        String?
     scope             String?
-    id_token          String? // @db.Text
+    id_token          String?
     session_state     String?
 
     user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -68,25 +81,41 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    password      String?
-    salt          String?
-    image         String?
-    isOnboarded   Boolean   @default(false)
-    accounts      Account[]
-    sessions      Session[]
-
+    id                     String    @id @default(cuid())
+    name                   String?
+    email                  String?   @unique
+    emailVerified          DateTime?
+    password               String?
+    salt                   String?
+    image                  String?
+    isOnboarded            Boolean   @default(false)
+    activeInstitutionId    Int?
+    accounts               Account[]
+    sessions               Session[]
     stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
     stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
     stripePriceId          String?   @map(name: "stripe_price_id")
     stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+    posts                  Post[]
 
-    posts Post[]
+    // Define relation with Institution as a student
+    institutionsAsStudent Institution[] @relation("StudentInstitutions")
+
+    // Define relation with Institution as an admin
+    institutionsAsAdmin Institution[]     @relation("AdminInstitutions")
+    UserInstitution     UserInstitution[]
 
     @@map(name: "users")
+}
+
+model UserInstitution {
+    id            Int         @id @default(autoincrement())
+    user          User        @relation(fields: [userId], references: [id])
+    userId        String
+    institution   Institution @relation(fields: [institutionId], references: [id])
+    institutionId Int
+
+    @@unique([userId, institutionId])
 }
 
 model VerificationToken {

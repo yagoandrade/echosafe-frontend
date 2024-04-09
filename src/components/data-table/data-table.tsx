@@ -28,15 +28,18 @@ import {
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { motion } from "framer-motion";
+import { type TableName } from "types/data-table";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   dataFromServer: TData[];
+  tableName: TableName;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   dataFromServer,
+  tableName,
 }: Readonly<DataTableProps<TData, TValue>>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -58,7 +61,6 @@ export function DataTable<TData, TValue>({
     },
     meta: {
       updateData: (rowIndex: number, columnId: string, value: string) => {
-        console.log("Updated", rowIndex, columnId, value);
         setData(
           (old: TData[]) =>
             old.map((row, index) => {
@@ -94,7 +96,7 @@ export function DataTable<TData, TValue>({
       className="space-y-4"
       data-testid="sidemenu"
     >
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} tableName={tableName} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

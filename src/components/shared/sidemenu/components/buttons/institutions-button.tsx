@@ -10,7 +10,7 @@ const SidemenuManageInstitutionsButton = () => {
       className="justify-start gap-x-3 px-6"
       asChild
     >
-      <Link href="/manage-institutions">
+      <Link href="/institutions">
         <School className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
         <p>My Institutions</p>
       </Link>

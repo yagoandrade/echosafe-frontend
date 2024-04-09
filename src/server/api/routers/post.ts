@@ -27,6 +27,7 @@ export const postRouter = createTRPCRouter({
       z.object({
         title: z.string().min(1),
         description: z.string().min(1),
+        institutionId: z.number(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -61,6 +62,7 @@ export const postRouter = createTRPCRouter({
           AITypeOfBullying: orientations[1],
           AIActionRecommendations: orientations[2],
           createdBy: { connect: { email: ctx.session.user.email } },
+          associatedInstitution: input.institutionId,
         },
       });
     }),
@@ -98,10 +100,51 @@ export const postRouter = createTRPCRouter({
 
   getTasks: protectedProcedure.query(({ ctx }) => {
     return ctx.db.post.findMany({
-      where: { createdBy: { email: ctx.session.user.email } },
+      where: {
+        createdBy: { email: ctx.session.user.email },
+      },
       orderBy: { createdAt: "desc" },
     });
   }),
+
+  createInstitution: protectedProcedure
+    .input(
+      z.object({
+        name: z.string().min(1),
+        location: z.string().min(1),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email)
+        throw new Error("You must be logged in to create a task");
+
+      return ctx.db.institution.create({
+        data: {
+          name: input.name,
+          location: input.location,
+          createdBy: ctx.session.user.email,
+          code: Math.random().toString(36).substring(7).toUpperCase(),
+        },
+      });
+    }),
+
+  getInstitutions: protectedProcedure.query(({ ctx }) => {
+    if (!ctx.session.user.email)
+      throw new Error("You must be logged in to finish onboarding");
+
+    return ctx.db.institution.findMany({
+      where: { createdBy: ctx.session.user.email },
+      orderBy: { updatedAt: "desc" },
+    });
+  }),
+
+  getNumberOfReports: protectedProcedure
+    .input(z.object({ institutionId: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.post.count({
+        where: { associatedInstitution: Number(input.institutionId) },
+      });
+    }),
 
   getSecretMessage: protectedProcedure.query(() => {
     return "you can now see this secret message!";
@@ -156,5 +199,33 @@ export const postRouter = createTRPCRouter({
         });
 
       return user;
+    }),
+
+  updateUserAvatar: protectedProcedure
+    .input(z.object({ image: z.string().optional() }))
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email)
+        throw new Error("You must be logged in to update your account.");
+
+      await ctx.db.user
+        .update({
+          where: { email: ctx.session.user.email },
+          data: { image: input.image },
+        })
+        .catch(() => {
+          throw new Error("Failed to update user");
+        });
+    }),
+
+  updateUserInstitutionId: protectedProcedure
+    .input(z.object({ institutionId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email)
+        throw new Error("You must be logged in to update your account.");
+
+      await ctx.db.user.update({
+        where: { email: ctx.session.user.email },
+        data: { activeInstitutionId: Number(input.institutionId) },
+      });
     }),
 });

@@ -16,14 +16,26 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useActiveInstitution } from "@/hooks/useActiveInstitution";
 
-export function CreateReport() {
+interface CreateReportProps {
+  institutions: {
+    id: number;
+    name: string;
+    location: string;
+    code: string;
+    createdBy: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }[];
+}
+
+export function CreateReport({ institutions }: Readonly<CreateReportProps>) {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [status, setStatus] = useState("");
-  const [label, setLabel] = useState("");
-  const [priority, setPriority] = useState("");
+
+  const [activeInstitutionId] = useActiveInstitution(institutions);
 
   const CreateReport: ReturnType<typeof api.post.create.useMutation> =
     api.post.create.useMutation({
@@ -31,9 +43,6 @@ export function CreateReport() {
         router.refresh();
         setTitle("");
         setDescription("");
-        setStatus("");
-        setLabel("");
-        setPriority("");
       },
     });
 
@@ -41,7 +50,11 @@ export function CreateReport() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        CreateReport.mutate({ title, description });
+        CreateReport.mutate({
+          title,
+          description,
+          institutionId: Number(activeInstitutionId ?? -1),
+        });
       }}
     >
       <Card>

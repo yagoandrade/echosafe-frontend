@@ -1,11 +1,14 @@
 import { CreateReport } from "@/app/_components/create-report";
+import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
+import { api } from "@/trpc/server";
 
 const CreateReportPage = async () => {
   const session = await getServerAuthSession();
+  const institutions = await api.post.getInstitutions();
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 
@@ -20,17 +23,10 @@ const CreateReportPage = async () => {
               Welcome back, {session?.user.name}!
             </h3>
             <p className="text-muted-foreground">
-              Here&apos;s what happened in your institution today.
+              You are creating a new report.
             </p>
           </div>
-          <div className="text-endz">
-            <p className="text-xs font-light uppercase text-muted-foreground">
-              Managing
-            </p>
-            <h3 className="font-semibold text-primary">
-              Institute of Computing
-            </h3>
-          </div>
+          <ManagingInstitutionSection />
         </div>
         <PageBreadcrumb
           items={[
@@ -39,7 +35,7 @@ const CreateReportPage = async () => {
             { label: "Create a Report" },
           ]}
         />
-        <CreateReport />
+        <CreateReport institutions={institutions} />
       </div>
     </main>
   );

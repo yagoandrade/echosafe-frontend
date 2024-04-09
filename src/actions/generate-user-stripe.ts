@@ -29,7 +29,6 @@ export async function generateUserStripe(
     const subscriptionPlan = await getUserSubscriptionPlan(session.user.email);
 
     if (subscriptionPlan.isPaid && subscriptionPlan.stripeCustomerId) {
-      console.log(`here 1`);
       // User on Paid Plan - Create a portal session to manage subscription.
       const stripeSession = await stripe.billingPortal.sessions.create({
         customer: subscriptionPlan.stripeCustomerId,
@@ -39,8 +38,6 @@ export async function generateUserStripe(
       redirectUrl = stripeSession.url;
     } else {
       // User on Free Plan - Create a checkout session to upgrade.
-      console.log(`here 2`);
-
       const stripeSession = await stripe.checkout.sessions.create({
         success_url: billingUrl,
         cancel_url: billingUrl,

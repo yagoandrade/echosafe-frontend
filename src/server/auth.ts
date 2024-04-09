@@ -48,6 +48,12 @@ export const authOptions: NextAuthOptions = {
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const isOnboardedVariable = session?.isOnboarded as boolean;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const isAvatarVariable = session?.image as string;
+
+      if (trigger === "update" && isAvatarVariable) {
+        token.picture = isAvatarVariable;
+      }
 
       if (trigger === "update" && isOnboardedVariable) {
         token.isOnboarded = isOnboardedVariable;
@@ -57,7 +63,9 @@ export const authOptions: NextAuthOptions = {
     },
     session: async ({ session, token, user }) => {
       if (user) session.user.id = user.id;
-      if (token) session.user.isOnboarded = token.isOnboarded as boolean;
+      if (token) {
+        session.user.isOnboarded = token.isOnboarded as boolean;
+      }
 
       return session;
     },

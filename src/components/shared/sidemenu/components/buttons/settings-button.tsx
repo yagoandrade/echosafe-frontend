@@ -10,7 +10,7 @@ const SidemenuSettingsButton = () => {
       className="justify-start gap-x-3 px-6"
       asChild
     >
-      <Link href="/reports">
+      <Link href="/settings">
         <Settings className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
         <p>Settings</p>
       </Link>

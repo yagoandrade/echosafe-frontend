@@ -17,6 +17,7 @@ import SignInWithCredentials from "@/components/sign-in-with-credentials";
 import { useState } from "react";
 
 export default function SignInPage() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedProvider, _setSelectedProvider] = useState<
     "credentials" | "email"
   >("credentials");

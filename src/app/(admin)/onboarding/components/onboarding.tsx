@@ -7,12 +7,25 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { api } from "@/trpc/react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { roles } from "./util";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import ChangeUserAvatar from "@/components/shared/change-user-avatar";
 
 const STEP_LENGTH = 4;
 
 export default function Onboarding() {
   const router = useRouter();
   const { data: session, status, update } = useSession();
+  const [role, setRole] = useState(roles.student.value);
+  const [institutionCode, setInstitutionCode] = useState("");
 
   const [isFinishingOnboarding, setIsFinishingOnboarding] = useState(false);
 
@@ -51,7 +64,7 @@ export default function Onboarding() {
       setIsFinishingOnboarding(true);
       await update({ isOnboarded: true });
       localStorage.removeItem("onboardingStep");
-      toast.success("Onboarding complete! Welcome to ThePlatform™");
+      toast.success("Onboarding complete! Welcome to EchoSafe");
       router.push("/");
     },
     onError: (error) => {
@@ -75,58 +88,86 @@ export default function Onboarding() {
       </div>
 
       {step === 1 && (
-        <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
-            Welcome to ThePlatform™, {session?.user.name}
+        <section className="mt-8 px-8">
+          <h2 className="mt-8 text-2xl font-semibold text-black dark:text-white">
+            Welcome to EchoSafe, {session?.user.name}!
           </h2>
-          <p className="mt-2 px-8 text-neutral-400">
-            Welcome to ThePlatform™. Let&apos;s get started by setting up your
+          <p className="mt-2 text-neutral-400">
+            Welcome to EchoSafe. Let&apos;s get started by setting up your
             account.
           </p>
-          <p className="mt-2 px-8 text-neutral-400">
+          <p className="mt-2 text-neutral-400">
             Click continue to go to the next step.
           </p>
         </section>
       )}
 
       {step === 2 && (
-        <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
-            Step 2
+        <section className="mt-8 px-8">
+          <h2 className="text-2xl font-semibold text-black dark:text-white">
+            Please indicate which role best represents your position within your
+            institution.
           </h2>
-          <p className="mt-2 px-8 text-neutral-400">
-            This is the second step. Click continue to go to the next step.
+          <Label>Role</Label>
+          <Select value={role} onValueChange={(value) => setRole(value)}>
+            <SelectTrigger id="status" aria-label="Select status">
+              <SelectValue placeholder="Select status" />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.values(roles).map((role) => (
+                <SelectItem value={role.value} key={role.value}>
+                  {role.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <p className="mt-2 text-neutral-400">
+            Once you&apos;ve chosen your role, click &quot;Continue&quot; to
+            proceed to the next step.
           </p>
         </section>
       )}
 
       {step === 3 && (
-        <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
-            Step 3
+        <section className="mt-8 px-8">
+          <h2 className="text-2xl font-semibold text-black dark:text-white">
+            Please input the code of your institution to gain access to the
+            platform.
           </h2>
-          <p className="mt-2 px-8 text-neutral-400">
-            This is the third step. Click continue to go to the next step.
-          </p>
+          <Label>Institution Code</Label>
+          <Input
+            id="institutionCode"
+            type="text"
+            className="w-full"
+            placeholder="Please insert the code of your institution (e.g. 123456)"
+            value={institutionCode}
+            onChange={(e) => setInstitutionCode(e.target.value)}
+            minLength={6}
+            maxLength={6}
+          />
         </section>
       )}
 
       {step === 4 && (
-        <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
-            Step 4
+        <section className="mt-8 flex flex-col gap-y-4 px-8">
+          <h2 className="text-2xl font-semibold text-black dark:text-white">
+            Customize Your Profile Picture (Optional)
           </h2>
-          <p className="mt-2 px-8 text-neutral-400">This is the fourth step.</p>
+          <ChangeUserAvatar />
+          <p className="mt-2 text-neutral-400">
+            It&apos;s optional, but you can set an avatar that represents you
+            best.
+          </p>
         </section>
       )}
 
       {step === 5 && (
         <section>
           <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
-            Done!
+            Bem-vindo ao EchoSafe!
           </h2>
           <p className="mt-2 px-8 text-neutral-400">
-            You are done! Click go to ThePlatform™ to finish.
+            Welcome aboard! Click &quot;Go to EchoSafe&quot; to finish.
           </p>
         </section>
       )}
@@ -142,11 +183,15 @@ export default function Onboarding() {
           </Button>
           {step > STEP_LENGTH ? (
             <Button variant="provider" onClick={handleCompleteOnboarding}>
-              Go to ThePlatform™
+              Go to EchoSafe
             </Button>
           ) : (
             <Button
               variant="primary"
+              disabled={
+                (step === 2 && !role) ||
+                (step === 3 && institutionCode.length < 6)
+              }
               onClick={() => setStep(step > STEP_LENGTH ? step : step + 1)}
             >
               Continue
