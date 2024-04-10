@@ -2,52 +2,44 @@
 
 "use client";
 
-type Institutions = {
-  id: number;
-  name: string;
-  location: string;
-  code: string;
-  createdBy: string;
-  createdAt: Date;
-  updatedAt: Date;
-}[];
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { api } from "@/trpc/react";
+import { useState } from "react";
 
-/* interface ManageActiveInstitutionProps {
-  institutions: Institutions;
-} */
-
-const ManageActiveInstitution = () =>
-  /*   {
-    institutions
-  }: ManageActiveInstitutionProps, */
-  {
-    return null;
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    /* const [activeInstitutionId, activeInstitution, setActiveInstitutionId] =
-    useActiveInstitution(institutions);
-  const [selectedInstitution, setSelectedInstitution] = useState<string | null>(
-    activeInstitution?.name ?? null,
+const ManageActiveInstitution = () => {
+  const institutions = api.post.getInstitutions.useQuery();
+  const activeInstitutionFromDB = api.post.getActiveInstitution.useQuery();
+  const [selectedInstitution, setSelectedInstitution] = useState(
+    activeInstitutionFromDB.data?.name ?? null,
   );
 
-  const { update } = useSession();
+  const updateActiveInstitution: ReturnType<
+    typeof api.post.updateActiveInstitution.useMutation
+  > = api.post.updateActiveInstitution.useMutation({
+    onSuccess: async () => {
+      await activeInstitutionFromDB.refetch();
+      
+    },
+  });
 
-  useEffect(() => {
-    setSelectedInstitution(activeInstitution?.name ?? null);
-  }, [activeInstitution]); */
-
+  return (
     <div className="text-end">
       <p className="text-xs font-light uppercase text-muted-foreground">
         Managing
       </p>
 
-      {/* <Select
+      <Select
         value={selectedInstitution ?? ""}
         onValueChange={(value) => {
-          const foundInstitution = institutions.find(
-            (institution) => institution.name === value,
-          );
-          setActiveInstitutionId(foundInstitution?.id.toString() ?? null);
+          updateActiveInstitution.mutate({
+            institutionName: value,
+          });
           setSelectedInstitution(value);
         }}
       >
@@ -55,14 +47,17 @@ const ManageActiveInstitution = () =>
           <SelectValue placeholder="Select Institution" />
         </SelectTrigger>
         <SelectContent>
-          {institutions.map((institution) => (
-            <SelectItem value={institution.name} key={institution.id}>
-              {institution.name}
-            </SelectItem>
-          ))}
+          {institutions.data &&
+            institutions.data?.length > 0 &&
+            institutions.data.map((institution) => (
+              <SelectItem value={institution.name} key={institution.id}>
+                {institution.name}
+              </SelectItem>
+            ))}
         </SelectContent>
-      </Select> */}
-    </div>;
-  };
+      </Select>
+    </div>
+  );
+};
 
 export default ManageActiveInstitution;

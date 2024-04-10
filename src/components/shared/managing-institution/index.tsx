@@ -2,7 +2,7 @@ import { api } from "@/trpc/server";
 import ManageActiveInstitution from "./manage-active-institution";
 
 const ManagingInstitutionSection = async () => {
-  const institutions = await api.post.getInstitutions();
+  const institutions = await api.post.getMyInstitutions();
 
   return institutions ? <ManageActiveInstitution /> : null;
 };

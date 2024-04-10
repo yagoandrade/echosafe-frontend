@@ -5,7 +5,7 @@ import { DataTable } from "../../data-table/data-table";
 import { institutionColumns } from "../../columns";
 
 async function ManageInstitutions() {
-  const institutions = await api.post.getInstitutions();
+  const institutions = await api.post.getMyInstitutions();
 
   const formattedInstitutions = institutions.map((institution) => ({
     ...institution,

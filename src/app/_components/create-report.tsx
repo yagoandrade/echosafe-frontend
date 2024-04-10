@@ -16,28 +16,13 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { useActiveInstitution } from "@/hooks/useActiveInstitution";
 
-interface CreateReportProps {
-  institutions: {
-    id: number;
-    name: string;
-    location: string;
-    code: string;
-    createdBy: string;
-    createdAt: Date;
-    updatedAt: Date;
-  }[];
-}
-
-export function CreateReport({ institutions }: Readonly<CreateReportProps>) {
+export function CreateReport() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const [activeInstitutionId] = useActiveInstitution(institutions);
-
-  const CreateReport: ReturnType<typeof api.post.create.useMutation> =
+  const createReport: ReturnType<typeof api.post.create.useMutation> =
     api.post.create.useMutation({
       onSuccess: () => {
         router.refresh();
@@ -50,10 +35,9 @@ export function CreateReport({ institutions }: Readonly<CreateReportProps>) {
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        CreateReport.mutate({
+        createReport.mutate({
           title,
           description,
-          institutionId: Number(activeInstitutionId ?? -1),
         });
       }}
     >
@@ -148,9 +132,9 @@ export function CreateReport({ institutions }: Readonly<CreateReportProps>) {
           <Button
             type="submit"
             variant="provider"
-            disabled={CreateReport.isPending}
+            disabled={createReport.isPending}
           >
-            {CreateReport.isPending ? "Submitting..." : "Submit"}
+            {createReport.isPending ? "Submitting..." : "Submit"}
           </Button>
         </CardFooter>
       </Card>

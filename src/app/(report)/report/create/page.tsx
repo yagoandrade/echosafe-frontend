@@ -8,7 +8,7 @@ import { api } from "@/trpc/server";
 
 const CreateReportPage = async () => {
   const session = await getServerAuthSession();
-  const institutions = await api.post.getInstitutions();
+  const institutions = await api.post.getMyInstitutions();
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 

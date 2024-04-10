@@ -1,16 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { useActiveInstitution } from "@/hooks/useActiveInstitution";
 import { api } from "@/trpc/react";
 import { MessagesSquare } from "lucide-react";
 import Link from "next/link";
 
 const SidemenuReportsButton = () => {
-  const [activeInstitutionId] = useActiveInstitution();
-
-  const numberOfReports = api.post.getNumberOfReports.useQuery({
-    institutionId: activeInstitutionId ?? "",
-  });
+  const numberOfReports = api.post.getNumberOfReports.useQuery();
 
   return (
     <Button
