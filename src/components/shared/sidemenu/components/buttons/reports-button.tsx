@@ -3,9 +3,16 @@ import { Button } from "@/components/ui/button";
 import { api } from "@/trpc/react";
 import { MessagesSquare } from "lucide-react";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const SidemenuReportsButton = () => {
   const numberOfReports = api.post.getNumberOfReports.useQuery();
+
+  useEffect(() => {
+    if (numberOfReports.isStale) {
+      void numberOfReports.refetch();
+    }
+  }, [numberOfReports]);
 
   return (
     <Button

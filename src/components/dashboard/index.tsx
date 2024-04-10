@@ -1,8 +1,6 @@
-import { api } from "@/trpc/server";
-import { columns } from "../columns";
-import { DataTable } from "../data-table/data-table";
 import { getServerAuthSession } from "@/server/auth";
 import ManagingInstitutionSection from "../shared/managing-institution";
+import { ReportsTable } from "./reports-table";
 
 async function Dashboard() {
   const session = await getServerAuthSession();
@@ -21,29 +19,6 @@ async function Dashboard() {
         <ManagingInstitutionSection />
       </div>
       {session?.user && <ReportsTable />}
-    </div>
-  );
-}
-
-export async function ReportsTable() {
-  const tasks = await api.post.getTasks();
-
-  const formattedTasks = tasks.map((task) => ({
-    ...task,
-    id: task.id.toString(), // Convert the 'id' property to a string
-  }));
-
-  return (
-    <div className="w-full space-y-4">
-      {formattedTasks.length > 0 ? (
-        <DataTable
-          tableName="report"
-          dataFromServer={formattedTasks}
-          columns={columns}
-        />
-      ) : (
-        <p>You have not received any reports yet.</p>
-      )}
     </div>
   );
 }

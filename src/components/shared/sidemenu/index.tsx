@@ -24,7 +24,7 @@ const Sidemenu = () => {
     <aside className={sideMenuDefaultClassName} data-testid="sidemenu">
       <Card className="flex h-full w-full flex-col gap-y-0.5 rounded-none bg-transparent p-0">
         <CardHeader className="space-y-3">
-          <Link href="/" className="h-fit lg:min-w-fit">
+          <Link href="/dashboard" className="h-fit lg:min-w-fit">
             <Image
               priority
               src={

@@ -31,7 +31,7 @@ export const postRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       if (!ctx.session.user.email)
-        throw new Error("You must be logged in to create a task");
+        throw new Error("You must be logged in to create a report");
 
       // Step 1: Get the OpenAI ChatGPT orientations for the bullying report
       const openai = new OpenAI();
@@ -62,6 +62,8 @@ export const postRouter = createTRPCRouter({
         );
       }
 
+      const creationDate = new Date();
+
       // Step 3: Create the bullying report
       return ctx.db.post.create({
         data: {
@@ -74,7 +76,11 @@ export const postRouter = createTRPCRouter({
           AITypeOfBullying: orientations[1],
           AIActionRecommendations: orientations[2],
           createdBy: { connect: { email: ctx.session.user.email } },
-          associatedInstitutionId: user.activeInstitutionId,
+          associatedInstitution: {
+            connect: { id: Number(user.activeInstitutionId) },
+          },
+          createdAt: creationDate,
+          updatedAt: creationDate,
         },
       });
     }),
@@ -110,10 +116,24 @@ export const postRouter = createTRPCRouter({
       });
     }),
 
-  getTasks: protectedProcedure.query(({ ctx }) => {
+  getTasks: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session.user.email)
+      throw new Error("You must be logged in to see reports");
+
+    const user = await ctx.db.user.findUnique({
+      where: { email: ctx.session.user?.email ?? undefined },
+    });
+
+    if (!user?.activeInstitutionId) {
+      throw new Error(
+        "User must have an active institution to query the number of reports",
+      );
+    }
+
     return ctx.db.post.findMany({
       where: {
         createdBy: { email: ctx.session.user.email },
+        associatedInstitutionId: Number(user.activeInstitutionId),
       },
       orderBy: { createdAt: "desc" },
     });
@@ -446,7 +466,7 @@ export const postRouter = createTRPCRouter({
 
       await ctx.db.user.update({
         where: { email: ctx.session.user.email },
-        data: { activeInstitutionId: Number(input.institutionId) },
+        data: { activeInstitution: Number(input.institutionId) },
       });
     }),
 });

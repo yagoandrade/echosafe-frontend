@@ -1,5 +1,3 @@
-/* TODO: Rebuild this page */
-
 "use client";
 
 import {
@@ -9,22 +7,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
 import { api } from "@/trpc/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ManageActiveInstitution = () => {
   const institutions = api.post.getInstitutions.useQuery();
   const activeInstitutionFromDB = api.post.getActiveInstitution.useQuery();
-  const [selectedInstitution, setSelectedInstitution] = useState(
-    activeInstitutionFromDB.data?.name ?? null,
+
+  const { updateActiveInstitution } = useActiveInstitutionStore(
+    (state) => state,
   );
 
-  const updateActiveInstitution: ReturnType<
+  const [selectedInstitution, setSelectedInstitution] = useState<
+    string | undefined
+  >();
+
+  useEffect(() => {
+    if (activeInstitutionFromDB.isSuccess) {
+      setSelectedInstitution(activeInstitutionFromDB.data?.name);
+    }
+  }, [activeInstitutionFromDB.data, activeInstitutionFromDB.isSuccess]);
+
+  const updateActiveInstitutionInDB: ReturnType<
     typeof api.post.updateActiveInstitution.useMutation
   > = api.post.updateActiveInstitution.useMutation({
     onSuccess: async () => {
       await activeInstitutionFromDB.refetch();
-      
+      if (activeInstitutionFromDB.data) {
+        updateActiveInstitution(activeInstitutionFromDB.data);
+      }
     },
   });
 
@@ -37,7 +49,7 @@ const ManageActiveInstitution = () => {
       <Select
         value={selectedInstitution ?? ""}
         onValueChange={(value) => {
-          updateActiveInstitution.mutate({
+          updateActiveInstitutionInDB.mutate({
             institutionName: value,
           });
           setSelectedInstitution(value);
