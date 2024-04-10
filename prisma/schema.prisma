@@ -7,9 +7,16 @@ datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
 }
+// New enum for user roles
+enum UserRole {
+    STUDENT
+    COORDINATOR
+    PSYCHOLOGIST
+    DIRECTOR
+}
 
 model Post {
-    id                      Int      @id @default(autoincrement())
+    id                      Int         @id @default(autoincrement())
     title                   String
     description             String
     AISentimentAnalysis     String?
@@ -18,33 +25,15 @@ model Post {
     status                  String
     label                   String
     priority                String
-    associatedInstitution   Int
-    createdAt               DateTime @default(now())
-    updatedAt               DateTime @updatedAt
+    associatedInstitution   Institution @relation(fields: [associatedInstitutionId], references: [id])
+    associatedInstitutionId Int
+    createdAt               DateTime    @default(now())
+    updatedAt               DateTime    @updatedAt
 
     createdBy   User   @relation(fields: [createdById], references: [id])
     createdById String
 
     @@index([title])
-}
-
-model Institution {
-    id        Int    @id @default(autoincrement())
-    name      String
-    location  String
-    code      String
-    createdBy String
-
-    students User[] @relation("StudentInstitutions")
-
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
-
-    // Define admins many-to-many relation with Institution
-    admins          User[]            @relation("AdminInstitutions")
-    UserInstitution UserInstitution[]
-
-    @@map(name: "institutions")
 }
 
 // Necessary for Next auth
@@ -81,31 +70,51 @@ model Session {
 }
 
 model User {
-    id                     String    @id @default(cuid())
+    id                     String            @id @default(cuid())
     name                   String?
-    email                  String?   @unique
+    email                  String?           @unique
     emailVerified          DateTime?
     password               String?
     salt                   String?
     image                  String?
-    isOnboarded            Boolean   @default(false)
-    activeInstitutionId    Int?
+    isOnboarded            Boolean           @default(false)
+    activeInstitution      Institution?      @relation(fields: [activeInstitutionId], references: [id])
     accounts               Account[]
     sessions               Session[]
-    stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
-    stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
-    stripePriceId          String?   @map(name: "stripe_price_id")
-    stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+    stripeCustomerId       String?           @unique @map(name: "stripe_customer_id")
+    stripeSubscriptionId   String?           @unique @map(name: "stripe_subscription_id")
+    stripePriceId          String?           @map(name: "stripe_price_id")
+    stripeCurrentPeriodEnd DateTime?         @map(name: "stripe_current_period_end")
     posts                  Post[]
-
-    // Define relation with Institution as a student
-    institutionsAsStudent Institution[] @relation("StudentInstitutions")
-
-    // Define relation with Institution as an admin
-    institutionsAsAdmin Institution[]     @relation("AdminInstitutions")
-    UserInstitution     UserInstitution[]
+    UserInstitution        UserInstitution[]
+    activeInstitutionId    Int?
+    directorOf             Institution[]     @relation("Directors")
+    coordinatorOf          Institution[]     @relation("Coordinators")
+    psychologistOf         Institution[]     @relation("Psychologists")
+    studentOf              Institution[]     @relation("Students")
 
     @@map(name: "users")
+}
+
+model Institution {
+    id        Int      @id @default(autoincrement())
+    name      String
+    location  String
+    code      String
+    createdBy String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    userInstitutions UserInstitution[]
+    userId           String?
+    User             User[]
+    directors        User[]            @relation("Directors")
+    coordinators     User[]            @relation("Coordinators")
+    psychologists    User[]            @relation("Psychologists")
+    students         User[]            @relation("Students")
+    posts            Post[]
+
+    @@map(name: "institutions")
 }
 
 model UserInstitution {
@@ -114,6 +123,7 @@ model UserInstitution {
     userId        String
     institution   Institution @relation(fields: [institutionId], references: [id])
     institutionId Int
+    role          UserRole
 
     @@unique([userId, institutionId])
 }

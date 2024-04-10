@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
+import { useState } from "react";
 
 interface LoginData {
   email: string;
@@ -13,6 +14,8 @@ interface LoginData {
 }
 
 const SignInWithCredentials = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -20,6 +23,7 @@ const SignInWithCredentials = () => {
   } = useForm<LoginData>();
 
   const onSubmit = async (data: LoginData) => {
+    setIsSubmitting(true);
     await signIn("credentials", {
       ...data,
       callbackUrl: "/",
@@ -31,6 +35,7 @@ const SignInWithCredentials = () => {
         // toast.success("Logged in successfully");
       })
       .catch((err) => {
+        setIsSubmitting(false);
         toast.error(err as string);
       });
   };
@@ -68,8 +73,13 @@ const SignInWithCredentials = () => {
           </p>
         )}
       </div>
-      <Button type="submit" variant="primary" className="w-full">
-        Sign in
+      <Button
+        type="submit"
+        variant="primary"
+        className="w-full"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Signing in..." : "Sign in"}
       </Button>
     </form>
   );

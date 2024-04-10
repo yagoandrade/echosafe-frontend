@@ -1,6 +1,6 @@
 export const roles = {
-  student: { value: "student", label: "Student" },
-  coordinator: { value: "coordinator", label: "Coordinator" },
-  psychologist: { value: "psychologist", label: "Psychologist" },
-  director: { value: "director", label: "Director" },
+  student: { value: "STUDENT", label: "Student" },
+  coordinator: { value: "COORDINATOR", label: "Coordinator" },
+  psychologist: { value: "PSYCHOLOGIST", label: "Psychologist" },
+  director: { value: "DIRECTOR", label: "Director" },
 };

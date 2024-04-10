@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { Separator } from "@/components/ui/separator";
+import { useState } from "react";
 
 interface RegisterData {
   name: string;
@@ -28,6 +29,8 @@ interface RegisterData {
 }
 
 export default function Register() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -48,12 +51,14 @@ export default function Register() {
       router.push("/api/auth/signin?csrf=true");
     },
     onError: (error) => {
+      setIsSubmitting(false);
       console.error(error);
       toast.error(error.message);
     },
   });
 
   const onSubmit = async ({ name, email, password }: RegisterData) => {
+    setIsSubmitting(true);
     registerUser.mutate({ name, email, password });
   };
 
@@ -127,8 +132,13 @@ export default function Register() {
                   </p>
                 )}
               </div>
-              <Button type="submit" variant="primary" className="w-full">
-                Create an account
+              <Button
+                type="submit"
+                variant="primary"
+                className="w-full"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Creating account..." : "Create an account"}
               </Button>
             </div>
             {/* <div className="mt-4 text-center text-sm text-[#7f8093]">

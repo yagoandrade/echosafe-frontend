@@ -65,7 +65,7 @@ export default function Onboarding() {
       await update({ isOnboarded: true });
       localStorage.removeItem("onboardingStep");
       toast.success("Onboarding complete! Welcome to EchoSafe");
-      router.push("/");
+      router.push("/dashboard");
     },
     onError: (error) => {
       console.error(error);
@@ -76,7 +76,10 @@ export default function Onboarding() {
   });
 
   const handleCompleteOnboarding = async () => {
-    finishOnboarding.mutate();
+    finishOnboarding.mutate({
+      institutionCode,
+      role,
+    });
   };
 
   return (
@@ -88,7 +91,7 @@ export default function Onboarding() {
       </div>
 
       {step === 1 && (
-        <section className="mt-8 px-8">
+        <section className="mt-8 space-y-3 px-8">
           <h2 className="mt-8 text-2xl font-semibold text-black dark:text-white">
             Welcome to EchoSafe, {session?.user.name}!
           </h2>
@@ -103,12 +106,41 @@ export default function Onboarding() {
       )}
 
       {step === 2 && (
-        <section className="mt-8 px-8">
+        <section className="mt-8 space-y-3 px-8">
+          <h2 className="text-2xl font-semibold text-black dark:text-white">
+            Please input the code of your institution to gain access to the
+            platform.
+          </h2>
+          <Input
+            id="institutionCode"
+            type="text"
+            className="w-full"
+            placeholder="Please insert the code of your institution (e.g. 123456)"
+            value={institutionCode}
+            onChange={(e) => setInstitutionCode(e.target.value)}
+            minLength={6}
+            maxLength={6}
+          />
+          <div className="flex w-full justify-end">
+            <Button
+              variant="link"
+              onClick={() => {
+                setInstitutionCode("");
+                setStep(4);
+              }}
+            >
+              I do not have a code
+            </Button>
+          </div>
+        </section>
+      )}
+
+      {step === 3 && (
+        <section className="mt-8 space-y-3 px-8">
           <h2 className="text-2xl font-semibold text-black dark:text-white">
             Please indicate which role best represents your position within your
             institution.
           </h2>
-          <Label>Role</Label>
           <Select value={role} onValueChange={(value) => setRole(value)}>
             <SelectTrigger id="status" aria-label="Select status">
               <SelectValue placeholder="Select status" />
@@ -128,26 +160,6 @@ export default function Onboarding() {
         </section>
       )}
 
-      {step === 3 && (
-        <section className="mt-8 px-8">
-          <h2 className="text-2xl font-semibold text-black dark:text-white">
-            Please input the code of your institution to gain access to the
-            platform.
-          </h2>
-          <Label>Institution Code</Label>
-          <Input
-            id="institutionCode"
-            type="text"
-            className="w-full"
-            placeholder="Please insert the code of your institution (e.g. 123456)"
-            value={institutionCode}
-            onChange={(e) => setInstitutionCode(e.target.value)}
-            minLength={6}
-            maxLength={6}
-          />
-        </section>
-      )}
-
       {step === 4 && (
         <section className="mt-8 flex flex-col gap-y-4 px-8">
           <h2 className="text-2xl font-semibold text-black dark:text-white">
@@ -163,7 +175,7 @@ export default function Onboarding() {
 
       {step === 5 && (
         <section>
-          <h2 className="mt-8 px-8 text-2xl font-semibold text-black dark:text-white">
+          <h2 className="mt-8 space-y-3 px-8 text-2xl font-semibold text-black dark:text-white">
             Bem-vindo ao EchoSafe!
           </h2>
           <p className="mt-2 px-8 text-neutral-400">

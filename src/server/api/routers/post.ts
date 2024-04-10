@@ -6,9 +6,10 @@ import {
   protectedProcedure,
   publicProcedure,
 } from "@/server/api/trpc";
-import { Prisma } from "@prisma/client";
+import { Institution, Prisma } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import {
+  getInstitutionsRelationName,
   parseBullyingReportOrientationsFromGPT,
   validateEmail,
 } from "@/lib/utils";
@@ -62,7 +63,7 @@ export const postRouter = createTRPCRouter({
           AITypeOfBullying: orientations[1],
           AIActionRecommendations: orientations[2],
           createdBy: { connect: { email: ctx.session.user.email } },
-          associatedInstitution: input.institutionId,
+          associatedInstitutionId: input.institutionId,
         },
       });
     }),
@@ -116,9 +117,10 @@ export const postRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       if (!ctx.session.user.email)
-        throw new Error("You must be logged in to create a task");
+        throw new Error("You must be logged in to create an institution");
 
-      return ctx.db.institution.create({
+      // Step 1: Create the institution
+      const institution: Institution = await ctx.db.institution.create({
         data: {
           name: input.name,
           location: input.location,
@@ -126,6 +128,36 @@ export const postRouter = createTRPCRouter({
           code: Math.random().toString(36).substring(7).toUpperCase(),
         },
       });
+
+      // Step 2: Retrieve the creator user's ID using their email
+      const creatorUser = await ctx.db.user.findUnique({
+        where: {
+          email: ctx.session.user.email,
+        },
+      });
+
+      // Step 3: Update the creator user's roles to include the role of director for the newly created institution
+      if (creatorUser) {
+        await ctx.db.userInstitution.create({
+          data: {
+            user: {
+              connect: {
+                id: creatorUser.id,
+              },
+            },
+            institution: {
+              connect: {
+                id: institution.id,
+              },
+            },
+            role: "DIRECTOR",
+          },
+        });
+      } else {
+        throw new Error("Creator user not found");
+      }
+
+      return institution;
     }),
 
   getInstitutions: protectedProcedure.query(({ ctx }) => {
@@ -142,7 +174,7 @@ export const postRouter = createTRPCRouter({
     .input(z.object({ institutionId: z.string() }))
     .query(({ ctx, input }) => {
       return ctx.db.post.count({
-        where: { associatedInstitution: Number(input.institutionId) },
+        where: { associatedInstitutionId: Number(input.institutionId) },
       });
     }),
 
@@ -150,17 +182,113 @@ export const postRouter = createTRPCRouter({
     return "you can now see this secret message!";
   }),
 
-  finishOnboarding: protectedProcedure.mutation(async ({ ctx }) => {
-    if (!ctx.session.user.email)
-      throw new Error("You must be logged in to finish onboarding");
+  finishOnboarding: protectedProcedure
+    .input(
+      z.object({
+        institutionCode: z.string(),
+        role: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email) {
+        throw new Error("You must be logged in to finish onboarding");
+      }
 
-    const user = await ctx.db.user.update({
-      where: { email: ctx.session.user.email },
-      data: { isOnboarded: true },
-    });
+      if (input.institutionCode.length === 0) {
+        const updatedUser = await ctx.db.user.update({
+          where: { email: ctx.session.user.email },
+          data: {
+            isOnboarded: true,
+          },
+        });
 
-    return user;
-  }),
+        return updatedUser;
+      }
+
+      const user = await ctx.db.user.findUnique({
+        where: { email: ctx.session.user.email },
+      });
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      const associatedInstitution = await ctx.db.institution.findFirst({
+        where: { code: input.institutionCode },
+      });
+
+      if (!associatedInstitution) {
+        throw new Error("Associated institution not found");
+      }
+
+      // Update institution associations based on user's role
+      switch (input.role) {
+        case "STUDENT":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "STUDENT",
+            },
+          });
+          break;
+        case "COORDINATOR":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "COORDINATOR",
+            },
+          });
+          break;
+        case "PSYCHOLOGIST":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "PSYCHOLOGIST",
+            },
+          });
+          break;
+        case "DIRECTOR":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "DIRECTOR",
+            },
+          });
+          break;
+        default:
+          throw new Error("Invalid user role");
+      }
+
+      // Update isOnboarded status after associating with an institution
+      const updatedUser = await ctx.db.user.update({
+        where: { email: ctx.session.user.email },
+        data: {
+          isOnboarded: true,
+        },
+      });
+
+      return updatedUser;
+    }),
 
   registerUser: publicProcedure
     .input(

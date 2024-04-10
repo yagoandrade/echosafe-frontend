@@ -105,3 +105,20 @@ export const parseBullyingReportOrientationsFromGPT = (text: string | null) => {
 
   return points;
 };
+
+export type UserRole = "STUDENT" | "COORDINATOR" | "PSYCHOLOGIST" | "DIRECTOR";
+
+export function getInstitutionsRelationName(role: UserRole) {
+  switch (role) {
+    case "STUDENT":
+      return "institutionsAsStudent";
+    case "COORDINATOR":
+      return "institutionsAsCoordinator";
+    case "PSYCHOLOGIST":
+      return "institutionsAsPsychologist";
+    case "DIRECTOR":
+      return "institutionsAsDirector";
+    default:
+      throw new Error("Invalid user role");
+  }
+}
