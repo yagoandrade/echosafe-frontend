@@ -293,6 +293,26 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
+  getNumberOfOpenReports: protectedProcedure.query(async ({ ctx }) => {
+    // Step 1: Retrieve the user's ID using their email
+    const user = await ctx.db.user.findUnique({
+      where: { email: ctx.session.user?.email ?? undefined },
+    });
+
+    if (!user?.activeInstitutionId) {
+      throw new Error(
+        "User must have an active institution to query the number of reports",
+      );
+    }
+
+    return ctx.db.post.count({
+      where: {
+        associatedInstitutionId: Number(user?.activeInstitutionId),
+        status: { in: ["open", "under_review", "requires_action"] },
+      },
+    });
+  }),
+
   finishOnboarding: protectedProcedure
     .input(
       z.object({

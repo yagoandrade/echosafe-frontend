@@ -74,58 +74,6 @@ export function CreateReport() {
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
-
-            {/* <div className="grid gap-3">
-              <Label>Status</Label>
-              <Select
-                value={status}
-                onValueChange={(value) => setStatus(value)}
-              >
-                <SelectTrigger id="status" aria-label="Select status">
-                  <SelectValue placeholder="Select status" />
-                </SelectTrigger>
-                <SelectContent>
-                  {statuses.map((status) => (
-                    <SelectItem value={status.value} key={status.value}>
-                      {status.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid gap-3">
-              <Label>Label</Label>
-              <Select value={label} onValueChange={(value) => setLabel(value)}>
-                <SelectTrigger id="label" aria-label="Select label">
-                  <SelectValue placeholder="Select label" />
-                </SelectTrigger>
-                <SelectContent>
-                  {labels.map((label) => (
-                    <SelectItem value={label.value} key={label.value}>
-                      {label.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid gap-3">
-              <Label>Priority</Label>
-              <Select
-                value={priority}
-                onValueChange={(value) => setPriority(value)}
-              >
-                <SelectTrigger id="priority" aria-label="Select priority">
-                  <SelectValue placeholder="Select priority" />
-                </SelectTrigger>
-                <SelectContent>
-                  {priorities.map((priority) => (
-                    <SelectItem value={priority.value} key={priority.value}>
-                      {priority.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div> */}
           </div>
         </CardContent>
         <CardFooter>

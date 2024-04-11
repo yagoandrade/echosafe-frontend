@@ -14,6 +14,7 @@ async function ManageInstitutions() {
 
   return formattedInstitutions.length > 0 ? (
     <DataTable
+      key={JSON.stringify(formattedInstitutions)}
       dataFromServer={formattedInstitutions}
       columns={institutionColumns}
       tableName="institution"

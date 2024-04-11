@@ -44,7 +44,7 @@ const ManageActiveInstitution = () => {
   return (
     <div className="text-end">
       <p className="text-xs font-light uppercase text-muted-foreground">
-        Managing
+        {!selectedInstitution ? "No institution selected" : "Managing"}
       </p>
 
       <Select

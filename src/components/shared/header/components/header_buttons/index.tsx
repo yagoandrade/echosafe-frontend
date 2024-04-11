@@ -43,7 +43,6 @@ const HeaderButtons = () => {
 };
 
 const HeaderContent = () => {
-  const { data: session, status } = useSession();
   const router = useRouter();
 
   const handleRegister = () => {

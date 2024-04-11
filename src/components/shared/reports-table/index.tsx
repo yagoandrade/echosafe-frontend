@@ -7,7 +7,7 @@ import { columns } from "../../columns";
 import { DataTable } from "../../data-table/data-table";
 import { type Post } from "@prisma/client";
 import { toast } from "sonner";
-import { Loader, MessageSquareDashed } from "lucide-react";
+import { Loader, MessageSquareDashed, School } from "lucide-react";
 
 type Modify<T, R> = Omit<T, keyof R> & R;
 
@@ -49,10 +49,14 @@ export function ReportsTable() {
       {!reportsQuery.isLoading && formattedReports.length === 0 && (
         <div className="flex size-full flex-col items-center justify-center gap-y-3 text-muted-foreground">
           <MessageSquareDashed size="5rem" strokeWidth={1.75} />
-          <p>
-            It looks like there are no reports to show right now. Check back
-            later!
-          </p>
+          {reportsQuery.error && !activeInstitution ? (
+            <p>You must first select an institution to view reports.</p>
+          ) : (
+            <p>
+              It looks like there are no reports to show right now. Check back
+              later!
+            </p>
+          )}
         </div>
       )}
       {reportsQuery.isLoading && (
@@ -70,7 +74,9 @@ export function ReportsTable() {
           />
         </div>
       )}
-      {reportsQuery.error && <p>Error: {reportsQuery.error.message}</p>}
+      {reportsQuery.error && activeInstitution && (
+        <p>Error: {reportsQuery.error.message}</p>
+      )}
     </>
   );
 }

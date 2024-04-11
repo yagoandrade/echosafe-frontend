@@ -16,9 +16,9 @@ const SidemenuButtons = () => {
       {/* <SidemenuLogsButton /> */}
       <SidemenuMembersButton />
       <SidemenuManageInstitutionsButton />
-      <SidemenuAIResponsesButton />
-      <SidemenuArchivedReportsButton />
-      <SidemenuAttachmentsButton />
+      {/* <SidemenuAIResponsesButton /> */}
+      {/* <SidemenuArchivedReportsButton /> */}
+      {/* <SidemenuAttachmentsButton /> */}
       <SidemenuSettingsButton />
       <SidemenuCreateReportButton className="mt-auto" />
     </>
