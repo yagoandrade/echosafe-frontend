@@ -41,9 +41,11 @@ const Sidemenu = () => {
         <CardContent className="flex h-full flex-col gap-y-0.5 overflow-auto p-0.5">
           <SidemenuButtons />
         </CardContent>
-        <CardFooter className="mt-auto flex justify-around p-0.5">
-          <UserNav user={session?.user} isExtended />
-        </CardFooter>
+        {session?.user && (
+          <CardFooter className="mt-auto flex justify-around p-0.5">
+            <UserNav user={session?.user} isExtended />
+          </CardFooter>
+        )}
       </Card>
     </aside>
   );

@@ -8,11 +8,11 @@ import { ActiveInstitutionStoreProvider } from "@/providers/activeInstitutionSto
 const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <SessionProvider>
-      <NextThemesProvider attribute="class" defaultTheme="light">
-        <ActiveInstitutionStoreProvider>
+      <ActiveInstitutionStoreProvider>
+        <NextThemesProvider attribute="class" defaultTheme="light">
           {children}
-        </ActiveInstitutionStoreProvider>
-      </NextThemesProvider>
+        </NextThemesProvider>
+      </ActiveInstitutionStoreProvider>
     </SessionProvider>
   );
 };

@@ -21,7 +21,7 @@ export const ActiveInstitutionStoreProvider = async ({
   const storeRef = useRef<StoreApi<ActiveInstitutionStore>>();
   if (!storeRef.current) {
     storeRef.current = createActiveInstitutionStore(
-      await initActiveInstitutionStore(),
+      initActiveInstitutionStore(),
     );
   }
 

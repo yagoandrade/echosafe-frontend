@@ -31,11 +31,11 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
             />
           </Avatar>
           {isExtended && (
-            <p className="w-full truncate text-sm font-medium text-primary dark:text-[#cbccd9]">
+            <p className="truncate text-sm font-medium text-primary dark:text-[#cbccd9]">
               {user?.name}
             </p>
           )}
-          <ChevronsUpDown className="h-4 w-4 min-w-fit text-muted-foreground dark:text-[#cbccd9]" />
+          <ChevronsUpDown className="ml-auto h-4 w-4 min-w-fit text-muted-foreground dark:text-[#cbccd9]" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

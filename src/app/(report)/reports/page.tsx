@@ -1,12 +1,9 @@
-import { ReportsTable } from "@/components/dashboard";
+import { ReportsTable } from "@/components/dashboard/reports-table";
 import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
-import { Plus } from "lucide-react";
-import Link from "next/link";
 
 const ReportsPage = async () => {
   const session = await getServerAuthSession();

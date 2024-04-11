@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
 import { api } from "@/trpc/react";
 import { useEffect, useState } from "react";
@@ -48,6 +49,7 @@ const ManageActiveInstitution = () => {
 
       <Select
         value={selectedInstitution ?? ""}
+        disabled={activeInstitutionFromDB.isLoading}
         onValueChange={(value) => {
           updateActiveInstitutionInDB.mutate({
             institutionName: value,
@@ -56,7 +58,11 @@ const ManageActiveInstitution = () => {
         }}
       >
         <SelectTrigger id="status" aria-label="Select Institution">
-          <SelectValue placeholder="Select Institution" />
+          {activeInstitutionFromDB.isLoading ? (
+            <Skeleton className="h-[20px] w-[100px] rounded-xl" />
+          ) : (
+            <SelectValue placeholder="Select Institution" />
+          )}
         </SelectTrigger>
         <SelectContent>
           {institutions.data &&

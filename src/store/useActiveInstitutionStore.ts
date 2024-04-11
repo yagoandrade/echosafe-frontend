@@ -1,5 +1,4 @@
 "use client";
-import { api } from "@/trpc/react";
 import { type Institution } from "@prisma/client";
 import { createStore } from "zustand/vanilla";
 
@@ -14,9 +13,8 @@ export type ActiveInstitutionActions = {
 export type ActiveInstitutionStore = ActiveInstitutionState &
   ActiveInstitutionActions;
 
-export const initActiveInstitutionStore = async () => {
-  const institution = api.post.getActiveInstitution.useQuery();
-  return { activeInstitution: institution.data ?? null };
+export const initActiveInstitutionStore = () => {
+  return undefined;
 };
 
 export const defaultInitState: ActiveInstitutionState = {
