@@ -15,6 +15,7 @@ import { motion } from "framer-motion";
 import { Separator } from "@/components/ui/separator";
 import SignInWithCredentials from "@/components/sign-in-with-credentials";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SignInPage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -52,7 +53,7 @@ export default function SignInPage() {
             {selectedProvider === "email" && <SignInWithMagicLink />} */}
           </div>
           <div className="mt-4 flex flex-col gap-y-1 text-sm text-[#7f8093]">
-            {/* <span className="mb-2">
+            <span className="mb-2">
               Don&apos;t have an account yet?{" "}
               <Link
                 href="/api/auth/register"
@@ -61,7 +62,7 @@ export default function SignInPage() {
                 Register here
               </Link>
               .
-            </span> */}
+            </span>
 
             {/*
             TODO: Add verification for when a user's account is not registered, then turn it back on

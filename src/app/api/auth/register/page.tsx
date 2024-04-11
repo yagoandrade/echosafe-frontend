@@ -141,7 +141,7 @@ export default function Register() {
                 {isSubmitting ? "Creating account..." : "Create an account"}
               </Button>
             </div>
-            {/* <div className="mt-4 text-center text-sm text-[#7f8093]">
+            <div className="mt-4 text-center text-sm text-[#7f8093]">
               Already have an account?{" "}
               <Link
                 href="/api/auth/signin?csrf=true"
@@ -150,7 +150,7 @@ export default function Register() {
                 Sign in
               </Link>
               .
-            </div> */}
+            </div>
           </CardContent>
         </Card>
       </motion.div>
