@@ -3,7 +3,6 @@ import SidemenuArchivedReportsButton from "./buttons/archived-reports";
 import SidemenuAttachmentsButton from "./buttons/attachments";
 import SidemenuCreateReportButton from "./buttons/create-report";
 import SidemenuManageInstitutionsButton from "./buttons/institutions-button";
-import SidemenuLogsButton from "./buttons/logs-button";
 import SidemenuMembersButton from "./buttons/members-button";
 import SidemenuReportsButton from "./buttons/reports-button";
 import SidemenuSearchButton from "./buttons/search-button";
@@ -14,7 +13,7 @@ const SidemenuButtons = () => {
     <>
       <SidemenuSearchButton />
       <SidemenuReportsButton />
-      <SidemenuLogsButton />
+      {/* <SidemenuLogsButton /> */}
       <SidemenuMembersButton />
       <SidemenuManageInstitutionsButton />
       <SidemenuAIResponsesButton />
