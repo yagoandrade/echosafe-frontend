@@ -27,7 +27,6 @@ const ManageInstituionsPage = async () => {
               You can manage your institutions here.
             </p>
           </div>
-          <ManagingInstitutionSection />
         </div>
         <div className="flex w-full justify-between">
           <PageBreadcrumb
