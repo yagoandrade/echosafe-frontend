@@ -1,12 +1,14 @@
 import "@/styles/globals.css";
 
-import localFont from "next/font/local";
-import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "sonner";
+import localFont from "next/font/local";
 
-import { TRPCReactProvider } from "@/trpc/react";
 import Providers from "./_components/providers";
+import { TRPCReactProvider } from "@/trpc/react";
 import { ActiveInstitutionStoreProvider } from "@/providers/activeInstitutionStoreProvider";
+
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const soehne = localFont({
   src: "../../public/assets/fonts/soehne/soehne-var.woff2",
@@ -110,6 +112,7 @@ export default function RootLayout({
           </ActiveInstitutionStoreProvider>
         </TRPCReactProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
