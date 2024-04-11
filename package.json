@@ -20,7 +20,7 @@
     "@aws-sdk/s3-presigned-post": "^3.550.0",
     "@hookform/resolvers": "^3.3.4",
     "@johnn-e/react-mesh-gradient": "^1.1.1",
-    "@prisma/client": "^5.10.2",
+    "@prisma/client": "^5.12.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -91,7 +91,7 @@
     "postcss": "^8.4.34",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
-    "prisma": "^5.10.2",
+    "prisma": "^5.12.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.4.2"
   },
