@@ -22,6 +22,7 @@ interface UserNavProps {
 }
 
 export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
+  const userRoleQuery = api.post.getUserRole.useQuery();
   const activeInstitutionFromDB = api.post.getActiveInstitution.useQuery();
 
   const handleCopyInstitutionCode = async () => {
@@ -64,19 +65,25 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
             <p className="text-sm font-medium leading-none">
               {user?.name ?? "User"}
             </p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user?.email ?? "me@example.com"}
-            </p>
+            {user?.email && (
+              <p className="text-xs leading-none text-muted-foreground">
+                {user?.email}
+              </p>
+            )}
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={handleCopyInstitutionCode}>
-            Copy your Institution&apos;s Code
-          </DropdownMenuItem>
-          <Link href="/institution/create">
-            <DropdownMenuItem>Create a Institution</DropdownMenuItem>
-          </Link>
+          {userRoleQuery.data !== "STUDENT" && (
+            <>
+              <DropdownMenuItem onClick={handleCopyInstitutionCode}>
+                Copy your Institution&apos;s Code
+              </DropdownMenuItem>
+              <Link href="/institution/create">
+                <DropdownMenuItem>Create a Institution</DropdownMenuItem>
+              </Link>
+            </>
+          )}
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <Link href="/api/auth/signout">

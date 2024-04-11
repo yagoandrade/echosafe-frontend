@@ -237,6 +237,32 @@ export const postRouter = createTRPCRouter({
     return institutions;
   }),
 
+  getUserRole: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session.user.email) {
+      throw new Error("You must be logged in to know your role");
+    }
+
+    // Find the user based on the email from the session
+    const user = await ctx.db.user.findFirst({
+      where: {
+        email: ctx.session.user.email,
+      },
+    });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const userInstitution = await ctx.db.userInstitution.findFirst({
+      where: {
+        userId: user.id,
+        institutionId: user.activeInstitutionId ?? -1,
+      },
+    });
+
+    return userInstitution?.role;
+  }),
+
   getActiveInstitution: protectedProcedure.query(async ({ ctx }) => {
     // Step 1: Retrieve the user's ID using their email
     const user = await ctx.db.user.findUnique({

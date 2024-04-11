@@ -26,6 +26,8 @@ const ManageActiveInstitution = () => {
 
   useEffect(() => {
     if (activeInstitutionFromDB.isSuccess) {
+      if (activeInstitutionFromDB.data)
+        updateActiveInstitution(activeInstitutionFromDB.data);
       setSelectedInstitution(activeInstitutionFromDB.data?.name);
     }
   }, [activeInstitutionFromDB.data, activeInstitutionFromDB.isSuccess]);
@@ -35,9 +37,6 @@ const ManageActiveInstitution = () => {
   > = api.post.updateActiveInstitution.useMutation({
     onSuccess: async () => {
       await activeInstitutionFromDB.refetch();
-      if (activeInstitutionFromDB.data) {
-        updateActiveInstitution(activeInstitutionFromDB.data);
-      }
     },
   });
 

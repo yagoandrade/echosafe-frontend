@@ -7,7 +7,7 @@ import { columns } from "../../columns";
 import { DataTable } from "../../data-table/data-table";
 import { type Post } from "@prisma/client";
 import { toast } from "sonner";
-import { Loader, MessageSquareDashed, School } from "lucide-react";
+import { Loader, MessageSquareDashed } from "lucide-react";
 
 type Modify<T, R> = Omit<T, keyof R> & R;
 

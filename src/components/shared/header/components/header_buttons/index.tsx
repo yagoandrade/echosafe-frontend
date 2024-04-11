@@ -6,8 +6,6 @@ import LightLogo from "@/../public/assets/svg/light-logo.svg";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
-import { UserNav } from "@/components/user-nav";
-import { useSession } from "next-auth/react";
 import MobileSidemenu from "@/components/shared/mobile-sidemenu";
 import { useRouter } from "next/navigation";
 
