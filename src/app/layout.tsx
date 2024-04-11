@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 
 import localFont from "next/font/local";
-import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "sonner";
 
 import { TRPCReactProvider } from "@/trpc/react";
@@ -109,6 +109,7 @@ export default function RootLayout({
             </Providers>
           </ActiveInstitutionStoreProvider>
         </TRPCReactProvider>
+        <Analytics />
       </body>
     </html>
   );
