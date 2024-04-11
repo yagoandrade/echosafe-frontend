@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { type Statuses, priorities, statuses, Priorities } from "@/data/data";
+import { type Statuses, priorities, statuses, type Priorities } from "@/data/data";
 import { DotSquare } from "lucide-react";
 import { type Task } from "@/data/schema";
 import { api } from "@/trpc/react";
@@ -33,7 +33,6 @@ export function DataTableRowActions<TData>({
   row,
 }: Readonly<DataTableRowActionsProps<TData>>) {
   const task = row.original as Task;
-
   const updateReport = api.post.updateTask.useMutation();
 
   const handleUpdatePriority = async (newPriority: Priorities) => {

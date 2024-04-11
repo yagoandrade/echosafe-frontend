@@ -20,7 +20,10 @@ async function ManageInstitutions() {
       tableName="institution"
     />
   ) : (
-    <p>You do not have any Institutions.</p>
+    <p>
+      You do not have any institutions. Click in &quot;Create Institution&quot;
+      to start creating your first.
+    </p>
   );
 }
 

@@ -1,14 +1,20 @@
-import { CreateReport } from "@/app/_components/create-report";
+"use client";
+
+import ReportDetails from "@/components/reports/report-details";
 import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
 import { cn } from "@/lib/utils";
-import { getServerAuthSession } from "@/server/auth";
+import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
-const CreateReportPage = async () => {
-  const session = await getServerAuthSession();
+const ReportPage = () => {
+  const { data: session } = useSession();
+  const searchParams = useSearchParams();
 
-  const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
+  const id = searchParams.get("id");
+
+  const pageHeight = "min-h-screen";
 
   return (
     <main className={cn("flex justify-center", pageHeight)}>
@@ -17,16 +23,12 @@ const CreateReportPage = async () => {
       <div className="h-screen w-full flex-1 flex-col space-y-8 overflow-y-scroll bg-gradient-to-b from-[#fafafb] to-white p-8 md:flex">
         <div className="flex items-center justify-between space-y-2">
           <div>
-            {session?.user && (
-              <>
-                <h3 className="text-xl font-semibold tracking-tight">
-                  Welcome back, {session?.user.name}!
-                </h3>
-                <p className="text-muted-foreground">
-                  You are creating a new report.
-                </p>
-              </>
-            )}
+            <h3 className="text-xl font-semibold tracking-tight">
+              Welcome back, {session?.user.name}!
+            </h3>
+            <p className="text-muted-foreground">
+              You are creating a new report.
+            </p>
           </div>
           <ManagingInstitutionSection />
         </div>
@@ -37,10 +39,14 @@ const CreateReportPage = async () => {
             { label: "Create a Report" },
           ]}
         />
-        <CreateReport />
+        {id && typeof id === "string" ? (
+          <ReportDetails id={id} />
+        ) : (
+          <p>There is no report to show you.</p>
+        )}
       </div>
     </main>
   );
 };
 
-export default CreateReportPage;
+export default ReportPage;

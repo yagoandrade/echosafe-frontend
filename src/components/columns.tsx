@@ -10,6 +10,7 @@ import { type Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table/data-table-column-header";
 import { DataTableRowActions } from "./data-table/data-table-row-actions";
 import { labels, priorities, statuses } from "@/data/data";
+import Link from "next/link";
 
 export const columns: ColumnDef<Task>[] = [
   {
@@ -46,12 +47,12 @@ export const columns: ColumnDef<Task>[] = [
       const label = labels.find((label) => label.value === row.original.label);
 
       return (
-        <div className="flex space-x-2">
+        <Link className="flex space-x-2" href={`/report/${row.original.id}`}>
           {label && <Badge variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("title")}
           </span>
-        </div>
+        </Link>
       );
     },
   },

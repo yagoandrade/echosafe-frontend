@@ -130,9 +130,27 @@ export const postRouter = createTRPCRouter({
       );
     }
 
+    const userInInstitution = await ctx.db.userInstitution.findFirst({
+      where: {
+        userId: user.id,
+        institutionId: user.activeInstitutionId,
+      },
+    });
+
+    if (userInInstitution?.role === "STUDENT") {
+      return ctx.db.post.findMany({
+        where: {
+          createdBy: {
+            email: ctx.session.user.email,
+          },
+          associatedInstitutionId: Number(user.activeInstitutionId),
+        },
+        orderBy: { createdAt: "desc" },
+      });
+    }
+
     return ctx.db.post.findMany({
       where: {
-        createdBy: { email: ctx.session.user.email },
         associatedInstitutionId: Number(user.activeInstitutionId),
       },
       orderBy: { createdAt: "desc" },

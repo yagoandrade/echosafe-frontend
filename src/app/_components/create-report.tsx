@@ -16,6 +16,7 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "sonner";
 
 export function CreateReport() {
   const router = useRouter();
@@ -25,7 +26,8 @@ export function CreateReport() {
   const createReport: ReturnType<typeof api.post.create.useMutation> =
     api.post.create.useMutation({
       onSuccess: () => {
-        router.refresh();
+        toast.success("Report submitted successfully!");
+        router.push("/dashboard");
         setTitle("");
         setDescription("");
       },

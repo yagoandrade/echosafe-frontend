@@ -176,7 +176,7 @@ export default function Onboarding() {
       {step === 5 && (
         <section>
           <h2 className="mt-8 space-y-3 px-8 text-2xl font-semibold text-black dark:text-white">
-            Bem-vindo ao EchoSafe!
+            That&apos;s a wrap! 🎉
           </h2>
           <p className="mt-2 px-8 text-neutral-400">
             Welcome aboard! Click &quot;Go to EchoSafe&quot; to finish.
