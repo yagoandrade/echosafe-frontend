@@ -469,4 +469,50 @@ export const postRouter = createTRPCRouter({
         data: { activeInstitution: Number(input.institutionId) },
       });
     }),
+
+  getMembersFromInstitution: protectedProcedure.query(async ({ ctx }) => {
+    if (!ctx.session.user.email)
+      throw new Error("You must be logged in to see reports");
+
+    const user = await ctx.db.user.findUnique({
+      where: { email: ctx.session.user?.email ?? undefined },
+    });
+
+    if (!user?.activeInstitutionId) {
+      throw new Error(
+        "User must have an active institution to query the number of reports",
+      );
+    }
+
+    const members = await ctx.db.userInstitution.findMany({
+      where: {
+        institutionId: Number(user.activeInstitutionId),
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    // Transform the fetched data to match the schema
+    const formattedMembers = members.map((member) => ({
+      id: member.user.id,
+      name: member.user.name,
+      role: member.role,
+    }));
+
+    // Define a schema for the response data
+    const membersSchema = z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        role: z.enum(["DIRECTOR", "COORDINATOR", "PSYCHOLOGIST", "STUDENT"]),
+        // Add more fields as needed
+      }),
+    );
+
+    // Validate the response data against the schema
+    membersSchema.parse(formattedMembers);
+
+    return formattedMembers;
+  }),
 });

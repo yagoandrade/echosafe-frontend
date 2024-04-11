@@ -22,16 +22,15 @@ const SettingsPage = async () => {
               Welcome back, {session?.user.name}!
             </h3>
             <p className="text-muted-foreground">
-              You can manage your institutions here.
+              You can change your settings here.
             </p>
           </div>
-          <ManagingInstitutionSection />
         </div>
         <div className="flex w-full justify-between">
           <PageBreadcrumb
             items={[
               { href: "/", label: "Home" },
-              { href: "/institutions", label: "Institutions" },
+              { href: "/settings", label: "Settings" },
             ]}
           />
         </div>

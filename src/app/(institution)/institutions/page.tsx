@@ -1,4 +1,4 @@
-import ManageInstitutions from "@/components/institutions/manage-institutions";
+import ManageInstitutions from "@/components/institutions/institutions-table";
 import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
@@ -27,12 +27,13 @@ const ManageInstituionsPage = async () => {
               You can manage your institutions here.
             </p>
           </div>
+          <ManagingInstitutionSection />
         </div>
         <div className="flex w-full justify-between">
           <PageBreadcrumb
             items={[
               { href: "/", label: "Home" },
-              { href: "/institutions", label: "Institutions" },
+              { href: "/institutions", label: "My Institutions" },
             ]}
           />
           <Button variant="provider" asChild>

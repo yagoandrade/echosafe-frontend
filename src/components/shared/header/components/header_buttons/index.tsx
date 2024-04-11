@@ -54,9 +54,7 @@ const HeaderContent = () => {
     router.push("/api/auth/signin?csrf=true");
   };
 
-  return status === "authenticated" ? (
-    <UserNav user={session?.user} />
-  ) : (
+  return (
     <>
       <Button variant="link" size="sm" onClick={handleSignIn}>
         Billing

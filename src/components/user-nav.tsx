@@ -1,3 +1,4 @@
+"use client";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,12 +8,13 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { api } from "@/trpc/react";
 import { ChevronsUpDown } from "lucide-react";
 import { type DefaultSession } from "next-auth";
 import Link from "next/link";
+import { toast } from "sonner";
 
 interface UserNavProps {
   user: DefaultSession["user"];
@@ -20,6 +22,20 @@ interface UserNavProps {
 }
 
 export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
+  const activeInstitutionFromDB = api.post.getActiveInstitution.useQuery();
+
+  const handleCopyInstitutionCode = async () => {
+    if (!activeInstitutionFromDB.data) {
+      toast.error("No active institution");
+      return;
+    }
+
+    await navigator.clipboard.writeText(activeInstitutionFromDB.data.code);
+    toast.success(
+      `The code of ${activeInstitutionFromDB.data.name} has been copied to clipboard`,
+    );
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -55,18 +71,16 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Invite a member
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          <DropdownMenuItem onClick={handleCopyInstitutionCode}>
+            Copy your Institution&apos;s Code
           </DropdownMenuItem>
-          <DropdownMenuItem>Create a Institution</DropdownMenuItem>
+          <Link href="/institution/create">
+            <DropdownMenuItem>Create a Institution</DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <Link href="/api/auth/signout">
-          <DropdownMenuItem>
-            Log out
-            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-          </DropdownMenuItem>
+          <DropdownMenuItem>Log out</DropdownMenuItem>
         </Link>
       </DropdownMenuContent>
     </DropdownMenu>

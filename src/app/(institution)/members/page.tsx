@@ -1,12 +1,11 @@
-import { CreateInstitution } from "@/app/_components/create-institution";
+import MembersTable from "@/components/institutions/members-table";
 import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
-import React from "react";
 
-const CreateInstitutionPage = async () => {
+const Members = async () => {
   const session = await getServerAuthSession();
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
@@ -22,22 +21,23 @@ const CreateInstitutionPage = async () => {
               Welcome back, {session?.user.name}!
             </h3>
             <p className="text-muted-foreground">
-              You are creating a new institution.
+              You can manage your institutions here.
             </p>
           </div>
           <ManagingInstitutionSection />
         </div>
-        <PageBreadcrumb
-          items={[
-            { href: "/", label: "Home" },
-            { href: "/institutions", label: "My Institutions" },
-            { label: "Create Institution" },
-          ]}
-        />
-        <CreateInstitution />
+        <div className="flex w-full justify-between">
+          <PageBreadcrumb
+            items={[
+              { href: "/", label: "Home" },
+              { href: "/members", label: "Members" },
+            ]}
+          />
+        </div>
+        <MembersTable />
       </div>
     </main>
   );
 };
 
-export default CreateInstitutionPage;
+export default Members;

@@ -1,6 +1,6 @@
 import { getServerAuthSession } from "@/server/auth";
 import ManagingInstitutionSection from "../shared/managing-institution";
-import { ReportsTable } from "./reports-table";
+import { ReportsTable } from "../shared/reports-table";
 
 async function Dashboard() {
   const session = await getServerAuthSession();

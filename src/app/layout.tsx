@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import Providers from "./_components/providers";
+import { ActiveInstitutionStoreProvider } from "@/providers/activeInstitutionStoreProvider";
 
 const soehne = localFont({
   src: "../../public/assets/fonts/soehne/soehne-var.woff2",
@@ -101,10 +102,12 @@ export default function RootLayout({
         className={`light:bg-white dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23] ${soehne.className}`}
       >
         <TRPCReactProvider>
-          <Providers>
-            <Toaster />
-            {children}
-          </Providers>
+          <ActiveInstitutionStoreProvider>
+            <Providers>
+              <Toaster />
+              {children}
+            </Providers>
+          </ActiveInstitutionStoreProvider>
         </TRPCReactProvider>
       </body>
     </html>

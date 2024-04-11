@@ -1,4 +1,4 @@
-import { ReportsTable } from "@/components/dashboard/reports-table";
+import { ReportsTable } from "@/components/shared/reports-table";
 import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";

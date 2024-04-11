@@ -15,7 +15,7 @@ export interface ActiveInstitutionStoreProviderProps {
   children: ReactNode;
 }
 
-export const ActiveInstitutionStoreProvider = async ({
+export const ActiveInstitutionStoreProvider = ({
   children,
 }: ActiveInstitutionStoreProviderProps) => {
   const storeRef = useRef<StoreApi<ActiveInstitutionStore>>();
