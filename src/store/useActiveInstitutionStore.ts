@@ -1,4 +1,3 @@
-"use client";
 import { type Institution } from "@prisma/client";
 import { createStore } from "zustand/vanilla";
 
