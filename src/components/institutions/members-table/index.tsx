@@ -32,7 +32,6 @@ function MembersTable() {
     void fetchReports();
   }, [activeInstitution]);
 
-  /* TODO: Update the logic here */
   return (
     <>
       {!membersQuery.isLoading && members.length === 0 && (
