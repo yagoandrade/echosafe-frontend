@@ -29,6 +29,8 @@ const getTableColumn = (tableName: TableName) => {
   switch (tableName) {
     case "institution":
       return "name";
+    case "members":
+      return "name";
     case "report":
       return "title";
   }

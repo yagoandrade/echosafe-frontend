@@ -512,7 +512,7 @@ export const postRouter = createTRPCRouter({
 
       await ctx.db.user.update({
         where: { email: ctx.session.user.email },
-        data: { activeInstitution: Number(input.institutionId) },
+        data: { activeInstitutionId: Number(input.institutionId) },
       });
     }),
 

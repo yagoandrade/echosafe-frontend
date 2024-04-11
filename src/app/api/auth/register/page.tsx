@@ -21,6 +21,7 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
+import Link from "next/link";
 
 interface RegisterData {
   name: string;

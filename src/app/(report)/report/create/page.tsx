@@ -39,7 +39,7 @@ const CreateReportPage = async () => {
             { label: "Create a Report" },
           ]}
         />
-        <CreateReport institutions={institutions} />
+        <CreateReport />
       </div>
     </main>
   );
