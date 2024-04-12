@@ -1,18 +1,16 @@
-"use client";
-
 import ReportDetails from "@/components/reports/report-details";
 import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { getServerAuthSession } from "@/server/auth";
 
-const ReportPage = () => {
-  const { data: session } = useSession();
-  const searchParams = useSearchParams();
+export default async function ReportPage({
+  params,
+}: Readonly<{ params: { id: string } }>) {
+  const session = await getServerAuthSession();
 
-  const id = searchParams.get("id");
+  const id = params.id;
 
   const pageHeight = "min-h-screen";
 
@@ -47,6 +45,4 @@ const ReportPage = () => {
       </div>
     </main>
   );
-};
-
-export default ReportPage;
+}

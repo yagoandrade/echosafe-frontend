@@ -157,6 +157,21 @@ export const postRouter = createTRPCRouter({
     });
   }),
 
+  getTask: protectedProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email)
+        throw new Error("You must be logged in to get a task");
+
+      return ctx.db.post.findUnique({
+        where: { id: input.id },
+      });
+    }),
+
   createInstitution: protectedProcedure
     .input(
       z.object({

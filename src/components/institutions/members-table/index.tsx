@@ -7,7 +7,7 @@ import { DataTable } from "@/components/data-table/data-table";
 import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
 import { api } from "@/trpc/react";
 import { type UserRole } from "@prisma/client";
-import { Loader, PersonStanding, User } from "lucide-react";
+import { Loader, PersonStanding } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -16,6 +16,7 @@ type Members = { id: string; name: string | null; role: UserRole }[];
 function MembersTable() {
   const { activeInstitution } = useActiveInstitutionStore((state) => state);
   const [members, setMembers] = useState<Members>([]);
+  
   const membersQuery = api.post.getMembersFromInstitution.useQuery();
 
   async function fetchReports() {
