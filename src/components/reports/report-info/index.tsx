@@ -4,7 +4,6 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { type StatusesObject, statuses } from "@/data/data";
 import { type Post } from "@prisma/client";
-import { Bot, User } from "lucide-react";
 
 interface ReportInfoProps {
   report: Post;
@@ -42,12 +41,24 @@ const ReportInfo = ({ report }: ReportInfoProps) => {
         <div className="flex gap-x-4">
           <div className="space-y-4">
             <div className="flex flex-col space-y-1">
-              <span className="flex items-center gap-x-1.5">
-                <Bot size="1rem" />
-                <h3 className="font-bold leading-none tracking-tight">
-                  AI Analysis
-                </h3>
+              <span className="text-sm font-semibold">Report made in</span>
+              <span className="text-sm text-[#71717A]">
+                {new Date(report.updatedAt ?? "").toLocaleDateString()}
               </span>
+            </div>
+            <div className="flex flex-col space-y-1">
+              <span className="text-sm font-semibold">Category</span>
+              <span className="text-sm text-[#71717A]">{report.label}</span>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold">Description</h3>
+              <span className="text-sm text-[#71717A]">
+                {report.description}
+              </span>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div className="flex flex-col space-y-1">
               <div className="grid grid-cols-1 gap-4 py-4">
                 <div className="flex flex-col space-y-1">
                   <span className="text-sm font-semibold">
@@ -76,31 +87,6 @@ const ReportInfo = ({ report }: ReportInfoProps) => {
                   </span>
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="space-y-4">
-            <div className="flex flex-col space-y-1">
-              <span className="flex items-center gap-x-1.5">
-                <User size="1rem" />
-                <h3 className="font-bold leading-none tracking-tight">
-                  Information by User
-                </h3>
-              </span>
-
-              <span className="text-sm font-semibold">Report made in</span>
-              <span className="text-sm text-[#71717A]">
-                {new Date(report.updatedAt ?? "").toLocaleDateString()}
-              </span>
-            </div>
-            <div className="flex flex-col space-y-1">
-              <span className="text-sm font-semibold">Category</span>
-              <span className="text-sm text-[#71717A]">{report.label}</span>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold">Description</h3>
-              <span className="text-sm text-[#71717A]">
-                {report.description}
-              </span>
             </div>
           </div>
         </div>

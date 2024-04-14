@@ -122,3 +122,4 @@ export function getInstitutionsRelationName(role: UserRole) {
       throw new Error("Invalid user role");
   }
 }
+

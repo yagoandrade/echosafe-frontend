@@ -65,7 +65,7 @@ export const postRouter = createTRPCRouter({
       const creationDate = new Date();
 
       // Step 3: Create the bullying report
-      return ctx.db.post.create({
+      return await ctx.db.post.create({
         data: {
           title: input.title,
           description: input.description,

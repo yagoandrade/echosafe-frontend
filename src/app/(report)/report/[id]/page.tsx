@@ -4,6 +4,7 @@ import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function ReportPage({
   params,
@@ -24,17 +25,15 @@ export default async function ReportPage({
             <h3 className="text-xl font-semibold tracking-tight">
               Welcome back, {session?.user.name}!
             </h3>
-            <p className="text-muted-foreground">
-              You are creating a new report.
-            </p>
+            <p className="text-muted-foreground">You are reading a report.</p>
           </div>
           <ManagingInstitutionSection />
         </div>
         <PageBreadcrumb
           items={[
             { href: "/", label: "Home" },
-            { href: "/reports", label: "Reports" },
-            { label: "Create a Report" },
+            { href: "/reports", label: "Report" },
+            { label: "Report Details" },
           ]}
         />
         {id && typeof id === "string" ? (

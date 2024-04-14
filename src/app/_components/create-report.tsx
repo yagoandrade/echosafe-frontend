@@ -17,15 +17,27 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { createClient } from "@/lib/supabase/client";
+import { useSession } from "next-auth/react";
 
 export function CreateReport() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const { data: session } = useSession();
+
+  const supabase = createClient();
+
   const createReport: ReturnType<typeof api.post.create.useMutation> =
     api.post.create.useMutation({
-      onSuccess: () => {
+      onSuccess: async (post) => {
+        await supabase.from("channels").insert({
+          id: post.id,
+          slug: post.title,
+          created_by: session?.user.email,
+        });
+
         toast.success("Report submitted successfully!");
         router.push("/dashboard");
         setTitle("");

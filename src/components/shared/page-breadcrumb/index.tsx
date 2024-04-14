@@ -19,7 +19,7 @@ export function PageBreadcrumb({ items }: Readonly<PageBreadcrumbProps>) {
     <Breadcrumb>
       <BreadcrumbList>
         {items.map((item, index) => (
-          <React.Fragment key={item.href}>
+          <React.Fragment key={`${item.href}-${index}`}>
             <BreadcrumbItem>
               <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
             </BreadcrumbItem>
