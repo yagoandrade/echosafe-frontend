@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { getUserSubscriptionPlan } from "@/lib/subscription";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { BillingInfo } from "@/components/billing-info";
-import { DashboardHeader } from "@/components/dashboard/header";
 import { DashboardShell } from "@/components/dashboard/shell";
 import { getServerAuthSession } from "@/server/auth";
 import { FileWarning } from "lucide-react";
@@ -24,10 +23,6 @@ export default async function BillingPage() {
 
   return (
     <DashboardShell>
-      <DashboardHeader
-        heading="Billing"
-        text="Manage billing and your subscription plan."
-      />
       <div className="grid gap-8">
         <Alert className="!pl-14">
           <FileWarning />
