@@ -70,7 +70,7 @@ export const columns: ColumnDef<Task>[] = [
         <div className="flex w-[150px] items-center">
           <Badge
             variant={status.value}
-            className="xs:w-fit xs:justify-start mt-3 h-fit w-full items-center justify-center gap-x-2 self-center text-base sm:text-xs md:w-fit"
+            className="xs:w-fit xs:justify-start mt-3 h-fit w-full items-center justify-center gap-x-2 self-center text-xs md:w-fit"
           >
             <span
               className="flex size-4 items-center justify-center rounded-full text-xs font-black"

@@ -33,7 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="bg-gradient-to-b from-[#fafafb] to-white dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23]"
+    >
       <head>
         <title>
           EchoSafe - Combate ao Bullying Escolar | Plataforma Segura para
@@ -105,9 +108,7 @@ export default function RootLayout({
         />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body
-        className={`light:bg-white dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23] ${soehne.className}`}
-      >
+      <body className={`${soehne.className}`}>
         <TRPCReactProvider>
           <ActiveInstitutionStoreProvider>
             <Providers>

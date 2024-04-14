@@ -51,7 +51,7 @@ const ManageActiveInstitution = () => {
   }
 
   return (
-    <div className="text-end">
+    <div className="w-full sm:w-fit">
       <p className="text-xs font-light uppercase text-muted-foreground">
         {institutionText}
       </p>

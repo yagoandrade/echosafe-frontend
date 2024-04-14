@@ -12,19 +12,30 @@ import LightLogo from "@/../public/assets/svg/light-logo.svg";
 
 import { useTheme } from "next-themes";
 import SidemenuButtons from "./components/sidemenu-buttons";
+import MobileSidemenu from "../mobile-sidemenu";
 
 const Sidemenu = () => {
   const { data: session } = useSession();
   const { theme } = useTheme();
 
-  const sideMenuDefaultClassName =
-    "hidden lg:flex min-h-full h-screen fixed left-0 flex flex-col sticky w-[240px] font-medium px-4 py-6 xl:p-0 gap-y-8";
+  const baseSidemenuClasses =
+    "min-h-full h-screen fixed left-0 flex flex-col sticky w-fit font-medium pl-2 py-4 gap-y-8";
+
+  const desktopSidemenuClasses = "md:w-[240px] md:p-0";
 
   return (
-    <aside className={sideMenuDefaultClassName} data-testid="sidemenu">
-      <Card className="flex h-full w-full flex-col gap-y-0.5 rounded-none bg-transparent p-0">
-        <CardHeader className="space-y-3">
-          <Link href="/dashboard" className="h-fit lg:min-w-fit">
+    <aside
+      className={baseSidemenuClasses + " " + desktopSidemenuClasses}
+      data-testid="sidemenu"
+    >
+      <Card className="flex md:hidden">
+        <MobileSidemenu>
+          <SidemenuButtons />
+        </MobileSidemenu>
+      </Card>
+      <Card className="hidden h-full w-full flex-col gap-y-0.5 rounded-none bg-transparent p-0 md:flex">
+        <CardHeader className="space-y-3 ">
+          <Link href="/dashboard" className="h-fit md:min-w-fit">
             <Image
               priority
               src={
@@ -39,7 +50,7 @@ const Sidemenu = () => {
           </Link>
         </CardHeader>
         <CardContent className="flex h-full flex-col gap-y-0.5 overflow-auto p-0.5">
-          <SidemenuButtons />
+          <SidemenuButtons className="hidden md:flex md:flex-col" />
         </CardContent>
         {session?.user && (
           <CardFooter className="mt-auto flex justify-around p-0.5">

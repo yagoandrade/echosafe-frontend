@@ -93,11 +93,11 @@ export function DataTable<TData, TValue>({
       initial={{ opacity: 0, y: -15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="space-y-4"
+      className="flex h-full flex-col space-y-4"
       data-testid="sidemenu"
     >
       <DataTableToolbar table={table} tableName={tableName} />
-      <div className="rounded-md border">
+      <div className="h-full overflow-y-auto rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

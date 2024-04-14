@@ -66,7 +66,7 @@ export function ReportsTable() {
         </div>
       )}
       {formattedReports && formattedReports.length > 0 && (
-        <div className="w-full space-y-4">
+        <div className="h-full w-full space-y-4 overflow-y-auto">
           <DataTable
             key={JSON.stringify(formattedReports)}
             tableName="report"

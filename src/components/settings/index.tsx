@@ -8,7 +8,7 @@ const Settings = async () => {
       <div className="col-span-12 flex w-full flex-col gap-16 lg:col-span-8 2xl:flex-row">
         <ChangeUserAvatar />
       </div>
-      <div className="hidden lg:col-span-4 lg:block">
+      <div className="hidden xl:col-span-4 xl:block">
         <PrivacyInfoCard />
       </div>
     </div>

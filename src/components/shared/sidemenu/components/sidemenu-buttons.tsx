@@ -8,12 +8,19 @@ import SidemenuReportsButton from "./buttons/reports-button";
 import SidemenuSearchButton from "./buttons/search-button";
 import SidemenuSettingsButton from "./buttons/settings-button";
 import SidemenuStudentReportsButton from "./buttons/student-reports-button";
+import { cn } from "@/lib/utils";
 
-const SidemenuButtons = () => {
+interface SidemenuButtonsProps {
+  className?: string;
+}
+
+const SidemenuButtons = ({
+  className = "flex flex-col",
+}: SidemenuButtonsProps) => {
   const userRoleQuery = api.post.getUserRole.useQuery();
 
   return (
-    <>
+    <div className={cn(className)}>
       {userRoleQuery.data !== "STUDENT" && <SidemenuSearchButton />}
       {userRoleQuery.data !== "STUDENT" && <SidemenuReportsButton />}
       {/* <SidemenuLogsButton /> */}
@@ -25,7 +32,7 @@ const SidemenuButtons = () => {
       {userRoleQuery.data === "STUDENT" && <SidemenuStudentReportsButton />}
       <SidemenuSettingsButton />
       <SidemenuCreateReportButton className="mt-auto" />
-    </>
+    </div>
   );
 };
 

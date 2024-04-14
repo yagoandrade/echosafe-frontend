@@ -81,8 +81,8 @@ const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
   };
 
   return (
-    <div className="flex h-[70vh] w-full flex-col rounded-lg border">
-      <div className="flex h-full w-full flex-col overflow-y-auto p-8">
+    <div className="flex size-full min-h-[500px] flex-col rounded-lg border">
+      <div className="size-full overflow-y-scroll p-8">
         {messages.map((message) => {
           return currentUser?.email === message.user_email ? (
             <div className="flex justify-end gap-2.5" key={message.id}>

@@ -3,7 +3,7 @@
 import { Menu, X } from "lucide-react";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import Logo from "@/../public/assets/svg/light-logo.svg";
+import Logo from "@/../public/assets/svg/logo.svg";
 
 import {
   Drawer,
@@ -26,13 +26,13 @@ const MobileSidemenu = ({ children }: MobileSidemenuProps) => {
     <Drawer>
       <DrawerTrigger asChild>
         <Button className="flex p-3 md:hidden" variant="ghost">
-          <Menu color="#cccdda" />
+          <Menu color="#cccdda" size="1rem" />
         </Button>
       </DrawerTrigger>
       <DrawerPortal>
         <DrawerOverlay className="fixed inset-0 z-40 bg-black/40" />
 
-        <DrawerContent className="w-10/12 bg-gradient-to-b from-[#2a2b3a] to-[#191a23] lg:w-2/3">
+        <DrawerContent className="w-10/12 bg-white dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23] lg:w-2/3">
           <div className="flex size-full flex-col">
             <DrawerTitle className="flex w-full items-center justify-between p-4">
               <Link href="/" className="m-auto h-fit">

@@ -42,7 +42,7 @@ const ReportInfo = ({ report, userRole }: ReportInfoProps) => {
 
   return (
     /* TODO: Check why h-[100vh] is the only value to make it take up all the available space. Grid class maybe? */
-    <Card className="h-[100vh] overflow-hidden">
+    <Card className="h-screen w-full overflow-hidden">
       <CardHeader>
         <CardTitle>Report Information</CardTitle>
       </CardHeader>

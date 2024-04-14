@@ -6,8 +6,8 @@ async function Dashboard() {
   const session = await getServerAuthSession();
 
   return (
-    <div className="h-full w-full flex-1 flex-col space-y-8 overflow-y-scroll bg-gradient-to-b from-[#fafafb] to-white p-8 md:flex">
-      <div className="flex items-center justify-between space-y-2">
+    <div className="flex h-screen w-full flex-col space-y-8 overflow-hidden p-8 md:flex">
+      <div className="flex items-center justify-between space-y-2 flex-wrap gap-2">
         <div>
           <h3 className="text-xl font-semibold tracking-tight">
             Welcome back, {session?.user.name}!
