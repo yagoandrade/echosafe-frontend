@@ -7,23 +7,28 @@ import { createClient } from "@/lib/supabase/client";
 import { type Message } from "@/lib/supabase/types";
 import { Send } from "lucide-react";
 import { type Session } from "next-auth";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface ChatBoxProps {
   channelId: number;
   currentUser?: Session["user"];
+  role: string;
 }
 
-const ChatBox = ({ channelId, currentUser }: ChatBoxProps) => {
+const ChatBox = ({ channelId, currentUser, role }: ChatBoxProps) => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const supabase = createClient();
 
   useEffect(() => {
     const fetchMessages = async () => {
-      const { data, error } = await supabase.from("messages").select("*");
+      const { data, error } = await supabase
+        .from("messages")
+        .select("*")
+        .eq("channel_id", channelId);
       if (error) {
         console.error("Error fetching messages:", error.message);
       } else {
@@ -34,7 +39,7 @@ const ChatBox = ({ channelId, currentUser }: ChatBoxProps) => {
     void fetchMessages();
 
     const subscription = supabase
-      .channel("messages")
+      .channel(`messages-${channelId}`)
       .on(
         "postgres_changes",
         {
@@ -54,13 +59,21 @@ const ChatBox = ({ channelId, currentUser }: ChatBoxProps) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const handleSendMessage = async () => {
     if (input.length === 0) {
       toast.error("Message cannot be empty");
       return;
     }
+
     await supabase.from("messages").insert({
       message: input,
+      user_role: userRole,
       channel_id: channelId,
       user_email: currentUser?.email,
     });
@@ -97,7 +110,9 @@ const ChatBox = ({ channelId, currentUser }: ChatBoxProps) => {
             <div className="mb-4 flex gap-2.5" key={message.id}>
               <div className="grid">
                 <h5 className="pb-1 text-sm font-semibold leading-snug text-gray-900">
-                  {message.user_email}
+                  {message.user_role === "STUDENT"
+                    ? "Student"
+                    : message.user_email}
                 </h5>
                 <div className="grid w-max">
                   <div className="inline-flex max-w-[500px] flex-wrap items-center justify-start gap-3 text-wrap rounded bg-gray-100 px-3.5 py-2">
@@ -124,6 +139,7 @@ const ChatBox = ({ channelId, currentUser }: ChatBoxProps) => {
             </h3>
           </div>
         )}
+        <div ref={messagesEndRef} />
       </div>
 
       <div className="inline-flex w-full items-center justify-between gap-2 border-t border-gray-200 px-8 py-1">
@@ -132,6 +148,7 @@ const ChatBox = ({ channelId, currentUser }: ChatBoxProps) => {
             <AvatarImage
               src={currentUser?.image ?? ""}
               alt={currentUser?.name ?? "Your avatar"}
+              className="object-cover"
             />
           </Avatar>
           <Input

@@ -3,7 +3,7 @@
 import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
 import { useEffect, useState } from "react";
 import { api } from "@/trpc/react";
-import { columns } from "../../columns";
+import { columns, studentColumns } from "../../columns";
 import { DataTable } from "../../data-table/data-table";
 import { type Post } from "@prisma/client";
 import { toast } from "sonner";
@@ -22,6 +22,7 @@ export function ReportsTable() {
   const { activeInstitution } = useActiveInstitutionStore((state) => state);
   const [formattedReports, setFormattedReports] = useState<Report[]>([]);
   const reportsQuery = api.post.getTasks.useQuery();
+  const userRole = api.post.getUserRole.useQuery();
 
   async function fetchReports() {
     function formatReport(report: Post): Report {
@@ -70,7 +71,7 @@ export function ReportsTable() {
             key={JSON.stringify(formattedReports)}
             tableName="report"
             dataFromServer={formattedReports}
-            columns={columns}
+            columns={userRole.data === "STUDENT" ? studentColumns : columns}
           />
         </div>
       )}

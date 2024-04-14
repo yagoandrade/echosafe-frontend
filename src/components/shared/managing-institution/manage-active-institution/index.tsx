@@ -13,6 +13,7 @@ import { api } from "@/trpc/react";
 import { useEffect, useState } from "react";
 
 const ManageActiveInstitution = () => {
+  const userRole = api.post.getUserRole.useQuery();
   const institutions = api.post.getInstitutions.useQuery();
   const activeInstitutionFromDB = api.post.getActiveInstitution.useQuery();
 
@@ -40,10 +41,19 @@ const ManageActiveInstitution = () => {
     },
   });
 
+  let institutionText = "";
+  if (!selectedInstitution) {
+    institutionText = "No institution selected";
+  } else if (userRole.data === "STUDENT") {
+    institutionText = "Institution";
+  } else {
+    institutionText = "Managing";
+  }
+
   return (
     <div className="text-end">
       <p className="text-xs font-light uppercase text-muted-foreground">
-        {!selectedInstitution ? "No institution selected" : "Managing"}
+        {institutionText}
       </p>
 
       <Select

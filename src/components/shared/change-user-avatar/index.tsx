@@ -28,11 +28,11 @@ const ChangeUserAvatar = () => {
 
   return (
     <div className="flex-center flex w-full flex-col items-center gap-4 text-black">
-      <Avatar className="h-52 w-52 rounded-full object-cover">
+      <Avatar className="h-52 w-52 rounded-full">
         <AvatarImage
           src={session?.user.image as string | undefined}
           alt="Avatar"
-          className="size-full"
+          className="size-full object-cover"
         />
         <AvatarFallback>{session?.user.name?.[0] ?? "?"}</AvatarFallback>
       </Avatar>

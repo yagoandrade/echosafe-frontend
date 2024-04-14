@@ -4,4 +4,5 @@ export type Message = {
   message: string;
   channel_id: number;
   user_email: string;
+  user_role: string;
 };

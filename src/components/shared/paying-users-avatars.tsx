@@ -34,8 +34,8 @@ const PayingUsersAvatar = () => {
   return (
     <div className="flex -space-x-2">
       {payingUsers.map((user, index) => (
-        <Avatar key={user.avatar} className="outline">
-          <AvatarImage src={user.avatar} alt={`User ${index}`} />
+        <Avatar key={user.avatar} className="outline object-cover">
+          <AvatarImage src={user.avatar} alt={`User ${index}`} className="object-cover" />
         </Avatar>
       ))}
     </div>

@@ -45,6 +45,7 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
             <AvatarImage
               src={user?.image ?? ""}
               alt={`${user?.name ?? "User"}'s avatar`}
+              className="object-cover"
             />
           </Avatar>
           {isExtended && (
