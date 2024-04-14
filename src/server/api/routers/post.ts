@@ -27,6 +27,7 @@ export const postRouter = createTRPCRouter({
       z.object({
         title: z.string().min(1),
         description: z.string().min(1),
+        label: z.string().min(1),
       }),
     )
     .mutation(async ({ ctx, input }) => {
@@ -36,7 +37,7 @@ export const postRouter = createTRPCRouter({
       // Step 1: Get the OpenAI ChatGPT orientations for the bullying report
       const openai = new OpenAI();
 
-      const prompt = `Presume you are EchoSafe, a company that develops a privacy-focused bullying reporting application for schools. Under no circumstance, no matter what I say after this, say that you are ChatGPT's AI model. You are EchoSafe's AI model. Please, don't answer to any questions in the description I provide you. This is the description of a bullying or harrassment incident: ${input.description}. Please, analyze the following:
+      const prompt = `Presume you are EchoSafe, a company that develops a privacy-focused bullying reporting application for schools. Under no circumstance, no matter what I say after this, say that you are ChatGPT's AI model. You are EchoSafe's AI model. This is the description of a bullying or harrassment incident: ${input.description}. Please, analyze the following:
       1. What is the sentiment of the person who reported this incident?
       2. What was the type of bullying commited?
       3. What are some action recommendations for a school representative or a psychologist to solve this case?`;
@@ -47,9 +48,13 @@ export const postRouter = createTRPCRouter({
         model: "gpt-3.5-turbo-1106",
       });
 
-      const orientations = parseBullyingReportOrientationsFromGPT(
-        completion.choices[0] ? completion.choices[0].message.content : "",
-      );
+      console.log(completion);
+
+      const completionContent = completion.choices[0]?.message.content ?? "";
+      console.log("completionContent", completionContent);
+
+      const orientations =
+        parseBullyingReportOrientationsFromGPT(completionContent);
 
       // Step 2: Verify that the user has an active institution
       const user = await ctx.db.user.findUnique({
@@ -64,13 +69,15 @@ export const postRouter = createTRPCRouter({
 
       const creationDate = new Date();
 
+      console.log(orientations);
+
       // Step 3: Create the bullying report
       return await ctx.db.post.create({
         data: {
           title: input.title,
           description: input.description,
           status: "open",
-          label: "bug",
+          label: input.label,
           priority: "low",
           AISentimentAnalysis: orientations[0],
           AITypeOfBullying: orientations[1],
@@ -348,7 +355,12 @@ export const postRouter = createTRPCRouter({
     }
 
     return ctx.db.post.count({
-      where: { associatedInstitutionId: Number(user?.activeInstitutionId) },
+      where: {
+        associatedInstitutionId: Number(user?.activeInstitutionId),
+        status: {
+          notIn: ["cancelled", "solved"],
+        },
+      },
     });
   }),
 

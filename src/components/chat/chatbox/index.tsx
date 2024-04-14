@@ -13,10 +13,10 @@ import { toast } from "sonner";
 interface ChatBoxProps {
   channelId: number;
   currentUser?: Session["user"];
-  role: string;
+  userRole: string;
 }
 
-const ChatBox = ({ channelId, currentUser, role }: ChatBoxProps) => {
+const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);

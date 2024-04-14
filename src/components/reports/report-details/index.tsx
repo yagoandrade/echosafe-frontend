@@ -14,9 +14,17 @@ const ReportDetails = async ({ id }: ReportDetailsProps) => {
   const role = await api.post.getUserRole();
 
   return task ? (
-    <div className="flex gap-9">
-      <ChatBox channelId={Number(id)} currentUser={session?.user} userRole={role} />
-      <ReportInfo report={task} userRole={role} />
+    <div className="grid max-h-[70vh] w-full grid-cols-6 gap-9 overflow-hidden">
+      <div className="col-span-4">
+        <ChatBox
+          channelId={Number(id)}
+          currentUser={session?.user}
+          userRole={role ?? ""}
+        />
+      </div>
+      <div className="col-span-2 h-full">
+        <ReportInfo report={task} userRole={role ?? ""} />
+      </div>
     </div>
   ) : (
     <p>Report not found.</p>

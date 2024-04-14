@@ -4,7 +4,6 @@
 import { type ColumnDef } from "@tanstack/react-table";
 
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
 
 import { type Task } from "../data/schema";
 import { DataTableColumnHeader } from "./data-table/data-table-column-header";
@@ -13,7 +12,7 @@ import { labels, priorities, statuses } from "@/data/data";
 import Link from "next/link";
 
 export const columns: ColumnDef<Task>[] = [
-  {
+  /* {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -36,7 +35,7 @@ export const columns: ColumnDef<Task>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-  },
+  }, */
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -136,7 +135,7 @@ export const columns: ColumnDef<Task>[] = [
 ];
 
 export const studentColumns: ColumnDef<Task>[] = [
-  {
+  /*  {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -159,7 +158,7 @@ export const studentColumns: ColumnDef<Task>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-  },
+  }, */
   {
     accessorKey: "title",
     header: ({ column }) => (
@@ -255,7 +254,7 @@ export const studentColumns: ColumnDef<Task>[] = [
 ];
 
 export const institutionColumns: ColumnDef<Task>[] = [
-  {
+  /* {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -278,7 +277,7 @@ export const institutionColumns: ColumnDef<Task>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-  },
+  }, */
   {
     accessorKey: "name",
     header: ({ column }) => (
@@ -342,7 +341,7 @@ export const institutionColumns: ColumnDef<Task>[] = [
 ];
 
 export const membersColumns: ColumnDef<Task>[] = [
-  {
+  /* {
     id: "select",
     header: ({ table }) => (
       <Checkbox
@@ -365,7 +364,7 @@ export const membersColumns: ColumnDef<Task>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
-  },
+  }, */
   {
     accessorKey: "name",
     header: ({ column }) => (

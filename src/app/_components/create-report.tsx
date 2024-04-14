@@ -19,11 +19,20 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { createClient } from "@/lib/supabase/client";
 import { useSession } from "next-auth/react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { labels } from "@/data/data";
 
 export function CreateReport() {
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [label, setLabel] = useState("");
 
   const { data: session } = useSession();
 
@@ -49,9 +58,19 @@ export function CreateReport() {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+
+        if (
+          title.length === 0 ||
+          description.length === 0 ||
+          label.length === 0
+        ) {
+          return toast.error("Please fill in all fields.");
+        }
+
         createReport.mutate({
           title,
           description,
+          label,
         });
       }}
     >
@@ -75,6 +94,7 @@ export function CreateReport() {
                 placeholder="A case of racism, homophobia, etc."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                required
               />
             </div>
 
@@ -85,8 +105,32 @@ export function CreateReport() {
                 className="w-full"
                 placeholder="Please, describe what happened in detail. Remember that the more details you provide, the better we can help you."
                 value={description}
+                required
                 onChange={(e) => setDescription(e.target.value)}
               />
+            </div>
+
+            <div className="grid gap-3">
+              <Label>How would you classify the incident?</Label>
+              <Select
+                value={label}
+                onValueChange={(value) => setLabel(value)}
+                required
+              >
+                <SelectTrigger
+                  id="label"
+                  aria-label="Select category of incident"
+                >
+                  <SelectValue placeholder="Select category of incident" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.values(labels).map((label) => (
+                    <SelectItem value={label.value} key={label.value}>
+                      {label.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
         </CardContent>

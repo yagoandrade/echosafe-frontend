@@ -41,11 +41,12 @@ const ReportInfo = ({ report, userRole }: ReportInfoProps) => {
   };
 
   return (
-    <Card className="h-full min-h-fit overflow-y-auto">
+    /* TODO: Check why h-[100vh] is the only value to make it take up all the available space. Grid class maybe? */
+    <Card className="h-[100vh] overflow-hidden">
       <CardHeader>
         <CardTitle>Report Information</CardTitle>
       </CardHeader>
-      <CardContent className="flex w-fit flex-col gap-y-6 overflow-y-auto">
+      <CardContent className="flex w-fit flex-col gap-y-6">
         <div className="flex flex-col space-y-1">
           <span className="text-sm font-semibold">Status</span>
 
@@ -112,7 +113,7 @@ const ReportInfo = ({ report, userRole }: ReportInfoProps) => {
           </span>
         </div>
 
-        <div className="flex flex-col gap-y-4">
+        <div className="flex h-full flex-col gap-y-4">
           <div className="space-y-4">
             <div className="flex flex-col space-y-1">
               <span className="text-sm font-semibold">Report made in</span>
@@ -131,38 +132,40 @@ const ReportInfo = ({ report, userRole }: ReportInfoProps) => {
               </span>
             </div>
           </div>
-          <div className="space-y-4">
-            <div className="flex flex-col space-y-1">
-              <div className="grid grid-cols-1 gap-4 py-4">
-                <div className="flex flex-col space-y-1">
-                  <span className="text-sm font-semibold">
-                    What the victim is feeling
-                  </span>
-                  <span className="text-sm text-[#71717A]">
-                    {report.AISentimentAnalysis}
-                  </span>
-                </div>
+          {userRole !== "STUDENT" && (
+            <div className="h-full space-y-4 overflow-y-scroll">
+              <div className="flex flex-col space-y-1">
+                <div className="grid grid-cols-1 gap-4 py-4">
+                  <div className="flex flex-col space-y-1">
+                    <span className="text-sm font-semibold">
+                      What the victim is feeling
+                    </span>
+                    <span className="text-sm text-[#71717A]">
+                      {report.AISentimentAnalysis}
+                    </span>
+                  </div>
 
-                <div className="flex flex-col space-y-1">
-                  <span className="text-sm font-semibold">
-                    In what context this situation is happening
-                  </span>
-                  <span className="text-sm text-[#71717A]">
-                    {report.AITypeOfBullying}
-                  </span>
-                </div>
+                  <div className="flex flex-col space-y-1">
+                    <span className="text-sm font-semibold">
+                      In what context this situation is happening
+                    </span>
+                    <span className="text-sm text-[#71717A]">
+                      {report.AITypeOfBullying}
+                    </span>
+                  </div>
 
-                <div className="flex flex-col space-y-1">
-                  <span className="text-sm font-semibold">
-                    How to help the victim
-                  </span>
-                  <span className="text-sm text-[#71717A]">
-                    {report.AIActionRecommendations}
-                  </span>
+                  <div className="flex flex-col space-y-1">
+                    <span className="text-sm font-semibold">
+                      How to help the victim
+                    </span>
+                    <span className="text-sm text-[#71717A]">
+                      {report.AIActionRecommendations}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </CardContent>
     </Card>
