@@ -23,10 +23,10 @@ const PrivacyInfoCard = () => {
           <div className="space-y-1">
             <Fingerprint className="h-auto w-12" color="#E31C5F" />
             <h3 className="text-lg font-semibold">
-              Does EchoSafe use my data?
+              Does EchoSafe® use my data?
             </h3>
             <p className="text-sm text-gray-500">
-              EchoSafe only provides profile customization so that you feel at
+              EchoSafe® only provides profile customization so that you feel at
               home in this application. We do not use your data nor make them
               public at any time.
             </p>

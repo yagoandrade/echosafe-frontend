@@ -7,7 +7,7 @@ const Footer = () => {
         <div className="mr-auto flex flex-col justify-between">
           <Link
             href="/"
-            className="duration-50 text-[#62687a] transition hover:text-white"
+            className="duration-50 text-[#62687a] transition hover:text-[#575bc7] dark:hover:text-white"
           >
             EchoSafe® Technology - Built Worldwide
           </Link>
@@ -16,13 +16,13 @@ const Footer = () => {
           </span>
         </div>
 
-        <div className="mx-auto">
+        {/*         <div className="mx-auto">
           <h3 className="mb-3 font-medium text-[#b4bcd0]">Product</h3>
           <ul className="m-0 space-y-3 p-0">
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Features
               </Link>
@@ -30,7 +30,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Integrations
               </Link>
@@ -38,7 +38,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Pricing
               </Link>
@@ -46,7 +46,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Changelog
               </Link>
@@ -54,7 +54,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Docs
               </Link>
@@ -62,7 +62,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Integrations
               </Link>
@@ -70,36 +70,36 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Integrations
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="mx-auto">
           <h3 className="mb-3 font-medium text-[#b4bcd0]">Company</h3>
           <ul className="m-0 space-y-3 p-0">
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition hover:text-[#575bc7] dark:hover:text-white"
               >
                 About us
               </Link>
             </li>
             <li>
-              <Link
-                href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+              <a
+                href="https://www.theleadengineer.com/"
+                className="duration-50 text-[#62687a] transition hover:text-[#575bc7] dark:hover:text-white"
               >
                 Blog
-              </Link>
+              </a>
             </li>
-            <li>
+            {/* <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Careers
               </Link>
@@ -107,20 +107,20 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Customers
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
-        <div className="mx-auto">
+        {/* <div className="mx-auto">
           <h3 className="mb-3 font-medium text-[#b4bcd0]">Resources</h3>
           <ul className="m-0 space-y-3 p-0">
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Small School Program
               </Link>
@@ -128,55 +128,63 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 Community
               </Link>
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className="mx-auto">
           <h3 className="mb-3 font-medium text-[#b4bcd0]">Developers</h3>
           <ul className="m-0 space-y-3 p-0">
-            <li>
+            {/* <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#575bc7]"
               >
                 API
               </Link>
-            </li>
+            </li> */}
             <li>
-              <Link
-                href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+              <a
+                href="https://status.echosafe.org/"
+                target="_blank"
+                rel="noreferrer"
+                className="duration-50 text-[#62687a] transition hover:text-[#575bc7] dark:hover:text-white"
               >
                 Status
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+              <a
+                href="https://github.com/yagoandrade/echosafe-frontend"
+                target="_blank"
+                rel="noreferrer"
+                className="duration-50 text-[#62687a] transition hover:text-[#575bc7] dark:hover:text-white"
               >
                 GitHub
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+              <a
+                href="https://github.com/yagoandrade/echosafe-frontend/blob/main/README.md"
+                target="_blank"
+                rel="noreferrer"
+                className="duration-50 text-[#62687a] transition hover:text-[#575bc7] dark:hover:text-white"
               >
                 README
-              </Link>
+              </a>
             </li>
             <li>
-              <Link
-                href="/"
-                className="duration-50 text-[#62687a] transition hover:text-white"
+              <a
+                href="mailto:contact@echosafe.org"
+                target="_blank"
+                rel="noreferrer"
+                className="duration-50 text-[#62687a] transition hover:text-[#575bc7] dark:hover:text-white"
               >
                 Report a vulnerability
-              </Link>
+              </a>
             </li>
           </ul>
         </div>

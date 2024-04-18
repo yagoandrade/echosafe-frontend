@@ -14,7 +14,7 @@ const Header = ({ isLoggedIn }: HeaderProps) => {
 
   return (
     <>
-      {!isLoggedIn && <TopBar />}
+      {/* {!isLoggedIn && <TopBar />} */}
       <header className={cn(loggedOutHeaderClasses)}>
         <HeaderButtons />
       </header>
