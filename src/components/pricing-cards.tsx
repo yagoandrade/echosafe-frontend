@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { type UserSubscriptionPlan } from "types";
 
 import { pricingData } from "@/config/subscriptions";
-import { buttonVariants } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { BillingFormButton } from "@/components/forms/billing-form-button";
 import { HeaderSection } from "@/components/shared/header-section";
@@ -19,7 +17,7 @@ interface PricingCardsProps {
 export function PricingCards({
   userEmail,
   subscriptionPlan,
-}: PricingCardsProps) {
+}: Readonly<PricingCardsProps>) {
   const isYearlyDefault =
     !subscriptionPlan?.interval || subscriptionPlan.interval === "year";
 
@@ -30,12 +28,11 @@ export function PricingCards({
   };
 
   return (
-    <section className="container flex flex-col items-center text-center">
-      <HeaderSection label="Pricing" title="Start at full speed !" />
+    <main className="container flex flex-col items-center text-center">
+      <HeaderSection title="Choose the best plan for your institution" />
 
       <div className="mb-4 mt-10 flex items-center gap-5">
         <span>Monthly Billing</span>
-        {userEmail} {"aaa"}
         <Switch
           checked={isYearly}
           onCheckedChange={toggleBilling}
@@ -45,7 +42,7 @@ export function PricingCards({
         <span>Annual Billing</span>
       </div>
 
-      <div className="mx-auto grid max-w-screen-lg gap-5 bg-inherit py-5 md:grid-cols-3 lg:grid-cols-3">
+      <div className="mx-auto grid max-w-screen-lg gap-5 bg-inherit py-5 md:grid-cols-2 lg:grid-cols-2">
         {pricingData.map((offer) => (
           <div
             className="relative flex flex-col overflow-hidden rounded-xl border"
@@ -106,23 +103,11 @@ export function PricingCards({
               </ul>
 
               {userEmail && subscriptionPlan ? (
-                offer.title === "Starter" ? (
-                  <Link
-                    href="/dashboard"
-                    className={buttonVariants({
-                      className: "w-full",
-                      variant: "default",
-                    })}
-                  >
-                    Go to dashboard
-                  </Link>
-                ) : (
-                  <BillingFormButton
-                    year={isYearly}
-                    offer={offer}
-                    subscriptionPlan={subscriptionPlan}
-                  />
-                )
+                <BillingFormButton
+                  year={isYearly}
+                  offer={offer}
+                  subscriptionPlan={subscriptionPlan}
+                />
               ) : (
                 <p>You must sign in first</p>
               )}
@@ -135,16 +120,13 @@ export function PricingCards({
         Email{" "}
         <a
           className="font-medium text-primary hover:underline"
-          href="mailto:support@saas-starter.com"
+          href="mailto:contact@echosafe.org"
         >
-          support@saas-starter.com
+          contact@echosafe.org
         </a>{" "}
-        for to contact our support team.
+        to get in touch with our support team.
         <br />
-        <strong>
-          You can test the subscriptions and won&apos;t be charged.
-        </strong>
       </p>
-    </section>
+    </main>
   );
 }

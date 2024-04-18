@@ -2,45 +2,21 @@ import { type SubscriptionPlan } from "types";
 
 export const pricingData: SubscriptionPlan[] = [
   {
-    title: "Starter",
-    description: "For Beginners",
-    benefits: [
-      "Up to 100 monthly posts",
-      "Basic analytics and reporting",
-      "Access to standard templates",
-    ],
-    limitations: [
-      "No priority access to new features.",
-      "Limited customer support",
-      "No custom branding",
-      "Limited access to business resources.",
-    ],
-    prices: {
-      monthly: 0,
-      yearly: 0,
-    },
-    stripeIds: {
-      monthly: null,
-      yearly: null,
-    },
-  },
-  {
     title: "Pro",
-    description: "Unlock Advanced Features",
+    description: "For small institutions",
     benefits: [
-      "Up to 500 monthly posts",
+      "Ideal for small institutions",
       "Advanced analytics and reporting",
-      "Access to business templates",
+      "Access to AI analysis tools",
       "Priority customer support",
-      "Exclusive webinars and training.",
     ],
     limitations: [
       "No custom branding",
       "Limited access to business resources.",
     ],
     prices: {
-      monthly: 15,
-      yearly: 144,
+      monthly: 149.95,
+      yearly: 1200,
     },
     stripeIds: {
       monthly: process.env.NEXT_PUBLIC_STRIPE_PRO_MONTHLY_PLAN_ID!,
@@ -49,18 +25,19 @@ export const pricingData: SubscriptionPlan[] = [
   },
   {
     title: "Business",
-    description: "For Power Users",
+    description: "For big institutions",
     benefits: [
-      "Unlimited posts",
+      "Ideal for big institutions",
+      "Unlimited reports and data storage",
       "Real-time analytics and reporting",
-      "Access to all templates, including custom branding",
+      "Access to custom branding",
       "24/7 business customer support",
       "Personalized onboarding and account management.",
     ],
     limitations: [],
     prices: {
-      monthly: 30,
-      yearly: 300,
+      monthly: 299.95,
+      yearly: 3000,
     },
     stripeIds: {
       monthly: process.env.NEXT_PUBLIC_STRIPE_BUSINESS_MONTHLY_PLAN_ID!,

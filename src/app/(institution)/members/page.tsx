@@ -2,6 +2,7 @@ import MembersTable from "@/components/institutions/members-table";
 import ManagingInstitutionSection from "@/components/shared/managing-institution";
 import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
+import { getUserSubscriptionPlan } from "@/lib/subscription";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
@@ -9,6 +10,10 @@ import { redirect } from "next/navigation";
 const Members = async () => {
   const session = await getServerAuthSession();
   if (!session) redirect("/api/auth/signin?csrf=true");
+
+  const subscriptionPlan = await getUserSubscriptionPlan(session.user.email!);
+  if (!subscriptionPlan.isPaid || !subscriptionPlan.stripeCustomerId)
+    redirect("/pricing");
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 

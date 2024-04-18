@@ -5,10 +5,15 @@ import Sidemenu from "@/components/shared/sidemenu";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
+import { getUserSubscriptionPlan } from "@/lib/subscription";
 
 const ReportsPage = async () => {
   const session = await getServerAuthSession();
   if (!session) redirect("/api/auth/signin?csrf=true");
+
+  const subscriptionPlan = await getUserSubscriptionPlan(session.user.email!);
+  if (!subscriptionPlan.isPaid || !subscriptionPlan.stripeCustomerId)
+    redirect("/pricing");
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 

@@ -1,8 +1,8 @@
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
   return (
-    <div className="flex w-full flex-col gap-16 py-8 md:py-8">
+    <div className="flex h-screen w-full flex-col gap-16 py-8 md:py-8">
       <section className="container flex flex-col items-center">
         <div className="mx-auto flex w-full flex-col items-center gap-5">
           <Skeleton className="mb-2 h-4 w-1/12" />
@@ -19,11 +19,10 @@ export default function Loading() {
         <div className="mt-3 flex w-full flex-col items-center gap-2">
           <Skeleton className="h-4 w-2/6" />
           <Skeleton className="h-4 w-1/6" />
-
         </div>
       </section>
 
-      <hr className='container' />
+      <hr className="container" />
     </div>
   );
 }
