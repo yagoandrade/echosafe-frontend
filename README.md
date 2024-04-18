@@ -1,133 +1,134 @@
 ![image](https://github.com/yagoandrade/echosafe/assets/70113380/43e06065-aa24-419f-80bb-7b0c3b3b4ea6)
 
-# EchoSafe - Combate ao Bullying Escolar
+# EchoSafe - Combatting School Bullying
 
-O EchoSafe é um sistema projetado para abordar o problema do bullying nas escolas, proporcionando uma plataforma segura para denúncias e análises detalhadas. Nosso foco principal é garantir a privacidade dos usuários enquanto oferecemos ferramentas abrangentes para entender, monitorar e mitigar casos de bullying. Buscamos oferecer uma análise completa sobre as denúncias, o que será detalhado ao longo do texto. A privacidade dos usuários, especialmente dos alunos, é uma prioridade.
+EchoSafe is a system designed to address the issue of bullying in schools by providing a secure platform for reporting and detailed analysis. Our primary focus is ensuring user privacy while offering comprehensive tools to understand, monitor, and mitigate cases of bullying. We aim to provide thorough analysis of reports, as detailed throughout the text. User privacy, especially that of students, is a priority.
 
-## Problemas
+## Issues
 
-1. Dificuldade em identificar e dar voz a casos de bullying nas escolas.
-2. Falta de ferramentas de análise de dados para compreender tendências e padrões de bullying e assédio moral.
-3. Ausência de um canal seguro e confidencial para denúncias entre o aluno e a escola.
+1. Difficulty in identifying and giving voice to cases of bullying in schools.
+2. Lack of data analysis tools to understand bullying and harassment trends and patterns.
+3. Absence of a secure and confidential channel for reporting between students and the school.
 
-## Expectativas
+## Expectations
 
-1. **Facilitar a identificação do bullying nas escolas.** E também, facilitar a comunicação do aluno com os superiores da escola, garantindo sua privacidade e o incentivando a denunciar situações de violência, sejam elas sofridas ou presenciadas.
-2. **Fornecer análises detalhadas sobre o bullying para ações direcionadas.** A escola pode observar as seguintes situações:
-   - Acompanhar o andamento da situação da denúncia, onde ela possui os status de recebida, em observação, comprovada, falsa e resolvida;
-   - Acompanhar as categorias em que a denúncia se enquadra, podendo ser homofobia, machismo, gordofobia, femismo, transfobia, xenofobia, racismo, intolerância religiosa etc;
-   - Número de denúncias categorizados por gênero, idade e série;
-   - Emitir relatórios para escolas detalhando quais as maiores incidências de bullying, de qual forma costuma acontecer mais, em qual época etc.
-3. **Criar um ambiente escolar mais seguro e inclusivo.** Para isso, deve-se prezar pela segurança do aluno em todas as etapas da denúncia, desde a garantia da sua privacidade até a averiguação da veracidade dos fatos pela escola e, por fim, a ação escolhida pela escola para mitigar o problema denunciado.
+1. **Facilitate the identification of bullying in schools.** Also, facilitate student communication with school authorities, ensuring their privacy and encouraging them to report violence situations, whether experienced or witnessed.
+2. **Provide detailed analysis on bullying for targeted actions.** The school can observe the following situations:
+   - Track the progress of the report, where it has statuses of received, under observation, validated, false, and resolved;
+   - Track the categories in which the report fits, such as homophobia, sexism, fatphobia, femicide, transphobia, xenophobia, racism, religious intolerance, etc.;
+   - Number of reports categorized by gender, age, and grade;
+   - Issue reports to schools detailing the highest incidences of bullying, how it usually occurs, at what time, etc.
+3. **Create a safer and more inclusive school environment.** This involves prioritizing student safety at all stages of reporting, from ensuring their privacy to verifying the facts by the school and finally taking action to mitigate the reported problem.
 
 ## Personas
 
-**Persona V:** Alunos do Ensino Fundamental II e Ensino Médio (faixa etária dos 11 aos 18 anos)
+**Persona V:** Middle and High School Students (ages 11 to 18)
 
-- **O que fazem?** Estuda e interage com colegas, podendo viver ou observar situações que podem ser resolvidas com o uso do aplicativo.
-- **O que esperam?** Um meio seguro de reportar incidentes de bullying sem medo de retaliações e com mais chances de ter sua situação resolvida por alguma entidade responsável do colégio.
+- **What they do:** Study and interact with peers, potentially experiencing or witnessing situations that could be resolved using the application.
+- **What they expect:** A secure means to report bullying incidents without fear of retaliation and with a greater chance of having their situation resolved by a responsible entity at the school.
 
-**Persona X:** Professores e Funcionários da Escola
+**Persona X:** Teachers and School Staff
 
-- **O que fazem?** Professores e funcionários responsáveis por supervisionar e garantir a segurança dos alunos.
-- **O que esperam?** Uma ferramenta que facilite a identificação e relato de incidentes de bullying, permitindo intervenção rápida e eficaz.
+- **What they do:** Teachers and staff responsible for supervising and ensuring student safety.
+- **What they expect:** A tool that facilitates the identification and reporting of bullying incidents, allowing for quick and effective intervention.
 
-**Persona Y:** Administradores Escolares
+**Persona Y:** School Administrators
 
-- **O que fazem?** Membros da administração escolar responsáveis por tomar decisões de longo prazo e garantir a eficácia do programa contra o bullying.
-- **O que esperam?** Dados e relatórios abrangentes que ajudem na formulação de políticas e práticas escolares voltadas para a prevenção do bullying.
+- **What they do:** School administration members responsible for making long-term decisions and ensuring the effectiveness of the bullying prevention program.
+- **What they expect:** Comprehensive data and reports to aid in formulating school policies and practices focused on bullying prevention.
 
-**Persona Z:** Profissionais de Apoio à Saúde Mental
+**Persona Z:** Mental Health Support Professionals
 
-- **O que fazem?** Profissionais de saúde mental que trabalham em colaboração com a escola para oferecer apoio aos alunos afetados pelo bullying, oferecendo intervenções especializadas, orientação e estratégias de coping.
-- **O que esperam?** Acessar informações relevantes e detalhadas sobre denúncias de bullying para fornecer suporte personalizado aos alunos de uma escola e utilizar ferramentas que facilitem a identificação precoce de problemas no ambiente escolar, promovendo um ambiente saudável.
+- **What they do:** Mental health professionals who collaborate with the school to provide support to students affected by bullying, offering specialized interventions, guidance, and coping strategies.
+- **What they expect:** Access to relevant and detailed information about bullying reports to provide personalized support to a school's students and utilize tools that facilitate early identification of problems in the school environment, promoting a healthy atmosphere.
 
-## Marcos
+## Milestones
 
-### Marco 1 - 29/01/2024 (Deploy)
+### Milestone 1 - 01/29/2024 (Deploy)
 
-- Implementação de denúncias anônimas e interface intuitiva.
-- Cadastro e login de usuários.
-- Criação de um dashboard simples para exibição de dados das denúncias.
+- Implementation of anonymous reporting and intuitive interface.
+- User registration and login.
+- Creation of a simple dashboard for displaying report data.
 
-#### Funcionalidades:
+#### Features:
 
-1. Formulário de denúncia.
-2. Listar as denúncias na plataforma.
-3. Cadastro de usuário (aluno).
-4. Cadastro de entidade (escolas).
-5. Login de usuário (aluno).
-6. Login da entidade (escolas).
-7. Criação do dashboard para exibição de dados das denúncias.
-
-#### Release Notes:
-
-- Lançar uma nota de lançamento explicando o que foi implementado no Marco 1.
-
-### Marco 2 - 25/03/2024
-
-- Integração de mapeamento de dados e relatórios.
-- Eficiência medida por métricas de uso e satisfação dos usuários.
-- Avanços no dashboard que incluem filtros de local, data e série escolar, tendências, e insights melhores.
-- Sistema de notificações para as autoridades escolares (pela plataforma e e-mail).
-- Integração com uma IA para analisar os sentimentos de cada denúncia e categorizar as ofensas relatadas.
-
-Acreditamos que o Marco 2, com a integração de mapeamento de dados e relatórios, vai conseguir o resultado esperado. A eficácia será medida por métricas de uso e satisfação dos usuários.
-
-#### Funcionalidades:
-
-1. Filtros e categorizações dos dados.
-2. Sistema de alertas e notificações para autoridades escolares (via plataforma e e-mail).
-3. Sistema de e-mails para divulgação para escolas não cadastradas.
-4. Integração com o ChatGPT para analisar os sentimentos e categorizar as ofensas relatadas na denúncia.
-5. Mapeamento e análise de dados de denúncias por escola.
-6. Inclusão de funcionalidades adicionais relacionadas à análise de dados e relatórios.
+1. Report form.
+2. Listing reports on the platform.
+3. User (student) registration.
+4. Entity (schools) registration.
+5. User (student) login.
+6. Entity (schools) login.
+7. Creation of dashboard for displaying report data.
 
 #### Release Notes:
 
-- Lançar uma nota de lançamento explicando o que foi implementado no Marco 2.
+- Release a release note explaining what was implemented in Milestone 1.
 
-## Riscos
+### Milestone 2 - 03/25/2024
 
-1. **Problemas de Privacidade e Segurança** (Severidade Alta, Probabilidade Média)
+- Integration of data mapping and reporting.
+- Efficiency measured by usage metrics and user satisfaction.
+- Advancements in the dashboard including location, date, and grade filters, trends, and better insights.
+- Notification system for school authorities (via platform and email).
+- Integration with AI to analyze the sentiments of each report and categorize the reported offenses.
 
-   **Mitigação:** Implementação de medidas rigorosas de segurança e privacidade.
+We believe that Milestone 2, with the integration of data mapping and reporting, will achieve the expected outcome. Effectiveness will be measured by usage metrics and user satisfaction.
 
-   - Implementação de rigorosas medidas de segurança de dados e privacidade, garantindo que nenhum usuário tenha conhecimento da identidade de outro usuário (ex: escolas não podem saber o autor da denúncia, mas podem saber sobre o acusado, caso sua identidade seja revelada pelo autor da denúncia);
-   - Realizar revisões regulares do sistema para garantir sua segurança contínua e aprimoramento com base nos melhores padrões da indústria;
-   - Garantir que as informações compartilhadas nas denúncias sejam tratadas com extrema confidencialidade. Profissionais de saúde mental têm acesso apenas às informações essenciais para oferecer suporte, e todas as medidas são tomadas para preservar a identidade dos envolvidos;
-   - Manter a transparência sobre como os dados são gerenciados e utilizados na plataforma. Manter uma comunicação aberta com os profissionais de saúde mental, educadores, alunos e responsáveis, proporcionando um ambiente de prestação de contas e confiança.
+#### Features:
 
-2. **Resistência à adoção do app por parte de alunos e professores** (Severidade Média, Probabilidade Alta):
+1. Data filters and categorizations.
+2. Alerts and notifications system for school authorities (via platform and email).
+3. Email system for outreach to non-registered schools.
+4. Integration with ChatGPT to analyze sentiments and categorize reported offenses in reports.
+5. Mapping and analysis of report data by school.
+6. Inclusion of additional features related to data analysis and reporting.
 
-   **Mitigação:** Campanhas de conscientização, melhorar o aplicativo continuamente com base no feedback constante recebido da comunidade alvo e incentivo de uso.
+#### Release Notes:
 
-   - Campanhas de conscientização e treinamento;
-   - Feedback constante da comunidade escolar para melhorias;
-   - Incentivo de uso ao provar o bom desempenho do app ao monitorar os índices de violência escolar, além de atenuar os conflitos entre alunos.
+- Release a release note explaining what was implemented in Milestone 2.
 
-## Componentes
+## Risks
 
-### Aplicativo Web
+1. **Privacy and Security Issues** (High Severity, Medium Probability)
 
-O aplicativo web do EchoSafe é uma plataforma completa projetada para a gestão e análise eficiente de denúncias de bullying nas escolas. Com uma interface intuitiva e amigável, o aplicativo visa proporcionar uma experiência fluida para os usuários, especialmente para as autoridades escolares responsáveis pela administração e tomada de decisões com base nas denúncias recebidas.
+   **Mitigation:** Implementation of rigorous security and privacy measures.
 
-#### Principais Funcionalidades:
+   - Implementation of rigorous data security and privacy measures, ensuring no user has knowledge of another user's identity (e.g., schools cannot know the author of the report but can know about the accused if their identity is revealed by the report author);
+   - Regular system reviews to ensure its ongoing security and improvement based on industry best practices;
+   - Ensuring that information shared in reports is treated with utmost confidentiality. Mental health professionals only have access to essential information to provide support, and all measures are taken to preserve the identity of those involved;
+   - Maintaining transparency about how data is managed and used on the platform. Maintaining open communication with mental health professionals, educators, students, and guardians, fostering an environment of accountability and trust.
 
-1. **Dashboard Principal:**
-   - Apresenta uma visão geral das estatísticas de denúncias, destacando o número total de incidentes reportados e os status correspondentes (recebida, em observação, comprovada, falsa, resolvida).
-   - Oferece gráficos e visualizações para facilitar a compreensão das tendências e padrões de bullying.
-2. **Gestão de Denúncias:**
-   - Permite o acompanhamento detalhado de cada denúncia, com informações sobre o denunciante, o acusado, a categoria do incidente (homofobia, machismo, gordofobia, femismo, transfobia, racismo, xenofobia, intolerância religiosa, etc.) e o histórico de ações tomadas.
-3. **Filtros e Categorizações:**
-   - Facilita a análise de dados por meio de filtros avançados, permitindo a categorização das denúncias com base em critérios como gênero, idade, série e outros parâmetros relevantes.
-4. **Alertas e Notificações:**
-   - Implementa um sistema de alertas e notificações automáticas para as autoridades escolares, utilizando e-mails, sempre que uma denúncia relevante for recebida ou houver uma atualização no status da mesma.
-5. **Relatórios Detalhados:**
-   - Oferece relatórios abrangentes sobre as estatísticas de denúncias, facilitando a compreensão das dinâmicas de bullying na escola. Inclui análises aprofundadas sobre as categorias de incidentes e outros indicadores-chave.
-6. **Integração com ChatGPT:**
-   - Possui uma integração com o ChatGPT para analisar os sentimentos expressos nas denúncias, categorizando as ofensas relatadas de maneira mais precisa e identificando nuances emocionais.
-7. **Sistema de E-mails:**
-   - Implementa um sistema de e-mails para divulgação a escolas não cadastradas, incentivando a participação e conscientizando sobre a importância do aplicativo.
-8. **Segurança e Privacidade:**
-   - Garante rigorosas medidas de segurança e privacidade, assegurando que as informações do denunciante sejam mantidas confidenciais e que apenas as autoridades relevantes tenham acesso a detalhes específicos.
+2. **Resistance to app adoption by students and teachers** (Medium Severity, High Probability):
+
+   **Mitigation:** Awareness campaigns, continuous improvement of the app based on constant feedback received from the target community, and encouragement of use.
+
+   - Awareness campaigns and training;
+   - Continuous feedback from the school community for improvements;
+   - Encouragement of use by proving the app's effectiveness in monitoring school violence rates and mitigating conflicts between students.
+
+## Components
+
+### Web Application
+
+The EchoSafe web application is a comprehensive platform designed for efficient management and analysis of bullying reports in schools. With an intuitive and user-friendly interface, the application aims to provide a seamless experience for users, especially for school authorities responsible for administration and decision-making based on received reports.
+
+#### Key Features:
+
+1. **Main Dashboard:**
+   - Provides an overview of report statistics, highlighting the total number of incidents reported and corresponding statuses (received, under observation, validated, false, resolved).
+   - Offers charts and visualizations to facilitate understanding of bullying trends.
+2. **Report Management:**
+   - Allows detailed tracking of each report, with information about the reporter, the accused, the incident category (homophobia, sexism, fatphobia, femicide, transphobia, racism, xenophobia, religious intolerance, etc.), and the history of actions taken.
+3. **Filters and Categorizations:**
+   - Facilitates data analysis through advanced filters, allowing categorization of reports based on criteria such as gender, age, grade, and other relevant parameters.
+4. **Alerts and Notifications:**
+   - Implements a system of automatic alerts and notifications for school authorities, using emails, whenever a relevant report is received or there is an update on its status.
+5. **Detailed Reports:**
+   - Provides comprehensive reports on report statistics, facilitating understanding of bullying dynamics in the school. Includes in-depth analyses of incident categories and other key indicators.
+6. **Integration with ChatGPT:**
+   - Features integration with ChatGPT to analyze sentiments expressed in reports, categorizing reported offenses more accurately and identifying emotional nuances.
+7. **Email System:**
+   - Implements an email system for outreach to non-registered schools, encouraging participation and raising awareness about the importance of the application.
+8. **Security and Privacy:**
+   - Ensures rigorous security and privacy measures, ensuring that reporter information is kept confidential and only relevant authorities have access to specific details.
+
