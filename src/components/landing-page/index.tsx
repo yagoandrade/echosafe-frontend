@@ -137,7 +137,7 @@ const LandingPage = () => {
               </div>
 
               {/*
-              // SOCIAL PROOF
+              // TODO: Add heavy Social Proof
               <div className="mx-auto grid max-w-3xl gap-6 text-center md:gap-8 lg:max-w-none lg:grid-cols-3 lg:grid-rows-2">
                 <div className="flex flex-col gap-2">
                   <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
@@ -285,7 +285,7 @@ const LandingPage = () => {
           </div>
         </section> */}
 
-        <section className="!mt-60 !mb-20 flex w-full flex-col items-center justify-center gap-y-16 py-12">
+        <section className="!mb-20 !mt-60 flex w-full flex-col items-center justify-center gap-y-16 py-12">
           <span className="space-y-3 text-center text-6xl font-light leading-10">
             <h3>Ready for the future of safety?</h3>
             <p>Available today.</p>
