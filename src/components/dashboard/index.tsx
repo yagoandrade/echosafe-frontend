@@ -25,13 +25,7 @@ async function Dashboard() {
         </div>
         <ManagingInstitutionSection />
       </div>
-      {session?.user && (
-        <>
-          {/* TODO: Bring DashboardHeader back
-           <DashboardHeader /> */}
-          <ReportsTable />
-        </>
-      )}
+      {session?.user && <ReportsTable />}
     </div>
   );
 }

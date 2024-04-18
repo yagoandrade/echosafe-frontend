@@ -1,3 +1,5 @@
+/* TODO: Add verification for when a user's account is not registered, then turn it back on */
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -19,8 +21,6 @@ const SignInWithMagicLink = () => {
   } = useForm<LoginWithMagicLinkData>();
 
   const onSubmit = async (inputData: LoginWithMagicLinkData) => {
-    /* TODO: Add verification for when a user's account is not registered, then turn it back on */
-
     await signIn("email", {
       ...inputData,
       callbackUrl: "/",

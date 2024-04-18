@@ -137,7 +137,7 @@ const LandingPage = () => {
               </div>
 
               {/*
-              // TODO: Add heavy Social Proof
+              // TODO: Add Social Proof
               <div className="mx-auto grid max-w-3xl gap-6 text-center md:gap-8 lg:max-w-none lg:grid-cols-3 lg:grid-rows-2">
                 <div className="flex flex-col gap-2">
                   <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
