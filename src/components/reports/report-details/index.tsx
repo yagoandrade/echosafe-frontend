@@ -14,7 +14,7 @@ const ReportDetails = async ({ id }: ReportDetailsProps) => {
   const role = await api.post.getUserRole();
 
   return task ? (
-    <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-6 lg:gap-9">
+    <div className="grid size-full grid-cols-1 gap-3 lg:grid-cols-6 lg:gap-9">
       <div className="col-span-1 lg:col-span-4">
         <ChatBox
           channelId={Number(id)}

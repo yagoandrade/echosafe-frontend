@@ -1,15 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
 import { api } from "@/trpc/react";
 import { MessagesSquare } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const SidemenuReportsButton = () => {
   const { activeInstitution } = useActiveInstitutionStore((state) => state);
   const [numberOfReports, setNumberOfReports] = useState<number | undefined>();
+
+  const pathname = usePathname();
 
   const numberOfReportsQuery = api.post.getNumberOfReports.useQuery();
 
@@ -31,7 +35,11 @@ const SidemenuReportsButton = () => {
     <Button
       variant="sidemenu"
       size="sm"
-      className="justify-start gap-x-3 px-6"
+      className={cn(
+        "flex w-full justify-start gap-x-3 px-6",
+        pathname === "/reports" &&
+          "dark:bg-primary-background bg-primary-foreground dark:bg-opacity-10",
+      )}
       asChild
     >
       <Link href="/reports">

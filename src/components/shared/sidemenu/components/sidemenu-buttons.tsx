@@ -15,7 +15,7 @@ interface SidemenuButtonsProps {
 }
 
 const SidemenuButtons = ({
-  className = "flex flex-col",
+  className = "flex flex-col h-full",
 }: SidemenuButtonsProps) => {
   const userRoleQuery = api.post.getUserRole.useQuery();
 

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
 import { type Message } from "@/lib/supabase/types";
-import { Send } from "lucide-react";
+import { MessagesSquare, Send } from "lucide-react";
 import { type Session } from "next-auth";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -133,9 +133,14 @@ const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
           );
         })}
         {messages.length === 0 && (
-          <div className="flex h-full w-full items-center justify-center">
-            <h3 className="text-lg font-semibold leading-6 text-gray-500">
-              No messages yet
+          <div className="flex size-full flex-col items-center justify-center gap-y-4">
+            <MessagesSquare
+              className="text-gray-500"
+              strokeWidth={1}
+              size="6rem"
+            />
+            <h3 className="text-lg font-light leading-6 text-gray-500">
+              Start the conversation by sending a message.
             </h3>
           </div>
         )}

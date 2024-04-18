@@ -20,7 +20,7 @@ async function ManageInstitutions() {
       tableName="institution"
     />
   ) : (
-    <p>
+    <p className="text-muted-foreground dark:text-[#cbccd9]">
       You do not have any institutions. Click in &quot;Create Institution&quot;
       to start creating your first.
     </p>

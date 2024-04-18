@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { MessageSquarePlus } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface SidemenuCreateReportButtonProps {
   className?: string;
@@ -10,11 +11,18 @@ interface SidemenuCreateReportButtonProps {
 const SidemenuCreateReportButton = ({
   className,
 }: SidemenuCreateReportButtonProps) => {
+  const pathname = usePathname();
+
   return (
     <Button
       variant="sidemenu"
       size="sm"
-      className={cn("justify-start gap-x-3 px-6", className)}
+      className={cn(
+        "flex w-full justify-start gap-x-3 px-6",
+        pathname === "/report/create" &&
+          "dark:bg-primary-background bg-primary-foreground dark:bg-opacity-10",
+        className,
+      )}
       asChild
     >
       <Link href="/report/create">

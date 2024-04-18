@@ -7,6 +7,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -19,7 +20,11 @@ const SidemenuSearchButton = () => {
       <Button
         variant="sidemenu"
         size="sm"
-        className="justify-start gap-x-3 px-6"
+        className={cn(
+          "justify-start gap-x-3 px-6",
+          open &&
+            "dark:bg-primary-background bg-primary-foreground dark:bg-opacity-10",
+        )}
         onClick={() => setOpen(true)}
       >
         <Search className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
