@@ -61,7 +61,6 @@ export default function SignInPage() {
               >
                 Register here
               </Link>
-              .
             </span>
 
             {/*

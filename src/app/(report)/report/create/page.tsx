@@ -4,9 +4,11 @@ import { PageBreadcrumb } from "@/components/shared/page-breadcrumb";
 import Sidemenu from "@/components/shared/sidemenu";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
+import { redirect } from "next/navigation";
 
 const CreateReportPage = async () => {
   const session = await getServerAuthSession();
+  if (!session) redirect("/api/auth/signin?csrf=true");
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 

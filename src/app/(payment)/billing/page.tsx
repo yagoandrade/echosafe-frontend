@@ -14,10 +14,7 @@ export const metadata = {
 
 export default async function BillingPage() {
   const session = await getServerAuthSession();
-
-  if (!session) {
-    redirect("/api/auth/signin?csrf=true");
-  }
+  if (!session) redirect("/api/auth/signin?csrf=true");
 
   const subscriptionPlan = await getUserSubscriptionPlan(session.user.email!);
 

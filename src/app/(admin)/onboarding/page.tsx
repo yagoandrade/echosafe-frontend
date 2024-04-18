@@ -1,8 +1,10 @@
 import { getServerAuthSession } from "@/server/auth";
 import Onboarding from "./components/onboarding";
+import { redirect } from "next/navigation";
 
 const OnboardingPage = async () => {
   const session = await getServerAuthSession();
+  if (!session) redirect("/api/auth/signin?csrf=true");
 
   const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
 

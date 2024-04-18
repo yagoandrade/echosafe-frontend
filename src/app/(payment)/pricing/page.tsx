@@ -2,6 +2,7 @@ import { PricingCards } from "@/components/pricing-cards";
 import { PricingFaq } from "@/components/pricing-faq";
 import { getUserSubscriptionPlan } from "@/lib/subscription";
 import { getServerAuthSession } from "@/server/auth";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Pricing",
@@ -9,11 +10,9 @@ export const metadata = {
 
 export default async function PricingPage() {
   const session = await getServerAuthSession();
-  let subscriptionPlan;
+  if (!session) redirect("/api/auth/signin?csrf=true");
 
-  if (session?.user) {
-    subscriptionPlan = await getUserSubscriptionPlan(session.user.email!);
-  }
+  const subscriptionPlan = await getUserSubscriptionPlan(session.user.email!);
 
   return (
     <div className="flex w-full flex-col gap-16 py-8 md:py-8">

@@ -150,7 +150,6 @@ export default function Register() {
               >
                 Sign in
               </Link>
-              .
             </div>
           </CardContent>
         </Card>
