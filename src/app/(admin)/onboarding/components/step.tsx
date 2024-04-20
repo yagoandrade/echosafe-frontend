@@ -52,8 +52,8 @@ export default function Step({
             color: "#fbfbfe", // blue-500
           },
           complete: {
-            backgroundColor: "#575bc7", // blue-500
-            borderColor: "#575bc7", // blue-500
+            backgroundColor: "#1994ff", // blue-500
+            borderColor: "#1994ff", // blue-500
             color: "#3b82f6", // blue-500
           },
         }}

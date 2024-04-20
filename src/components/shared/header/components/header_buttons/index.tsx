@@ -8,6 +8,8 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import MobileSidemenu from "@/components/shared/mobile-sidemenu";
 import { useRouter } from "next/navigation";
+import SmoothTransitionButton from "@/components/shared/smooth-transition-button";
+import { Spinner } from "@/components/shared/loading-spinner";
 
 const HeaderButtons = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
@@ -62,7 +64,7 @@ const HeaderContent = () => {
       <Button variant="link" size="sm" onClick={handleSignIn}>
         Log in
       </Button> */}
-      <Button variant="provider" size="sm" onClick={handleRegister}>
+      <Button variant="primary" size="sm" onClick={handleRegister}>
         Sign up
       </Button>
     </>

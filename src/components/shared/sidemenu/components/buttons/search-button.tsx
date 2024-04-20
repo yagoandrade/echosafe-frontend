@@ -21,13 +21,13 @@ const SidemenuSearchButton = () => {
         variant="sidemenu"
         size="sm"
         className={cn(
-          "justify-start gap-x-3 px-6",
+          "justify-start gap-x-3 px-6 text-muted-foreground dark:text-[#cbccd9]",
           open &&
-            "dark:bg-primary-background bg-primary-foreground dark:bg-opacity-10",
+            "dark:bg-primary-background border-primary-background border bg-primary-foreground font-medium text-[#1994ff] dark:border-primary-foreground dark:bg-opacity-10",
         )}
         onClick={() => setOpen(true)}
       >
-        <Search className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
+        <Search className="h-4 w-4" />
         <p>Search</p>
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>

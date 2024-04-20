@@ -236,7 +236,6 @@ export const postRouter = createTRPCRouter({
       throw new Error("You must be logged in to get institutions");
     }
 
-    // Find the institutions created by the logged-in user
     const createdInstitutions = await ctx.db.institution.findMany({
       where: {
         createdBy: ctx.session.user.email,
@@ -270,9 +269,10 @@ export const postRouter = createTRPCRouter({
     }
 
     // Extract institutions from UserInstitution relation
-    const institutions = user.UserInstitution.map(
-      (association) => association.institution,
-    );
+    const institutions = user.UserInstitution.map((association) => ({
+      institution: association.institution,
+      role: association.role,
+    }));
 
     return institutions;
   }),
@@ -383,6 +383,103 @@ export const postRouter = createTRPCRouter({
       },
     });
   }),
+
+  joinInstitution: protectedProcedure
+    .input(
+      z.object({
+        institutionCode: z.string(),
+        role: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      if (!ctx.session.user.email) {
+        throw new Error("You must be logged in to finish onboarding");
+      }
+
+      const user = await ctx.db.user.findUnique({
+        where: { email: ctx.session.user.email },
+      });
+
+      if (!user) {
+        throw new Error("User not found");
+      }
+
+      const associatedInstitution = await ctx.db.institution.findFirst({
+        where: { code: input.institutionCode },
+      });
+
+      if (!associatedInstitution) {
+        throw new Error("Associated institution not found");
+      }
+
+      // Update institution associations based on user's role
+      switch (input.role) {
+        case "STUDENT":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "STUDENT",
+            },
+          });
+          break;
+        case "COORDINATOR":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "COORDINATOR",
+            },
+          });
+          break;
+        case "PSYCHOLOGIST":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "PSYCHOLOGIST",
+            },
+          });
+          break;
+        case "DIRECTOR":
+          await ctx.db.userInstitution.create({
+            data: {
+              user: {
+                connect: { id: user.id },
+              },
+              institution: {
+                connect: { id: associatedInstitution.id },
+              },
+              role: "DIRECTOR",
+            },
+          });
+          break;
+        default:
+          throw new Error("Invalid user role");
+      }
+
+      // Update isOnboarded status after associating with an institution
+      const updatedUser = await ctx.db.user.update({
+        where: { email: ctx.session.user.email },
+        data: {
+          isOnboarded: true,
+        },
+      });
+
+      return updatedUser;
+    }),
 
   finishOnboarding: protectedProcedure
     .input(
@@ -581,6 +678,7 @@ export const postRouter = createTRPCRouter({
       },
       include: {
         user: true,
+        institution: true,
       },
     });
 
@@ -589,6 +687,7 @@ export const postRouter = createTRPCRouter({
       id: member.user.id,
       name: member.user.name,
       role: member.role,
+      institutionName: member.institution.name,
     }));
 
     // Define a schema for the response data
@@ -597,7 +696,7 @@ export const postRouter = createTRPCRouter({
         id: z.string(),
         name: z.string(),
         role: z.enum(["DIRECTOR", "COORDINATOR", "PSYCHOLOGIST", "STUDENT"]),
-        // Add more fields as needed
+        institutionName: z.string(),
       }),
     );
 

@@ -2,6 +2,12 @@ import { getServerAuthSession } from "@/server/auth";
 import Onboarding from "./components/onboarding";
 import { redirect } from "next/navigation";
 import { getUserSubscriptionPlan } from "@/lib/subscription";
+import { cn } from "@/lib/utils";
+
+export const metadata = {
+  title: "Onboarding | EchoSafe®",
+  description: "Onboard your institution to EchoSafe.",
+};
 
 const OnboardingPage = async () => {
   const session = await getServerAuthSession();
@@ -11,13 +17,14 @@ const OnboardingPage = async () => {
   if (!subscriptionPlan.isPaid || !subscriptionPlan.stripeCustomerId)
     redirect("/pricing");
 
-  const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
-
   return (
-    <main className={`flex justify-center text-white ${pageHeight}`}>
-      <div className="container flex flex-col gap-12 px-4 py-12">
-        <Onboarding />
-      </div>
+    <main
+      className={cn(
+        "flex min-h-screen justify-center text-white" +
+          "container flex flex-col gap-12 px-4 py-12",
+      )}
+    >
+      <Onboarding />
     </main>
   );
 };

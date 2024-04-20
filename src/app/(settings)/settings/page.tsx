@@ -5,7 +5,12 @@ import { getUserSubscriptionPlan } from "@/lib/subscription";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
-import React from "react";
+
+export const metadata = {
+  title: "Settings | EchoSafe®",
+  description:
+    "Change your settings. Update your profile. Manage your account.",
+};
 
 const SettingsPage = async () => {
   const session = await getServerAuthSession();
@@ -15,10 +20,8 @@ const SettingsPage = async () => {
   if (!subscriptionPlan.isPaid || !subscriptionPlan.stripeCustomerId)
     redirect("/pricing");
 
-  const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
-
   return (
-    <main className={cn("flex justify-center", pageHeight)}>
+    <main className={cn("flex min-h-screen justify-center")}>
       <Sidemenu />
 
       <div className="h-screen w-full flex-1 flex-col space-y-8 overflow-y-scroll p-4 pl-2 pr-4 md:flex md:p-8">

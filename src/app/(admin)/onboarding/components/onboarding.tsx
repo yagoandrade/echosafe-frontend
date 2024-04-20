@@ -15,7 +15,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { roles } from "./util";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import ChangeUserAvatar from "@/components/shared/change-user-avatar";
 
@@ -142,8 +141,8 @@ export default function Onboarding() {
             institution.
           </h2>
           <Select value={role} onValueChange={(value) => setRole(value)}>
-            <SelectTrigger id="status" aria-label="Select status">
-              <SelectValue placeholder="Select status" />
+            <SelectTrigger id="status" aria-label="Select role...">
+              <SelectValue placeholder="Select role..." />
             </SelectTrigger>
             <SelectContent>
               {Object.values(roles).map((role) => (

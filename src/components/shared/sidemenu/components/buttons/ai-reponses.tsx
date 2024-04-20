@@ -11,7 +11,7 @@ const SidemenuAIResponsesButton = () => {
       asChild
     >
       <Link href="/ai-orientations">
-        <BotMessageSquare className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
+        <BotMessageSquare className="h-4 w-4" />
         <p>AI Orientations</p>
       </Link>
     </Button>

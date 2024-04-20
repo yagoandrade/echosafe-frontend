@@ -6,9 +6,15 @@ import { Button } from "@/components/ui/button";
 import { getUserSubscriptionPlan } from "@/lib/subscription";
 import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
-import { Plus } from "lucide-react";
+import { LogIn, Plus } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+
+export const metadata = {
+  title: "Institutions | EchoSafe®",
+  description:
+    "Manage your institutions here. Create, join, and manage your institutions.",
+};
 
 const ManageInstituionsPage = async () => {
   const session = await getServerAuthSession();
@@ -18,10 +24,8 @@ const ManageInstituionsPage = async () => {
   if (!subscriptionPlan.isPaid || !subscriptionPlan.stripeCustomerId)
     redirect("/pricing");
 
-  const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
-
   return (
-    <main className={cn("flex justify-center", pageHeight)}>
+    <main className={cn("flex min-h-screen justify-center")}>
       <Sidemenu />
 
       <div className="h-screen w-full flex-1 flex-col space-y-8 overflow-y-scroll p-4 pl-2 pr-4 md:flex md:p-8">
@@ -47,12 +51,20 @@ const ManageInstituionsPage = async () => {
               { href: "/institutions", label: "My Institutions" },
             ]}
           />
-          <Button variant="provider" asChild>
-            <Link href="/institution/create" className="gap-x-1">
-              <Plus className="h-4 w-4" />
-              Create Institution
-            </Link>
-          </Button>
+          <div className="flex gap-x-2">
+            <Button variant="provider" asChild>
+              <Link href="/institution/join" className="gap-x-1">
+                <LogIn className="h-4 w-4" />
+                Join Institution
+              </Link>
+            </Button>
+            <Button variant="primary" asChild>
+              <Link href="/institution/create" className="gap-x-1">
+                <Plus className="h-4 w-4" />
+                Create Institution
+              </Link>
+            </Button>
+          </div>
         </div>
         <ManageInstitutions />
       </div>

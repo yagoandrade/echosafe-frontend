@@ -70,10 +70,10 @@ export function CreateInstitution() {
         <CardFooter>
           <Button
             type="submit"
-            variant="provider"
+            variant="primary"
             disabled={CreateInstitution.isPending}
           >
-            {CreateInstitution.isPending ? "Submitting..." : "Submit"}
+            {CreateInstitution.isPending ? "Creating..." : "Create Institution"}
           </Button>
         </CardFooter>
       </Card>

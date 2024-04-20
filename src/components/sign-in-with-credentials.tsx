@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 import { useState } from "react";
+import { Spinner } from "./shared/loading-spinner";
 
 interface LoginData {
   email: string;
@@ -79,6 +80,7 @@ const SignInWithCredentials = () => {
         className="w-full"
         disabled={isSubmitting}
       >
+        {isSubmitting && <Spinner />}
         {isSubmitting ? "Signing in..." : "Sign in"}
       </Button>
     </form>

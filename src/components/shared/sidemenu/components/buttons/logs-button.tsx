@@ -11,7 +11,7 @@ const SidemenuLogsButton = () => {
       asChild
     >
       <Link href="/logs">
-        <Paperclip className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
+        <Paperclip className="h-4 w-4" />
         <p>Logs</p>
       </Link>
     </Button>

@@ -36,17 +36,17 @@ const SidemenuReportsButton = () => {
       variant="sidemenu"
       size="sm"
       className={cn(
-        "flex w-full justify-start gap-x-3 px-6",
+        "flex w-full justify-start gap-x-3 px-6 text-muted-foreground dark:text-[#cbccd9]",
         pathname === "/reports" &&
-          "dark:bg-primary-background bg-primary-foreground dark:bg-opacity-10",
+          "dark:bg-primary-background border-primary-background border bg-primary-foreground font-medium text-[#1994ff] dark:border-primary-foreground dark:bg-opacity-10",
       )}
       asChild
     >
       <Link href="/reports">
-        <MessagesSquare className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
+        <MessagesSquare className="h-4 w-4" />
         <p>Reports</p>
         {numberOfReports && numberOfReports > 0 && (
-          <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-[#575bc7] text-xs text-white">
+          <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-[#1994ff] text-xs text-white">
             <p>{numberOfReports > 99 ? "+99" : numberOfReports}</p>
           </span>
         )}

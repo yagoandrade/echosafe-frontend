@@ -11,7 +11,7 @@ const SidemenuArchivedReportsButton = () => {
       asChild
     >
       <Link href="/archived">
-        <Archive className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
+        <Archive className="h-4 w-4" />
         <p>Archived Reports</p>
       </Link>
     </Button>

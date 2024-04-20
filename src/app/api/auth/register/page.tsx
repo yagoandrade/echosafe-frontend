@@ -22,6 +22,7 @@ import { useSession } from "next-auth/react";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import Link from "next/link";
+import { Spinner } from "@/components/shared/loading-spinner";
 
 interface RegisterData {
   name: string;
@@ -77,7 +78,7 @@ export default function Register() {
           <CardHeader>
             <CardTitle className="text-xl">Create your account</CardTitle>
             <CardDescription>
-              Enter your information to create an account
+              Enter your information to create an account.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -139,6 +140,7 @@ export default function Register() {
                 className="w-full"
                 disabled={isSubmitting}
               >
+                {isSubmitting && <Spinner />}
                 {isSubmitting ? "Creating account..." : "Create an account"}
               </Button>
             </div>
@@ -146,7 +148,7 @@ export default function Register() {
               Already have an account?{" "}
               <Link
                 href="/api/auth/signin?csrf=true"
-                className="cursor-default font-medium text-[#838496] hover:underline"
+                className="cursor-default font-medium text-[#1994ff] hover:underline"
               >
                 Sign in
               </Link>

@@ -7,6 +7,11 @@ import { cn } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
 
+export const metadata = {
+  title: "Report Details | EchoSafe®",
+  description: "View the details of a report.",
+};
+
 export default async function ReportPage({
   params,
 }: Readonly<{ params: { id: string } }>) {
@@ -19,10 +24,8 @@ export default async function ReportPage({
 
   const id = params.id;
 
-  const pageHeight = "min-h-screen";
-
   return (
-    <main className={cn("flex justify-center", pageHeight)}>
+    <main className={cn("flex min-h-screen justify-center")}>
       <Sidemenu />
 
       <div className="h-screen w-full flex-1 flex-col space-y-8 overflow-y-scroll p-4 pl-2 pr-4 md:flex md:p-8">

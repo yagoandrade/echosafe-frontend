@@ -137,10 +137,10 @@ export function CreateReport() {
         <CardFooter>
           <Button
             type="submit"
-            variant="provider"
+            variant="primary"
             disabled={createReport.isPending}
           >
-            {createReport.isPending ? "Submitting..." : "Submit"}
+            {createReport.isPending ? "Sending..." : "Send Report"}
           </Button>
         </CardFooter>
       </Card>

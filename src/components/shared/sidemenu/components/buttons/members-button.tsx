@@ -15,12 +15,12 @@ const SidemenuMembersButton = () => {
       className={cn(
         "flex justify-start gap-x-3 px-6",
         pathname === "/members" &&
-          "dark:bg-primary-background bg-primary-foreground dark:bg-opacity-10",
+          "dark:bg-primary-background border-primary-background border bg-primary-foreground font-medium text-[#1994ff] dark:border-primary-foreground dark:bg-opacity-10",
       )}
       asChild
     >
       <Link href="/members">
-        <UsersRound className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
+        <UsersRound className="h-4 w-4" />
         <p>Members</p>
       </Link>
     </Button>

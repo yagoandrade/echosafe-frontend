@@ -12,12 +12,10 @@ export default async function Home() {
   if (session?.user && !session.user.isOnboarded) redirect("/onboarding");
   else if (session?.user && session.user.isOnboarded) redirect("/dashboard");
 
-  const pageHeight = "min-h-[calc(100vh-4rem)]";
-
   return (
     <>
       <Header isLoggedIn={!!session} />
-      <main className={cn("flex justify-center", pageHeight)}>
+      <main className={cn("flex min-h-[calc(100vh-4rem)] justify-center")}>
         <div className="container flex flex-col justify-center gap-12 px-12 py-12">
           <LandingPage />
         </div>

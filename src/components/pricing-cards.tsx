@@ -29,7 +29,10 @@ export function PricingCards({
 
   return (
     <main className="container flex flex-col items-center text-center">
-      <HeaderSection title="Choose the best plan for your institution" />
+      <HeaderSection
+        title="Choose the best plan for your institution"
+        subscriptionPlan={subscriptionPlan}
+      />
 
       <div className="mb-4 mt-10 flex items-center gap-5">
         <span>Monthly Billing</span>
@@ -68,7 +71,7 @@ export function PricingCards({
                     )}
                   </div>
                   <div className="-mb-1 ml-2 text-left text-sm font-medium">
-                    <div>/mo</div>
+                    <div>/month</div>
                   </div>
                 </div>
               </div>
@@ -115,6 +118,17 @@ export function PricingCards({
           </div>
         ))}
       </div>
+
+      {subscriptionPlan?.title && (
+        <p className="mt-3 text-balance text-center text-base text-muted-foreground">
+          You are currently subscribed to the{" "}
+          <span className="font-medium text-primary">
+            {subscriptionPlan.title}
+          </span>{" "}
+          plan.
+          <br />
+        </p>
+      )}
 
       <p className="mt-3 text-balance text-center text-base text-muted-foreground">
         Email{" "}

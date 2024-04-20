@@ -4,10 +4,11 @@
 
 import { membersColumns } from "@/components/columns";
 import { DataTable } from "@/components/data-table/data-table";
+import { Spinner } from "@/components/shared/loading-spinner";
 import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
 import { api } from "@/trpc/react";
 import { type UserRole } from "@prisma/client";
-import { Loader, PersonStanding } from "lucide-react";
+import { PersonStanding } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -16,7 +17,7 @@ type Members = { id: string; name: string | null; role: UserRole }[];
 function MembersTable() {
   const { activeInstitution } = useActiveInstitutionStore((state) => state);
   const [members, setMembers] = useState<Members>([]);
-  
+
   const membersQuery = api.post.getMembersFromInstitution.useQuery();
 
   async function fetchReports() {
@@ -49,8 +50,9 @@ function MembersTable() {
         </div>
       )}
       {membersQuery.isLoading && (
-        <div className="flex size-full items-center justify-center">
-          <Loader className="mr-2 size-4 animate-spin" /> Loading...
+        <div className="flex size-full gap-x-2 items-center justify-center">
+          <Spinner color="rgba(0, 0, 0, 0.65)" />
+          Loading...
         </div>
       )}
       {members && members.length > 0 && (

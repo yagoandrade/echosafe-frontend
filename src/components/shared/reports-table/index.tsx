@@ -7,7 +7,8 @@ import { columns, studentColumns } from "../../columns";
 import { DataTable } from "../../data-table/data-table";
 import { type Post } from "@prisma/client";
 import { toast } from "sonner";
-import { Loader, MessageSquareDashed } from "lucide-react";
+import { MessageSquareDashed } from "lucide-react";
+import { Spinner } from "../loading-spinner";
 
 type Modify<T, R> = Omit<T, keyof R> & R;
 
@@ -61,8 +62,8 @@ export function ReportsTable() {
         </div>
       )}
       {reportsQuery.isLoading && (
-        <div className="flex size-full items-center justify-center">
-          <Loader className="mr-2 size-4 animate-spin" /> Loading...
+        <div className="flex size-full items-center justify-center gap-x-2">
+          <Spinner color="rgba(0, 0, 0, 0.65)" /> Loading...
         </div>
       )}
       {formattedReports && formattedReports.length > 0 && (

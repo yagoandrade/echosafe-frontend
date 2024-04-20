@@ -4,9 +4,10 @@
 "use client";
 
 import { useState } from "react";
-import { Image as ImageIcon, Loader2 } from "lucide-react";
+import { Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "../../loading-spinner";
 
 interface UploadImageToS3Props {
   onUploadSuccess: (filename: string) => void; // Define the type of the callback function
@@ -95,7 +96,7 @@ const UploadImageToS3: React.FC<UploadImageToS3Props> = ({
               <div className="flex w-full items-center justify-center rounded-lg border-2 border-dashed p-2">
                 <ImageIcon className="mr-4 size-6 min-h-fit min-w-fit text-gray-500" />
                 <p className="truncate text-sm text-gray-500">
-                  {file?.name ? file.name : "Choose an image"}
+                  {file?.name ? file.name : "Choose a new image..."}
                 </p>
               </div>
             </Button>
@@ -108,11 +109,11 @@ const UploadImageToS3: React.FC<UploadImageToS3Props> = ({
           className="w-full w-full sm:w-1/4 lg:w-80"
         >
           {isUploading ? (
-            <span className="flex items-center gap-x-1">
-              <Loader2 className="mr-2 size-4 animate-spin" /> Submitting...
+            <span className="flex items-center gap-x-2">
+              <Spinner /> Uploading...
             </span>
           ) : (
-            <span>Submit</span>
+            <span>Upload</span>
           )}
         </Button>
       </div>

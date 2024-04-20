@@ -9,6 +9,10 @@ import SidemenuSearchButton from "./buttons/search-button";
 import SidemenuSettingsButton from "./buttons/settings-button";
 import SidemenuStudentReportsButton from "./buttons/student-reports-button";
 import { cn } from "@/lib/utils";
+import SidemenuBillingButton from "./buttons/billing-button";
+import SidemenuPricingButton from "./buttons/pricing-button";
+import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
+import { useEffect } from "react";
 
 interface SidemenuButtonsProps {
   className?: string;
@@ -17,21 +21,40 @@ interface SidemenuButtonsProps {
 const SidemenuButtons = ({
   className = "flex flex-col h-full",
 }: SidemenuButtonsProps) => {
+  const { activeInstitution } = useActiveInstitutionStore((state) => state);
+
   const userRoleQuery = api.post.getUserRole.useQuery();
+
+  useEffect(() => {
+    void userRoleQuery.refetch();
+  }, [activeInstitution]);
 
   return (
     <div className={cn(className)}>
-      {userRoleQuery.data !== "STUDENT" && <SidemenuSearchButton />}
-      {userRoleQuery.data !== "STUDENT" && <SidemenuReportsButton />}
+      {/* ROUTES FOR INSTITUTION PERSONNEL */}
+      {userRoleQuery.data !== "STUDENT" && (
+        <>
+          <SidemenuSearchButton />
+          <SidemenuReportsButton />
+          <SidemenuMembersButton />
+          <SidemenuManageInstitutionsButton />
+          <SidemenuBillingButton />
+        </>
+      )}
+
+      {/* ROUTES FOR STUDENTS */}
+      {userRoleQuery.data === "STUDENT" && <SidemenuStudentReportsButton />}
+
+      {/* COMMON ROUTES */}
+      <SidemenuSettingsButton />
+      <SidemenuCreateReportButton className="mt-auto" />
+
+      {/* UNUSED ROUTES */}
+      {/* <SidemenuPricingButton /> */}
       {/* <SidemenuLogsButton /> */}
-      {userRoleQuery.data !== "STUDENT" && <SidemenuMembersButton />}
-      {userRoleQuery.data !== "STUDENT" && <SidemenuManageInstitutionsButton />}
       {/* <SidemenuAIResponsesButton /> */}
       {/* <SidemenuArchivedReportsButton /> */}
       {/* <SidemenuAttachmentsButton /> */}
-      {userRoleQuery.data === "STUDENT" && <SidemenuStudentReportsButton />}
-      <SidemenuSettingsButton />
-      <SidemenuCreateReportButton className="mt-auto" />
     </div>
   );
 };

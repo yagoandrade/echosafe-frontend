@@ -27,7 +27,7 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
 
   const handleCopyInstitutionCode = async () => {
     if (!activeInstitutionFromDB.data) {
-      toast.error("No active institution");
+      toast.error("ERROR: You must first choose an institution before copying a Institution Code.");
       return;
     }
 

@@ -12,14 +12,14 @@ const SidemenuSettingsButton = () => {
       variant="sidemenu"
       size="sm"
       className={cn(
-        "flex w-full justify-start gap-x-3 px-6",
+        "flex w-full justify-start gap-x-3 px-6 text-muted-foreground dark:text-[#cbccd9]",
         pathname === "/settings" &&
-          "dark:bg-primary-background bg-primary-foreground dark:bg-opacity-10",
+          "dark:bg-primary-background border-primary-background border bg-primary-foreground font-medium text-[#1994ff] dark:border-primary-foreground dark:bg-opacity-10",
       )}
       asChild
     >
       <Link href="/settings">
-        <Settings className="h-4 w-4 text-muted-foreground dark:text-[#cbccd9]" />
+        <Settings className="h-4 w-4" />
         <p>Settings</p>
       </Link>
     </Button>

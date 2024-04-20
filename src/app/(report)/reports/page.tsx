@@ -7,6 +7,11 @@ import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
 import { getUserSubscriptionPlan } from "@/lib/subscription";
 
+export const metadata = {
+  title: "Reports | EchoSafe®",
+  description: "View the reports from your institution here.",
+};
+
 const ReportsPage = async () => {
   const session = await getServerAuthSession();
   if (!session) redirect("/api/auth/signin?csrf=true");
@@ -15,10 +20,8 @@ const ReportsPage = async () => {
   if (!subscriptionPlan.isPaid || !subscriptionPlan.stripeCustomerId)
     redirect("/pricing");
 
-  const pageHeight = !session ? "min-h-[calc(100vh-4rem)]" : "min-h-screen";
-
   return (
-    <main className={cn("flex justify-center", pageHeight)}>
+    <main className={cn("flex min-h-screen justify-center")}>
       <Sidemenu />
 
       <div className="h-screen w-full flex-1 flex-col space-y-8 overflow-y-scroll p-4 pl-2 pr-4 md:flex md:p-8">

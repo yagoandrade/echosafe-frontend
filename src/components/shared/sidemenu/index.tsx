@@ -50,7 +50,7 @@ const Sidemenu = () => {
           </Link>
         </CardHeader>
         <CardContent className="flex h-full flex-col gap-y-0.5 overflow-auto p-0.5">
-          <SidemenuButtons className="hidden md:flex md:flex-col" />
+          <SidemenuButtons className="hidden md:flex md:flex-col h-full pb-2" />
         </CardContent>
         {session?.user && (
           <CardFooter className="mt-auto flex justify-around p-0.5">

@@ -324,6 +324,21 @@ export const institutionColumns: ColumnDef<Task>[] = [
     },
   },
   {
+    accessorKey: "role",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Your role" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("role")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
     accessorKey: "updatedAt",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Updated At" />
@@ -380,7 +395,6 @@ export const membersColumns: ColumnDef<Task>[] = [
       );
     },
   },
-
   {
     accessorKey: "role",
     header: ({ column }) => (
@@ -391,6 +405,21 @@ export const membersColumns: ColumnDef<Task>[] = [
         <div className="flex space-x-2">
           <span className="max-w-[500px] truncate font-medium">
             {row.getValue("role")}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "institutionName",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Institution Name" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="max-w-[500px] truncate font-medium">
+            {row.getValue("institutionName")}
           </span>
         </div>
       );

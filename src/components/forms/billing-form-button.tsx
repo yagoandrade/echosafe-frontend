@@ -3,8 +3,8 @@
 import { generateUserStripe } from "@/actions/generate-user-stripe";
 import { Button } from "@/components/ui/button";
 import { type SubscriptionPlan, type UserSubscriptionPlan } from "types";
-import { Loader } from "lucide-react";
 import { useTransition } from "react";
+import { Spinner } from "../shared/loading-spinner";
 
 interface BillingFormButtonProps {
   offer: SubscriptionPlan;
@@ -32,14 +32,15 @@ export function BillingFormButton({
 
   return (
     <Button
-      variant="default"
+      variant="primary"
       className="w-full"
       disabled={isPending}
       onClick={stripeSessionAction}
     >
       {isPending ? (
         <>
-          <Loader className="mr-2 size-4 animate-spin" /> Loading...
+          <Spinner />
+          Sending you to Stripe...
         </>
       ) : (
         <>

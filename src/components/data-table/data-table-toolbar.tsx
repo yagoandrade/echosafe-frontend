@@ -18,6 +18,8 @@ interface DataTableToolbarProps<TData> {
 
 const getTableTitle = (tableName: TableName) => {
   switch (tableName) {
+    case "members":
+      return "Filter members...";
     case "institution":
       return "Filter institutions...";
     case "report":

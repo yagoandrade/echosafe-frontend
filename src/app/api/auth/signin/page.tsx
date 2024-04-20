@@ -57,7 +57,7 @@ export default function SignInPage() {
               Don&apos;t have an account yet?{" "}
               <Link
                 href="/api/auth/register"
-                className="cursor-default font-medium text-[#838496] hover:underline"
+                className="cursor-default font-medium text-[#1994ff] hover:underline"
               >
                 Register here
               </Link>
@@ -70,7 +70,7 @@ export default function SignInPage() {
               <Button
                 variant="link"
                 size="sm"
-                className="text-[#838496]"
+                className="text-[#1994ff]"
                 onClick={() => setSelectedProvider("email")}
               >
                 Sign in with a Magic Link
@@ -79,7 +79,7 @@ export default function SignInPage() {
               <Button
                 variant="link"
                 size="sm"
-                className="text-[#838496]"
+                className="text-[#1994ff]"
                 onClick={() => setSelectedProvider("credentials")}
               >
                 Sign in with email and password

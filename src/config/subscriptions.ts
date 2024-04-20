@@ -3,16 +3,17 @@ import { type SubscriptionPlan } from "types";
 export const pricingData: SubscriptionPlan[] = [
   {
     title: "Pro",
-    description: "For small institutions",
+    description:
+      "Designed for small institutions seeking advanced analytics solutions.",
     benefits: [
-      "Ideal for small institutions",
-      "Advanced analytics and reporting",
-      "Access to AI analysis tools",
-      "Priority customer support",
+      "Ideal for small institutions seeking robust analytical capabilities.",
+      "Gain access to advanced analytics and reporting tools for comprehensive insights.",
+      "Utilize AI analysis tools to enhance decision-making processes",
+      "Enjoy priority customer support for swift assistance and issue resolution",
     ],
     limitations: [
-      "No custom branding",
-      "Limited access to business resources.",
+      "Custom branding features are not available",
+      "Access to business resources is limited",
     ],
     prices: {
       monthly: 149.95,
@@ -25,14 +26,15 @@ export const pricingData: SubscriptionPlan[] = [
   },
   {
     title: "Business",
-    description: "For big institutions",
+    description:
+      "Tailored for big institutions requiring extensive analytics and branding capabilities.",
     benefits: [
-      "Ideal for big institutions",
-      "Unlimited reports and data storage",
-      "Real-time analytics and reporting",
-      "Access to custom branding",
+      "Perfect for big institutions needing unlimited reports and data storage",
+      "Enjoy real-time analytics and reporting for up-to-the-minute insights",
+      "Access custom branding features to maintain a consistent brand identity across all platforms",
+      "Receive 24/7 business customer support for immediate assistance",
       "24/7 business customer support",
-      "Personalized onboarding and account management.",
+      "Benefit from personalized onboarding and dedicated account management for a seamless experience",
     ],
     limitations: [],
     prices: {
