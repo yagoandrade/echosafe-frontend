@@ -87,7 +87,7 @@ const ManageActiveInstitution = () => {
             <SelectContent>
               {institutions.data &&
                 institutions.data?.length > 0 &&
-                institutions.data.map((institution) => (
+                institutions.data.map(({institution}) => (
                   <SelectItem value={institution.name} key={institution.id}>
                     {institution.name}
                   </SelectItem>
