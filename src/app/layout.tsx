@@ -103,7 +103,7 @@ export default function RootLayout({
       </head>
       <body
         className={cn(
-          "bg-gradient-to-b from-[#fafafb] to-white dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23]",
+          "light",
           soehne.className,
         )}
       >

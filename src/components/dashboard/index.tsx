@@ -13,7 +13,7 @@ async function Dashboard() {
     redirect("/pricing");
 
   return (
-    <div className="flex h-screen w-full flex-col space-y-8 overflow-hidden p-8 md:flex">
+    <div className="flex h-screen w-full flex-col space-y-8 overflow-hidden p-4 md:p-8 md:flex">
       <div className="flex flex-wrap items-center justify-between gap-2 space-y-2">
         <div>
           <h3 className="text-xl font-semibold tracking-tight">

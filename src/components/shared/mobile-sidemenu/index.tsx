@@ -25,14 +25,14 @@ const MobileSidemenu = ({ children }: MobileSidemenuProps) => {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className="flex p-3 md:hidden" variant="ghost">
+        <Button className="flex px-2 py-1 md:hidden ml-1" variant="ghost">
           <Menu color="#cccdda" size="1rem" />
         </Button>
       </DrawerTrigger>
       <DrawerPortal>
         <DrawerOverlay className="fixed inset-0 z-40 bg-black/40" />
 
-        <DrawerContent className="w-10/12 bg-white dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23] lg:w-2/3">
+        <DrawerContent className="dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23] w-10/12 bg-white lg:w-2/3">
           <div className="flex size-full flex-col">
             <DrawerTitle className="flex w-full items-center justify-between p-4">
               <Link href="/" className="m-auto h-fit">

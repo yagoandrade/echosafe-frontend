@@ -29,21 +29,23 @@ const SidemenuButtons = ({
     void userRoleQuery.refetch();
   }, [activeInstitution]);
 
-  return (
+  return  (
     <div className={cn(className)}>
       {/* ROUTES FOR INSTITUTION PERSONNEL */}
-      {userRoleQuery.data !== "STUDENT" && (
-        <>
-          <SidemenuSearchButton />
-          <SidemenuReportsButton />
-          <SidemenuMembersButton />
-          <SidemenuManageInstitutionsButton />
-          <SidemenuBillingButton />
-        </>
-      )}
+      {userRoleQuery.status === "success" &&
+        userRoleQuery.data !== "STUDENT" && (
+          <>
+            <SidemenuSearchButton />
+            <SidemenuReportsButton />
+            <SidemenuMembersButton />
+            <SidemenuManageInstitutionsButton />
+            <SidemenuBillingButton />
+          </>
+        )}
 
       {/* ROUTES FOR STUDENTS */}
-      {userRoleQuery.data === "STUDENT" && <SidemenuStudentReportsButton />}
+      {userRoleQuery.status === "success" &&
+        userRoleQuery.data === "STUDENT" && <SidemenuStudentReportsButton />}
 
       {/* COMMON ROUTES */}
       <SidemenuSettingsButton />

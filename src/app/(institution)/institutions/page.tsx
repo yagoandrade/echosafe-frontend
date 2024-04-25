@@ -44,7 +44,7 @@ const ManageInstituionsPage = async () => {
           </div>
           <ManagingInstitutionSection />
         </div>
-        <div className="flex w-full justify-between">
+        <div className="flex w-full justify-between flex-wrap">
           <PageBreadcrumb
             items={[
               { href: "/", label: "Home" },

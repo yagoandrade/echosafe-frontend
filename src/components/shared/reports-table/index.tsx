@@ -63,7 +63,7 @@ export function ReportsTable() {
       )}
       {reportsQuery.isLoading && (
         <div className="flex size-full items-center justify-center gap-x-2">
-          <Spinner color="rgba(0, 0, 0, 0.65)" /> Loading...
+          <Spinner color="rgba(0, 0, 0, 0.65)" /> Loading reports...
         </div>
       )}
       {formattedReports && formattedReports.length > 0 && (

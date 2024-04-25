@@ -19,16 +19,16 @@ const Sidemenu = () => {
   const { theme } = useTheme();
 
   const baseSidemenuClasses =
-    "min-h-full h-screen fixed left-0 flex flex-col sticky w-fit font-medium pl-2 py-4 gap-y-8";
+    "min-h-full h-screen fixed left-0 flex flex-col sticky w-fit font-medium pl-1 py-4 gap-y-8";
 
-  const desktopSidemenuClasses = "md:w-[240px] md:p-0";
+  const desktopSidemenuClasses = "xl:w-[240px] md:p-0";
 
   return (
     <aside
       className={baseSidemenuClasses + " " + desktopSidemenuClasses}
       data-testid="sidemenu"
     >
-      <Card className="flex md:hidden">
+      <Card className="flex min-w-fit md:hidden">
         <MobileSidemenu>
           <SidemenuButtons />
         </MobileSidemenu>
@@ -50,7 +50,7 @@ const Sidemenu = () => {
           </Link>
         </CardHeader>
         <CardContent className="flex h-full flex-col gap-y-0.5 overflow-auto p-0.5">
-          <SidemenuButtons className="hidden md:flex md:flex-col h-full pb-2" />
+          <SidemenuButtons className="hidden h-full pb-2 md:flex md:flex-col" />
         </CardContent>
         {session?.user && (
           <CardFooter className="mt-auto flex justify-around p-0.5">

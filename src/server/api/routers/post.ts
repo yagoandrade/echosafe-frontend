@@ -174,9 +174,27 @@ export const postRouter = createTRPCRouter({
       if (!ctx.session.user.email)
         throw new Error("You must be logged in to get a task");
 
-      return ctx.db.post.findUnique({
+      const user = await ctx.db.user.findUnique({
+        where: { email: ctx.session.user.email },
+      });
+
+      if (!user?.activeInstitutionId) {
+        throw new Error(
+          "User must have an active institution to query a report",
+        );
+      }
+
+      const post = await ctx.db.post.findUnique({
         where: { id: input.id },
       });
+
+      if (user.activeInstitutionId !== post?.associatedInstitutionId) {
+        throw new Error(
+          "You must be part of the institution to view this report",
+        );
+      }
+
+      return post;
     }),
 
   createInstitution: protectedProcedure

@@ -23,7 +23,7 @@ export function HeaderSection({
 
   return (
     <div className="flex flex-col items-center text-center">
-      <div className="mb-12 flex w-full items-center justify-between">
+      <div className="mb-12 flex w-full flex-wrap items-center justify-between gap-2">
         <Link href="/" className="h-fit lg:min-w-fit">
           <Image
             priority

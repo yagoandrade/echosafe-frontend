@@ -71,7 +71,7 @@ export function PricingCards({
                     )}
                   </div>
                   <div className="-mb-1 ml-2 text-left text-sm font-medium">
-                    <div>/month</div>
+                    <div>/mo</div>
                   </div>
                 </div>
               </div>

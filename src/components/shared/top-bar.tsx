@@ -9,7 +9,7 @@ const TopBar = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex w-full justify-between border-b border-[#e5e6e9] px-4 py-1.5 text-sm font-light text-[#a09b95] dark:border-[#303146] lg:px-12 2xl:px-32 2xl:gap-x-12 2xl:px-80">
+    <div className="flex w-full justify-between flex-wrap border-b border-[#e5e6e9] px-4 py-1.5 text-sm font-light text-[#a09b95] dark:border-[#303146] lg:px-12 2xl:px-32 2xl:gap-x-12 2xl:px-80">
       <span className="flex items-center gap-x-1">
         <p>Plans for FEDERAL UNIVERSITIES starting as low as $9.90 per month</p>
         <ArrowRight size="1.2rem" strokeWidth={2} />

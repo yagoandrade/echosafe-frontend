@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { createClient } from "@/lib/supabase/client";
 import { type Message } from "@/lib/supabase/types";
+import { useActiveInstitutionStore } from "@/providers/activeInstitutionStoreProvider";
 import { MessagesSquare, Send } from "lucide-react";
 import { type Session } from "next-auth";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
@@ -19,6 +21,7 @@ interface ChatBoxProps {
 const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const supabase = createClient();
@@ -64,6 +67,25 @@ const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
+
+  /* Check if user changes his activeInstitution */
+  const router = useRouter();
+  const { activeInstitution } = useActiveInstitutionStore((state) => state);
+
+  const [loadedActiveInstitutionId, setLoadedActiveInstitutionId] = useState<
+    null | number
+  >(null);
+
+  useEffect(() => {
+    if (!loadedActiveInstitutionId && activeInstitution?.id) {
+      setLoadedActiveInstitutionId(activeInstitution.id);
+    } else if (
+      loadedActiveInstitutionId &&
+      activeInstitution?.id !== loadedActiveInstitutionId
+    ) {
+      router.push("/dashboard");
+    }
+  }, [activeInstitution]);
 
   const handleSendMessage = async () => {
     if (input.length === 0) {
@@ -139,7 +161,7 @@ const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
               strokeWidth={1}
               size="6rem"
             />
-            <h3 className="text-lg font-light leading-6 text-gray-500">
+            <h3 className="text-center text-sm font-light leading-6 text-gray-500 lg:text-lg">
               Start the conversation by sending a message.
             </h3>
           </div>
@@ -147,7 +169,7 @@ const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className="inline-flex w-full items-center justify-between gap-2 border-t border-gray-200 px-8 py-1">
+      <div className="inline-flex w-full flex-wrap items-center justify-between gap-2 border-t border-gray-200 px-1 py-1 lg:flex-nowrap xl:px-8">
         <div className="flex w-full items-center gap-2">
           <Avatar className="h-8 w-8">
             <AvatarImage
@@ -165,8 +187,12 @@ const ChatBox = ({ channelId, currentUser, userRole }: ChatBoxProps) => {
             placeholder="Type here..."
           />
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="primary" onClick={handleSendMessage}>
+        <div className="flex w-full items-center gap-2 lg:w-fit">
+          <Button
+            variant="primary"
+            className="w-full lg:w-fit"
+            onClick={handleSendMessage}
+          >
             <h3 className="px-2 text-xs font-semibold leading-4 text-white">
               Send
             </h3>

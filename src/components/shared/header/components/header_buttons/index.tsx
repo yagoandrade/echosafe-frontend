@@ -8,8 +8,6 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import MobileSidemenu from "@/components/shared/mobile-sidemenu";
 import { useRouter } from "next/navigation";
-import SmoothTransitionButton from "@/components/shared/smooth-transition-button";
-import { Spinner } from "@/components/shared/loading-spinner";
 
 const HeaderButtons = () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call

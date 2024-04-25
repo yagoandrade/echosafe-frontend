@@ -34,6 +34,14 @@ function MembersTable() {
     void fetchReports();
   }, [activeInstitution]);
 
+  if (membersQuery.isLoading)
+    return (
+      <div className="flex size-full items-center justify-center gap-x-2">
+        <Spinner color="rgba(0, 0, 0, 0.65)" />
+        Loading members...
+      </div>
+    );
+
   return (
     <>
       {!membersQuery.isLoading && members.length === 0 && (
@@ -49,12 +57,7 @@ function MembersTable() {
           )}
         </div>
       )}
-      {membersQuery.isLoading && (
-        <div className="flex size-full gap-x-2 items-center justify-center">
-          <Spinner color="rgba(0, 0, 0, 0.65)" />
-          Loading...
-        </div>
-      )}
+
       {members && members.length > 0 && (
         <div className="w-full space-y-4">
           <DataTable

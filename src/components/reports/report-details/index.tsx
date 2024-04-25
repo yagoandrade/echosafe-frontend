@@ -2,6 +2,8 @@ import { api } from "@/trpc/server";
 import ReportInfo from "../report-info";
 import ChatBox from "@/components/chat/chatbox";
 import { getServerAuthSession } from "@/server/auth";
+import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 interface ReportDetailsProps {
   id: string;
@@ -10,8 +12,17 @@ interface ReportDetailsProps {
 const ReportDetails = async ({ id }: ReportDetailsProps) => {
   const session = await getServerAuthSession();
 
-  const task = await api.post.getTask({ id: Number(id) });
   const role = await api.post.getUserRole();
+  const task = await api.post.getTask({ id: Number(id) }).catch((err) => {
+    const errorMessage = (err as Error).message;
+
+    if (
+      errorMessage === "You must be part of the institution to view this report"
+    )
+      redirect("/reports");
+
+    toast.error(errorMessage);
+  });
 
   return task ? (
     <div className="grid size-full grid-cols-1 gap-3 lg:grid-cols-6 lg:gap-9">
