@@ -27,7 +27,9 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
 
   const handleCopyInstitutionCode = async () => {
     if (!activeInstitutionFromDB.data) {
-      toast.error("ERROR: You must first choose an institution before copying a Institution Code.");
+      toast.error(
+        "ERROR: You must first choose an institution before copying a Institution Code.",
+      );
       return;
     }
 
@@ -49,15 +51,15 @@ export function UserNav({ user, isExtended = false }: Readonly<UserNavProps>) {
             />
           </Avatar>
           {isExtended && (
-            <p className="truncate text-sm font-medium text-primary dark:text-[#cbccd9]">
+            <p className="truncate text-sm font-medium text-primary">
               {user?.name}
             </p>
           )}
-          <ChevronsUpDown className="ml-auto h-4 w-4 min-w-fit text-muted-foreground dark:text-[#cbccd9]" />
+          <ChevronsUpDown className="ml-auto h-4 w-4 min-w-fit text-muted-foreground" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-56 border border-[#e4e4e7] dark:border-[#303146] dark:bg-gradient-to-b dark:from-[#252634] dark:to-[#16171a]"
+        className="w-56 border border-[#e4e4e7]"
         align="center"
         forceMount
       >

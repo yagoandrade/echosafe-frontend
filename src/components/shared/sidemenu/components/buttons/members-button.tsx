@@ -15,7 +15,7 @@ const SidemenuMembersButton = () => {
       className={cn(
         "flex justify-start gap-x-3 px-6",
         pathname === "/members" &&
-          "dark:bg-primary-background border-primary-background border bg-primary-foreground font-medium text-[#1994ff] dark:border-primary-foreground dark:bg-opacity-10",
+          "border-primary-background border bg-primary-foreground font-medium text-[#1994ff]",
       )}
       asChild
     >

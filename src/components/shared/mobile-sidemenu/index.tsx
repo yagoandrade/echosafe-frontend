@@ -32,7 +32,7 @@ const MobileSidemenu = ({ children }: MobileSidemenuProps) => {
       <DrawerPortal>
         <DrawerOverlay className="fixed inset-0 z-40 bg-black/40" />
 
-        <DrawerContent className="dark:bg-gradient-to-b dark:from-[#2a2b3a] dark:to-[#191a23] w-10/12 bg-white lg:w-2/3">
+        <DrawerContent className="w-10/12 bg-white lg:w-2/3">
           <div className="flex size-full flex-col">
             <DrawerTitle className="flex w-full items-center justify-between p-4">
               <Link href="/" className="m-auto h-fit">

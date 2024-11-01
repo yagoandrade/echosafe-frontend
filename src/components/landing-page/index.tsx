@@ -96,14 +96,14 @@ const LandingPage = () => {
         </section>
 
         <section>
-          <Card className="my-4 space-y-0 rounded-2xl bg-white shadow-lg dark:border-[#2d4351] dark:bg-[#1e2c3a]">
+          <Card className="my-4 space-y-0 rounded-2xl bg-white shadow-lg">
             <CardHeader className="text-start">
               <CardTitle className="text-base font-light text-[#656565]">
                 Trusted by students and institutions worldwide
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="mx-auto grid max-w-3xl gap-6 text-center text-center grayscale dark:grayscale-0 md:gap-8 lg:max-w-none lg:grid-cols-6">
+              <div className="mx-auto grid max-w-3xl gap-6 text-center text-center grayscale md:gap-8 lg:max-w-none lg:grid-cols-6">
                 <Image
                   className="mx-auto my-auto h-auto max-h-[50px] w-fit max-w-[150px] object-contain"
                   src={GoogleLogo as StaticImageData}
@@ -140,7 +140,7 @@ const LandingPage = () => {
               // TODO: Add Social Proof
               <div className="mx-auto grid max-w-3xl gap-6 text-center md:gap-8 lg:max-w-none lg:grid-cols-3 lg:grid-rows-2">
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
+                  <p className="text-sm text-gray-500-400 md:text-base/relaxed">
                     Great company to work for. The environment is incredibly
                     collaborative and supportive. I feel valued and inspired
                     every day.
@@ -148,65 +148,65 @@ const LandingPage = () => {
                   <div className="font-medium not-italic">
                     Samantha Thompson
                   </div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-gray-500-400">
                     Product Manager
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
+                  <p className="text-sm text-gray-500-400 md:text-base/relaxed">
                     The leadership team truly cares about the well-being of the
                     employees. It's refreshing to be part of a company that
                     prioritizes work-life balance and professional growth.
                   </p>
                   <div className="font-medium not-italic">Alex Walker</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-gray-500-400">
                     Software Engineer
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
+                  <p className="text-sm text-gray-500-400 md:text-base/relaxed">
                     I've been with the company for over five years, and I'm
                     still excited to come to work every morning. The culture of
                     innovation and the emphasis on continuous learning make this
                     a fantastic place to grow my career.
                   </p>
                   <div className="font-medium not-italic">Emily Parker</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-gray-500-400">
                     Marketing Specialist
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
+                  <p className="text-sm text-gray-500-400 md:text-base/relaxed">
                     The company's commitment to diversity and inclusion is
                     evident in every aspect of our work. I feel empowered to
                     bring my authentic self to the table, knowing that my
                     contributions are valued.
                   </p>
                   <div className="font-medium not-italic">Malik Johnson</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-gray-500-400">
                     HR Business Partner
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
+                  <p className="text-sm text-gray-500-400 md:text-base/relaxed">
                     As a remote team member, I appreciate the company's
                     investment in technology that enables seamless
                     collaboration. I always feel connected to my colleagues, no
                     matter where I'm working from.
                   </p>
                   <div className="font-medium not-italic">Liam Garcia</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-gray-500-400">
                     UX Designer
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <p className="text-sm text-gray-500 dark:text-gray-400 md:text-base/relaxed">
+                  <p className="text-sm text-gray-500-400 md:text-base/relaxed">
                     The company's dedication to customer satisfaction is
                     inspiring. I'm proud to be part of a team that goes above
                     and beyond to deliver excellence.
                   </p>
                   <div className="font-medium not-italic">Sophie Lee</div>
-                  <div className="text-sm text-gray-500 dark:text-gray-400">
+                  <div className="text-sm text-gray-500-400">
                     Customer Success Manager
                   </div>
                 </div>
@@ -218,7 +218,7 @@ const LandingPage = () => {
         <section>
           <ContainerScroll
             titleComponent={
-              <h1 className="text-4xl font-light text-black dark:text-white">
+              <h1 className="text-4xl font-light text-black">
                 Everything related to your institution <br />
                 <span className="mt-1 text-4xl font-bold leading-none md:text-[6rem]">
                   In One Place
@@ -254,7 +254,7 @@ const LandingPage = () => {
           <ContentGrid />
         </section>
 
-        {/* <section className="relative flex h-screen w-full flex-col items-center justify-center bg-white py-20 dark:bg-black md:h-auto">
+        {/* <section className="relative flex h-screen w-full flex-col items-center justify-center bg-white py-20 md:h-auto">
           <div className="relative mx-auto h-full w-full max-w-7xl overflow-hidden px-4 md:h-[40rem]">
             <motion.div
               initial={{
@@ -270,15 +270,15 @@ const LandingPage = () => {
               }}
               className="div"
             >
-              <h2 className="text-center text-xl font-bold text-black dark:text-white md:text-4xl">
+              <h2 className="text-center text-xl font-bold text-black md:text-4xl">
                 We are available worldwide
               </h2>
-              <p className="mx-auto mt-2 max-w-md text-center text-base font-normal text-neutral-700 dark:text-neutral-200 md:text-lg">
+              <p className="mx-auto mt-2 max-w-md text-center text-base font-normal text-neutral-700-200 md:text-lg">
                 It doesn&apos;t matter where your institution is located, we are
                 here to help you. EchoSafe® is available in multiple languages
               </p>
             </motion.div>
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-40 w-full select-none bg-gradient-to-b from-transparent to-white dark:to-black" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 z-40 h-40 w-full select-none bg-gradient-to-b from-transparent to-white" />
             <div className="absolute -bottom-20 z-10 h-72 w-full md:h-full">
               <World data={sampleArcs} globeConfig={globeConfig} />;
             </div>

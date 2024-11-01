@@ -10,7 +10,7 @@ interface HeaderProps {
 
 const Header = ({ isLoggedIn }: HeaderProps) => {
   const loggedOutHeaderClasses =
-    "sticky h-12 flex inset-x-0 top-0 ease-in-out duration-500 transition-transform translate-y-0 items-center justify-between w-full gap-x-2 z-50 border-b border-[#ffffff14] bg-[#ffffff10] px-4 shadow-sm backdrop-blur-md dark:border-[#ffffff14] dark:bg-[#ffffff03] lg:px-12 xl:px-32 2xl:gap-x-12 2xl:px-80";
+    "sticky h-12 flex inset-x-0 top-0 ease-in-out duration-500 transition-transform translate-y-0 items-center justify-between w-full gap-x-2 z-50 border-b border-[#ffffff14] bg-[#ffffff10] px-4 shadow-sm backdrop-blur-md lg:px-12 xl:px-32 2xl:gap-x-12 2xl:px-80";
 
   return (
     <>

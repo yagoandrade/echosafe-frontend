@@ -24,9 +24,6 @@ export function ContentGrid() {
     </BentoGrid>
   );
 }
-const Skeleton = () => (
-  <div className="dark:bg-dot-white/[0.2] bg-dot-black/[0.2] flex h-full min-h-[6rem] w-full   flex-1 rounded-xl border  border-transparent bg-neutral-100 [mask-image:radial-gradient(ellipse_at_center,white,transparent)] dark:border-[#2d4351] dark:border-white/[0.2] dark:bg-[#20212e]"></div>
-);
 
 const SkeletonOne = () => {
   const variants = {

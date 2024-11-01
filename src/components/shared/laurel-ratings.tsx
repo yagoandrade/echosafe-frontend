@@ -4,7 +4,7 @@ import Image, { type StaticImageData } from "next/image";
 
 const LaurelRatings = () => {
   return (
-    <div className="relative table dark:invert dark:text-black">
+    <div className="relative table">
       <Image
         priority
         src={Laurel as StaticImageData}

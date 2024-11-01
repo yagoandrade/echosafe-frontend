@@ -2,12 +2,12 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="relative max-w-full border-t text-sm font-medium dark:border-[#ffffff14] dark:bg-[#000212]">
+    <footer className="relative max-w-full border-t text-sm font-medium">
       <div className="mx-auto flex max-w-7xl flex-wrap px-8 py-14">
         <div className="mr-auto flex flex-col justify-between">
           <Link
             href="/"
-            className="duration-50 text-[#62687a] transition hover:text-[#1994ff] dark:hover:text-white"
+            className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
           >
             EchoSafe® Technology - Built Worldwide
           </Link>
@@ -22,7 +22,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Features
               </Link>
@@ -30,7 +30,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Integrations
               </Link>
@@ -38,7 +38,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Pricing
               </Link>
@@ -46,7 +46,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Changelog
               </Link>
@@ -54,7 +54,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Docs
               </Link>
@@ -62,7 +62,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Integrations
               </Link>
@@ -70,7 +70,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Integrations
               </Link>
@@ -83,7 +83,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition hover:text-[#1994ff] dark:hover:text-white"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 About us
               </Link>
@@ -91,7 +91,7 @@ const Footer = () => {
             <li>
               <a
                 href="https://www.theleadengineer.com/"
-                className="duration-50 text-[#62687a] transition hover:text-[#1994ff] dark:hover:text-white"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Blog
               </a>
@@ -99,7 +99,7 @@ const Footer = () => {
             {/* <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Careers
               </Link>
@@ -107,7 +107,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Customers
               </Link>
@@ -120,7 +120,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Small School Program
               </Link>
@@ -128,7 +128,7 @@ const Footer = () => {
             <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Community
               </Link>
@@ -141,7 +141,7 @@ const Footer = () => {
             {/* <li>
               <Link
                 href="/"
-                className="duration-50 text-[#62687a] transition dark:hover:text-white hover:text-[#1994ff]"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 API
               </Link>
@@ -151,7 +151,7 @@ const Footer = () => {
                 href="https://status.echosafe.org/"
                 target="_blank"
                 rel="noreferrer"
-                className="duration-50 text-[#62687a] transition hover:text-[#1994ff] dark:hover:text-white"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Status
               </a>
@@ -161,7 +161,7 @@ const Footer = () => {
                 href="https://github.com/yagoandrade/echosafe-frontend"
                 target="_blank"
                 rel="noreferrer"
-                className="duration-50 text-[#62687a] transition hover:text-[#1994ff] dark:hover:text-white"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 GitHub
               </a>
@@ -171,7 +171,7 @@ const Footer = () => {
                 href="https://github.com/yagoandrade/echosafe-frontend/blob/main/README.md"
                 target="_blank"
                 rel="noreferrer"
-                className="duration-50 text-[#62687a] transition hover:text-[#1994ff] dark:hover:text-white"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 README
               </a>
@@ -181,7 +181,7 @@ const Footer = () => {
                 href="mailto:contact@echosafe.org"
                 target="_blank"
                 rel="noreferrer"
-                className="duration-50 text-[#62687a] transition hover:text-[#1994ff] dark:hover:text-white"
+                className="duration-50 text-[#62687a] transition hover:text-[#1994ff]"
               >
                 Report a vulnerability
               </a>

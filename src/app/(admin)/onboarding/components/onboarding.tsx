@@ -82,7 +82,7 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-md rounded-lg shadow-xl dark:bg-[#20212e]">
+    <div className="mx-auto w-full max-w-md rounded-lg shadow-xl">
       <div className="flex justify-between rounded p-8">
         {Array.from({ length: STEP_LENGTH }, (_, i) => (
           <Step key={i} step={i + 1} currentStep={step} />
@@ -91,7 +91,7 @@ export default function Onboarding() {
 
       {step === 1 && (
         <section className="mt-8 space-y-3 px-8">
-          <h2 className="mt-8 text-2xl font-semibold text-black dark:text-white">
+          <h2 className="mt-8 text-2xl font-semibold text-black">
             Welcome to EchoSafe, {session?.user.name}!
           </h2>
           <p className="mt-2 text-neutral-400">
@@ -106,7 +106,7 @@ export default function Onboarding() {
 
       {step === 2 && (
         <section className="mt-8 space-y-3 px-8">
-          <h2 className="text-2xl font-semibold text-black dark:text-white">
+          <h2 className="text-2xl font-semibold text-black">
             Please input the code of your institution to gain access to the
             platform.
           </h2>
@@ -136,7 +136,7 @@ export default function Onboarding() {
 
       {step === 3 && (
         <section className="mt-8 space-y-3 px-8">
-          <h2 className="text-2xl font-semibold text-black dark:text-white">
+          <h2 className="text-2xl font-semibold text-black">
             Please indicate which role best represents your position within your
             institution.
           </h2>
@@ -161,7 +161,7 @@ export default function Onboarding() {
 
       {step === 4 && (
         <section className="mt-8 flex flex-col gap-y-4 px-8">
-          <h2 className="text-2xl font-semibold text-black dark:text-white">
+          <h2 className="text-2xl font-semibold text-black">
             Customize Your Profile Picture (Optional)
           </h2>
           <ChangeUserAvatar />
@@ -174,7 +174,7 @@ export default function Onboarding() {
 
       {step === 5 && (
         <section>
-          <h2 className="mt-8 space-y-3 px-8 text-2xl font-semibold text-black dark:text-white">
+          <h2 className="mt-8 space-y-3 px-8 text-2xl font-semibold text-black">
             That&apos;s a wrap! 🎉
           </h2>
           <p className="mt-2 px-8 text-neutral-400">

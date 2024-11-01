@@ -23,7 +23,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         sidemenu:
-          "hover:bg-accent hover:text-accent-foreground text-muted-foreground dark:text-[#cbccd9] outline-none rounded-sm font-normal",
+          "hover:bg-accent hover:text-accent-foreground text-muted-foreground outline-none rounded-sm font-normal",
       },
       size: {
         default: "h-10 px-4 py-2",
